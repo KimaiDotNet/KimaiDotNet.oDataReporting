@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31717.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E5D97017-CB33-4B46-8929-1D1FA079C809}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KimaiDotNet.oDataReporting.oDataService", "src\KimaiDotNet.oDataReporting.oDataService\KimaiDotNet.oDataReporting.oDataService.csproj", "{A60E7F46-71C5-488A-96CB-BC963C9D8D71}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E03CE820-20DC-46A5-95AC-8B9C4F6C70B2}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A60E7F46-71C5-488A-96CB-BC963C9D8D71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A60E7F46-71C5-488A-96CB-BC963C9D8D71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A60E7F46-71C5-488A-96CB-BC963C9D8D71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A60E7F46-71C5-488A-96CB-BC963C9D8D71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A60E7F46-71C5-488A-96CB-BC963C9D8D71} = {E5D97017-CB33-4B46-8929-1D1FA079C809}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CDF0660F-5041-41E6-B70F-10CB2D563571}
+	EndGlobalSection
+EndGlobal
