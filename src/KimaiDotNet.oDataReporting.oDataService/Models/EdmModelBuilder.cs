@@ -1,6 +1,7 @@
 ﻿using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using MarkZither.KimaiDotNet.Models;
+using MarkZither.KimaiDotNet.oDataReporting.oDataService.Models;
 
 namespace KimaiDotNet.oDataReporting.oDataService.Models
 {
@@ -11,7 +12,11 @@ namespace KimaiDotNet.oDataReporting.oDataService.Models
             var builder = new ODataConventionModelBuilder();
             builder.EntitySet<TimesheetCollection>("Timesheet");
             builder.EntitySet<TeamCollection>("Team");
+            builder.EntitySet<TeamMembership>("TeamMembership");
             builder.EntitySet<UserCollection>("User");
+            builder.EntitySet<ProjectCollection>("Project");
+            builder.EntitySet<ActivityCollection>("Activity");
+            builder.EntitySet<CustomerCollection>("Customer");
 
             return builder.GetEdmModel();
         }

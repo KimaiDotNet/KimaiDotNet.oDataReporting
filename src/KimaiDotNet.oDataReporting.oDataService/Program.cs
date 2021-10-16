@@ -1,9 +1,13 @@
 using KimaiDotNet.oDataReporting.oDataService.Models;
+using MonkeyCache.LiteDB;
+
+using MarkZither.KimaiDotNet.oDataReporting.oDataService.Configuration;
 
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
 using Microsoft.OpenApi.Models;
 
+// https://gist.github.com/davidfowl/0e0372c3c1d895c3ce195ba983b1e03d
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,6 +18,8 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "KimaiDotNet.oDataReporting.oDataService", Version = "v1" });
 });
+builder.Services.AddOptions<KimaiOptions>().Bind(
+            builder.Configuration.GetSection(KimaiOptions.Key));
 
 
 var app = builder.Build();
@@ -42,5 +48,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+Barrel.ApplicationId = "your_unique_name_here";
+Barrel.EncryptionKey = "SomeKey";
 app.Run();

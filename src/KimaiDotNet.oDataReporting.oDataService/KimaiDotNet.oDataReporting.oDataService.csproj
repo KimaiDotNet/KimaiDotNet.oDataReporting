@@ -4,12 +4,16 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>MarkZither.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <AssemblyName>MarkZither.$(MSBuildProjectName)</AssemblyName>
+    <UserSecretsId>7ed23aa8-26a4-4992-b8f9-9868e6052b39</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MarkZither.KimaiDotNet.ApiClient" Version="0.4.0-beta0001" />
     <PackageReference Include="Microsoft.AspNetCore.OData" Version="8.0.3" />
     <PackageReference Include="Microsoft.OpenApi.OData" Version="1.0.6" />
+    <PackageReference Include="MonkeyCache.LiteDB" Version="1.5.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
   </ItemGroup>
 
