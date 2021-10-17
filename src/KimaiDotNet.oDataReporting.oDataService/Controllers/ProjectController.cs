@@ -1,6 +1,6 @@
 ﻿using MarkZither.KimaiDotNet.Models;
-using MarkZither.KimaiDotNet.oDataReporting.oDataService.Models;
-using MarkZither.KimaiDotNet.oDataReporting.oDataService.Configuration;
+using MarkZither.KimaiDotNet.Reporting.ODataService.Models;
+using MarkZither.KimaiDotNet.Reporting.ODataService.Configuration;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.Options;
 using MonkeyCache.LiteDB;
 using MarkZither.KimaiDotNet;
 
-namespace KimaiDotNet.oDataReporting.oDataService.Controllers
+namespace KimaiDotNet.Reporting.ODataService.Controllers
 {
     public class ProjectController : ControllerBase
     {

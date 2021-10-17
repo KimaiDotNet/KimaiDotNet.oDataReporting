@@ -1,11 +1,10 @@
-using KimaiDotNet.oDataReporting.oDataService.Models;
-using MonkeyCache.LiteDB;
-
-using MarkZither.KimaiDotNet.oDataReporting.oDataService.Configuration;
+using MarkZither.KimaiDotNet.Reporting.ODataService.Configuration;
+using MarkZither.KimaiDotNet.Reporting.ODataService.Models;
 
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
-using Microsoft.OpenApi.Models;
+
+using MonkeyCache.LiteDB;
 
 // https://gist.github.com/davidfowl/0e0372c3c1d895c3ce195ba983b1e03d
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +15,7 @@ builder.Services.AddControllers().AddOData(opt => opt.Count().Filter().Expand().
                     .AddRouteComponents(model0));
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new() { Title = "KimaiDotNet.oDataReporting.oDataService", Version = "v1" });
+    c.SwaggerDoc("v1", new() { Title = "KimaiDotNet.Reporting.ODataService", Version = "v1" });
 });
 builder.Services.AddOptions<KimaiOptions>().Bind(
             builder.Configuration.GetSection(KimaiOptions.Key));
@@ -40,7 +39,7 @@ app.UseODataBatching();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "KimaiDotNet.oDataReporting.oDataService v1"));
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "KimaiDotNet.Reporting.ODataService v1"));
 }
 
 app.UseHttpsRedirection();
@@ -48,6 +47,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-Barrel.ApplicationId = "your_unique_name_here";
+Barrel.ApplicationId = "your_unique_name_here2";
 Barrel.EncryptionKey = "SomeKey";
 app.Run();

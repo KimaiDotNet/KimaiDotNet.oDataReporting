@@ -1,6 +1,6 @@
 ﻿using MarkZither.KimaiDotNet.Models;
-using MarkZither.KimaiDotNet.oDataReporting.oDataService.Models;
-using MarkZither.KimaiDotNet.oDataReporting.oDataService.Configuration;
+using MarkZither.KimaiDotNet.Reporting.ODataService.Models;
+using MarkZither.KimaiDotNet.Reporting.ODataService.Configuration;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 
 using MonkeyCache.LiteDB;
 
-namespace MarkZither.KimaiDotNet.oDataReporting.oDataService.Controllers
+namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
 {
     public class TeamMembershipController : ControllerBase
     {

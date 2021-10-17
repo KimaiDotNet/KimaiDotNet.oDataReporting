@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "KimaiDotNet.oDataReporting.oDataService": {
+    "KimaiDotNet.Reporting.ODataService": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

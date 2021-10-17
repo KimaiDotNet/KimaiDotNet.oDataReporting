@@ -1,1 +1,1 @@
-# KimaiDotNet.oDataReporting
+# KimaiDotNet.Reporting

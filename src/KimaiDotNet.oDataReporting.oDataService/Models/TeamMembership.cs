@@ -1,6 +1,4 @@
-﻿using MarkZither.KimaiDotNet.Models;
-
-namespace MarkZither.KimaiDotNet.oDataReporting.oDataService.Models
+﻿namespace MarkZither.KimaiDotNet.Reporting.ODataService.Models
 {
     internal class TeamMembership
     {

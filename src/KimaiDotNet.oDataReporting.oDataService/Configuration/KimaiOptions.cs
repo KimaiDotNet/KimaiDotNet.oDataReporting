@@ -1,4 +1,4 @@
-﻿namespace MarkZither.KimaiDotNet.oDataReporting.oDataService.Configuration
+﻿namespace MarkZither.KimaiDotNet.Reporting.ODataService.Configuration
 {
     public class KimaiOptions
     {

@@ -1,9 +1,8 @@
 ﻿using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using MarkZither.KimaiDotNet.Models;
-using MarkZither.KimaiDotNet.oDataReporting.oDataService.Models;
 
-namespace KimaiDotNet.oDataReporting.oDataService.Models
+namespace MarkZither.KimaiDotNet.Reporting.ODataService.Models
 {
     public static class EdmModelBuilder
     {
