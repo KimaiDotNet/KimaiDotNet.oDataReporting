@@ -14,6 +14,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dashboards", "Dashboards", "{DF3BED9E-C642-404F-B2C2-A2AAFCC3689B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PowerBI", "PowerBI", "{6D0E38FA-A009-42DC-B649-9750B1894790}"
+	ProjectSection(SolutionItems) = preProject
+		src\Dashboards\PowerBI\KimaiDashboards.pbit = src\Dashboards\PowerBI\KimaiDashboards.pbit
+		src\Dashboards\PowerBI\KimaiDashboards.pbix = src\Dashboards\PowerBI\KimaiDashboards.pbix
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +38,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A60E7F46-71C5-488A-96CB-BC963C9D8D71} = {E5D97017-CB33-4B46-8929-1D1FA079C809}
+		{DF3BED9E-C642-404F-B2C2-A2AAFCC3689B} = {E5D97017-CB33-4B46-8929-1D1FA079C809}
+		{6D0E38FA-A009-42DC-B649-9750B1894790} = {DF3BED9E-C642-404F-B2C2-A2AAFCC3689B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CDF0660F-5041-41E6-B70F-10CB2D563571}
