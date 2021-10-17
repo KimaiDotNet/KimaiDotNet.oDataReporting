@@ -35,7 +35,13 @@ namespace KimaiDotNet.oDataReporting.oDataService.Controllers
             Client.DefaultRequestHeaders.Add("X-AUTH-USER", _kimaiOptions.Username);
             Client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", _kimaiOptions.Password);
             Kimai2APIDocs docs = new Kimai2APIDocs(Client, disposeHttpClient: false);
-            var timesheets = docs.ListTimesheetsRecordsUsingGet();
+            var timesheets = new List<TimesheetCollection>();
+            var users = docs.ListUsersUsingGet();
+            foreach (var user in users)
+            {
+                var usersTimesheets = docs.ListTimesheetsRecordsUsingGet(user: user.Id?.ToString(), size: "1000", orderBy: "id", order: "DESC");
+                timesheets.AddRange(usersTimesheets);
+            }
             //Saves the cache and pass it a timespan for expiration
             TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
             double secs = untilMidnight.TotalSeconds;

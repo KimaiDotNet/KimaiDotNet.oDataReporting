@@ -1,42 +1,48 @@
 ﻿using MarkZither.KimaiDotNet.Models;
+using MarkZither.KimaiDotNet.oDataReporting.oDataService.Models;
+using MarkZither.KimaiDotNet.oDataReporting.oDataService.Configuration;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+
+using MonkeyCache.LiteDB;
+using MarkZither.KimaiDotNet;
 
 namespace KimaiDotNet.oDataReporting.oDataService.Controllers
 {
     public class ProjectController : ControllerBase
     {
-        private static IList<ProjectCollection> _projects = new List<ProjectCollection>
+        private readonly KimaiOptions _kimaiOptions;
+        public ProjectController(IOptions<KimaiOptions> kimaiOptions)
         {
-            new ProjectCollection
-            {
-                Id = 1,
-                Name = "Project1",
-            },
-            new ProjectCollection
-            {
-                Id = 2,
-                Name = "Project2",
-            },
-            new ProjectCollection
-            {
-                Id = 3,
-                Name = "Project3",
-                Customer = 1
-            },            
-            new ProjectCollection
-            {
-                Id = 4,
-                Name = "Project4",
-                Customer = 2
-            },
-        };
+            _kimaiOptions = kimaiOptions.Value;
+        }
+
         [HttpGet]
         [EnableQuery]
         public IActionResult Get(CancellationToken token)
         {
-            return Ok(_projects);
+            var url = "Project";
+            //Dev handles checking if cache is expired
+            if (!Barrel.Current.IsExpired(key: url))
+            {
+                return Ok(Barrel.Current.Get<List<ProjectCollection>>(key: url));
+            }
+            var Client = new HttpClient();
+            Client.BaseAddress = new Uri(_kimaiOptions.Url);
+            Client.DefaultRequestHeaders.Add("X-AUTH-USER", _kimaiOptions.Username);
+            Client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", _kimaiOptions.Password);
+            Kimai2APIDocs docs = new Kimai2APIDocs(Client, disposeHttpClient: false);
+            var projects = docs.ListProjectUsingGet();
+
+            //Saves the cache and pass it a timespan for expiration
+            TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
+            double secs = untilMidnight.TotalSeconds;
+            Barrel.Current.Add(key: url, data: projects, expireIn: TimeSpan.FromSeconds(secs));
+
+            return Ok(projects);
         }
     }
 }
