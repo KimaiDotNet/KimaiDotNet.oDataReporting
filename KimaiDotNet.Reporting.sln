@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E5D97017-CB33-4B46-8929-1D1FA079C809}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KimaiDotNet.Reporting.ODataService", "src\KimaiDotNet.oDataReporting.oDataService\KimaiDotNet.Reporting.ODataService.csproj", "{A60E7F46-71C5-488A-96CB-BC963C9D8D71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KimaiDotNet.Reporting.ODataService", "src\KimaiDotNet.Reporting.ODataService\KimaiDotNet.Reporting.ODataService.csproj", "{A60E7F46-71C5-488A-96CB-BC963C9D8D71}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E03CE820-20DC-46A5-95AC-8B9C4F6C70B2}"
 	ProjectSection(SolutionItems) = preProject
