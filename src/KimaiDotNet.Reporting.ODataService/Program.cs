@@ -20,7 +20,6 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddOptions<KimaiOptions>().Bind(
             builder.Configuration.GetSection(KimaiOptions.Key));
 
-
 var app = builder.Build();
 
 // Use odata route debug, /$odata
