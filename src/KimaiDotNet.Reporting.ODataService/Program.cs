@@ -20,32 +20,41 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddOptions<KimaiOptions>().Bind(
             builder.Configuration.GetSection(KimaiOptions.Key));
 
-var app = builder.Build();
+builder.Services.AddMiniProfiler(options =>
+    {
+        // All of this is optional. You can simply call .AddMiniProfiler() for all defaults
 
-// Use odata route debug, /$odata
-app.UseODataRouteDebug();
+        // (Optional) Path to use for profiler URLs, default is /mini-profiler-resources
+        options.RouteBasePath = "/profiler";
+    });
 
-// If you want to use /$openapi, enable the middleware.
-//app.UseODataOpenApi();
+    var app = builder.Build();
 
-// Add OData /$query middleware
-app.UseODataQueryRequest();
+    app.UseMiniProfiler();
+    // Use odata route debug, /$odata
+    app.UseODataRouteDebug();
 
-// Add the OData Batch middleware to support OData $Batch
-app.UseODataBatching();
+    // If you want to use /$openapi, enable the middleware.
+    //app.UseODataOpenApi();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "KimaiDotNet.Reporting.ODataService v1"));
-}
+    // Add OData /$query middleware
+    app.UseODataQueryRequest();
 
-app.UseHttpsRedirection();
+    // Add the OData Batch middleware to support OData $Batch
+    app.UseODataBatching();
 
-app.UseAuthorization();
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "KimaiDotNet.Reporting.ODataService v1"));
+    }
 
-app.MapControllers();
-Barrel.ApplicationId = "your_unique_name_here2";
-Barrel.EncryptionKey = "SomeKey";
-app.Run();
+    app.UseHttpsRedirection();
+
+    app.UseAuthorization();
+
+    app.MapControllers();
+    Barrel.ApplicationId = "your_unique_name_here2";
+    Barrel.EncryptionKey = "SomeKey";
+    app.Run();
