@@ -1,0 +1,1025 @@
+{
+    "title": "Marks Sample Kimai Data",
+    "type": "extract",
+    "buildDestination": {
+        "destination": "elasticube"
+    },
+    "fiscal": "system",
+    "relations": [
+        {
+            "type": null,
+            "columns": [
+                {
+                    "dataset": "910b61ec-f879-45a3-b970-89590ddf0134",
+                    "table": "3f50bfd2-ed9e-4330-8576-f501604191f0",
+                    "column": "3e818a49-8079-4746-a141-5f8559c38352"
+                },
+                {
+                    "dataset": "db292a1c-ac9f-4567-a2e4-7cc8090dcf82",
+                    "table": "582dc0dd-81be-48f3-a5ea-6bca49e2ae13",
+                    "column": "a9bbb190-8699-4e47-a781-39d114904314"
+                },
+                {
+                    "dataset": "b95729d3-243a-4de6-a111-e2372958ab83",
+                    "table": "fc5dae90-aa63-4939-90e7-9ee1822e6728",
+                    "column": "d2ecf6b6-fbb1-41ab-a98d-4e0aaec22630"
+                }
+            ]
+        },
+        {
+            "type": null,
+            "columns": [
+                {
+                    "dataset": "bf3b5399-8f4e-450f-8db2-4a2d7027cd98",
+                    "table": "af6da870-8eaa-409e-a1a7-ab464c461338",
+                    "column": "a63579ec-9cd1-4cf8-bde7-63bf4d359903"
+                },
+                {
+                    "dataset": "d8f1921c-5016-42de-b8fe-d5fb75a48d55",
+                    "table": "71c6c582-cb73-453b-af87-40ba82d32f64",
+                    "column": "9d48604b-be72-4350-8bda-a77be50a3ae4"
+                }
+            ]
+        },
+        {
+            "type": null,
+            "columns": [
+                {
+                    "dataset": "910b61ec-f879-45a3-b970-89590ddf0134",
+                    "table": "3f50bfd2-ed9e-4330-8576-f501604191f0",
+                    "column": "71698621-76f0-4753-8c45-e54437fa02bd"
+                },
+                {
+                    "dataset": "ded4464d-c595-4692-95d3-88f7c7be6452",
+                    "table": "a1bc58de-e0e4-46d4-a5ae-23faff2f4dce",
+                    "column": "6d2374dc-abb2-40c0-bfc2-5bfcbf0e0a54"
+                },
+                {
+                    "dataset": "bf3b5399-8f4e-450f-8db2-4a2d7027cd98",
+                    "table": "af6da870-8eaa-409e-a1a7-ab464c461338",
+                    "column": "05529d1e-2fb3-4bc0-bbbd-0b9396801287"
+                }
+            ]
+        },
+        {
+            "type": null,
+            "columns": [
+                {
+                    "dataset": "910b61ec-f879-45a3-b970-89590ddf0134",
+                    "table": "3f50bfd2-ed9e-4330-8576-f501604191f0",
+                    "column": "0d3c75f3-6e7b-48b2-bf04-f1e1a943a86a"
+                },
+                {
+                    "dataset": "b95729d3-243a-4de6-a111-e2372958ab83",
+                    "table": "fc5dae90-aa63-4939-90e7-9ee1822e6728",
+                    "column": "78b5334d-e15b-4c2a-86c2-13a1ae0ebe65"
+                }
+            ]
+        },
+        {
+            "type": null,
+            "columns": [
+                {
+                    "dataset": "db292a1c-ac9f-4567-a2e4-7cc8090dcf82",
+                    "table": "582dc0dd-81be-48f3-a5ea-6bca49e2ae13",
+                    "column": "5bd3c2a3-f6e2-480e-8222-272fd7d0e8f3"
+                },
+                {
+                    "dataset": "5b0dd2ad-5c7a-4a6a-9df7-1f6f50d058fb",
+                    "table": "5d3c3872-1b09-49ae-8c7c-9bb155cc8a4c",
+                    "column": "7c62355b-c42b-4724-b3f8-5685b7177428"
+                }
+            ]
+        }
+    ],
+    "datasets": [
+        {
+            "oid": "5b0dd2ad-5c7a-4a6a-9df7-1f6f50d058fb",
+            "fullname": "CSV:cacd594a-760e-4551-b788-a39209e6eab2",
+            "type": "extract",
+            "name": "cacd594a-760e-4551-b788-a39209e6eab2",
+            "modelingTransformations": [],
+            "schema": {
+                "tables": [
+                    {
+                        "oid": "5d3c3872-1b09-49ae-8c7c-9bb155cc8a4c",
+                        "id": "41040588-15a0-4b5f-9d3f-1351a88d7575.csv",
+                        "name": "customers.csv",
+                        "type": "base",
+                        "schemaName": "/opt/sisense/storage/datasets/storage/41/41040588-15a0-4b5f-9d3f-1351a88d7575.csv",
+                        "expression": null,
+                        "customCode": null,
+                        "columns": [
+                            {
+                                "oid": "7c62355b-c42b-4724-b3f8-5685b7177428",
+                                "id": "Id",
+                                "name": "Id",
+                                "type": 8,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": true,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "43795e39-b7ee-4e7e-aaaf-f6f7d782aee5",
+                                "id": "Name",
+                                "name": "Name",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "a366d0fe-d2a5-4157-99a9-0af80cfee73a",
+                                "id": "Visible",
+                                "name": "Visible",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "696ff87b-9d61-4c3c-9d54-25a16a8cd647",
+                                "id": "Currency",
+                                "name": "Currency",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "5759b046-50c3-4873-bca4-4601b67dcb83",
+                                "id": "Color",
+                                "name": "Color",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            }
+                        ],
+                        "buildBehavior": {
+                            "type": "sync",
+                            "accumulativeConfig": null
+                        },
+                        "tupleTransformations": [
+                            {
+                                "arguments": {
+                                    "column": "43795e39-b7ee-4e7e-aaaf-f6f7d782aee5",
+                                    "name": "Customer Name"
+                                },
+                                "type": "rename-column"
+                            }
+                        ],
+                        "hidden": false,
+                        "vTag": "e6f9514f-759f-4c60-86e1-384388ddf9d3",
+                        "configOptions": {
+                            "delimiter": ",",
+                            "hasHeader": true,
+                            "ignoreMissingColumns": false,
+                            "excludeIfBegins": "",
+                            "excludeIfContains": "",
+                            "stringQuote": "\"",
+                            "ignoreFirstRows": "",
+                            "culture": "en-US",
+                            "columnsDateTimePatterns": "{}"
+                        },
+                        "description": null,
+                        "tags": null
+                    }
+                ]
+            },
+            "connection": {
+                "id": "616f150632a3ca002c6dc272",
+                "provider": "CSV",
+                "parameters": "0uJay0RlWn75SYw5xVdoLeT3XxVjMe6ld3a3f5Dz3gObMEfVV/yxGpA6lDlWcEXVMfbVujjCOOlwEAaZQE+ZMxnSC3NbdpL/y1As2zvt2D2r0NKPBkZu2gZaOWRmDL8fJQc1UDvICzEOGCzxFVaM9WUZHxojHrq9FGDWMqg+V8E=",
+                "schema": "/opt/sisense/storage/datasets/storage/41/41040588-15a0-4b5f-9d3f-1351a88d7575.csv",
+                "fileName": "customers.csv",
+                "timeout": 300,
+                "autoRefresh": null,
+                "refreshRate": null,
+                "resultLimit": null,
+                "protectedParameters": [],
+                "uiParams": {},
+                "globalTableConfigOptions": null
+            }
+        },
+        {
+            "oid": "910b61ec-f879-45a3-b970-89590ddf0134",
+            "fullname": "CSV:10684768-fcb5-445a-a295-5d942b412d48",
+            "type": "extract",
+            "name": "10684768-fcb5-445a-a295-5d942b412d48",
+            "modelingTransformations": [],
+            "schema": {
+                "tables": [
+                    {
+                        "oid": "3f50bfd2-ed9e-4330-8576-f501604191f0",
+                        "id": "0e59ba2d-5c6b-451f-9c1c-600262f64819.csv",
+                        "name": "timesheets.csv",
+                        "type": "base",
+                        "schemaName": "/opt/sisense/storage/datasets/storage/0e/0e59ba2d-5c6b-451f-9c1c-600262f64819.csv",
+                        "expression": null,
+                        "customCode": null,
+                        "columns": [
+                            {
+                                "oid": "0d3c75f3-6e7b-48b2-bf04-f1e1a943a86a",
+                                "id": "Activity",
+                                "name": "Activity",
+                                "type": 8,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": true,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "3e818a49-8079-4746-a141-5f8559c38352",
+                                "id": "Project",
+                                "name": "Project",
+                                "type": 8,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": true,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "71698621-76f0-4753-8c45-e54437fa02bd",
+                                "id": "User",
+                                "name": "User",
+                                "type": 8,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": true,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "583a99f2-10a2-4557-96db-64fb27292155",
+                                "id": "Id",
+                                "name": "Id",
+                                "type": 8,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": true,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "e572583f-bdac-460d-bb51-189d06eeace2",
+                                "id": "Begin",
+                                "name": "Begin",
+                                "type": 19,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "21fcd154-caf1-4249-913f-d115db5232a8",
+                                "id": "End",
+                                "name": "End",
+                                "type": 19,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "d357f7cc-0cd5-4110-a8c6-dd443f0c001e",
+                                "id": "Duration",
+                                "name": "Duration",
+                                "type": 8,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "03831583-e561-49ec-bc84-fb98fbc5b238",
+                                "id": "Description",
+                                "name": "Description",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "054bfeb9-cffb-4a3a-b1da-27dc8a8f6ce0",
+                                "id": "Rate",
+                                "name": "Rate",
+                                "type": 5,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "aa61d393-416d-4819-a274-10ecec58a716",
+                                "id": "InternalRate",
+                                "name": "InternalRate",
+                                "type": 8,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            }
+                        ],
+                        "buildBehavior": {
+                            "type": "sync",
+                            "accumulativeConfig": null
+                        },
+                        "tupleTransformations": [
+                            {
+                                "arguments": {
+                                    "lastUpdated": "2021-10-19T18:28:09.347Z",
+                                    "id": "DurationAsMinutes",
+                                    "name": "DurationAsMinutes",
+                                    "type": 6,
+                                    "size": 0,
+                                    "scale": 0,
+                                    "precision": 0,
+                                    "oid": "392238b9-bb69-4fef-bafd-be969dfaf9ad",
+                                    "hidden": false,
+                                    "indexed": true,
+                                    "expression": {
+                                        "lastUpdated": "2021-10-19T18:38:05.375Z",
+                                        "oid": "1299ef64-32b6-4e0f-afaa-eb0f34f248f1",
+                                        "expression": "MinuteDiff([End], [Begin])"
+                                    }
+                                },
+                                "type": "add-column"
+                            },
+                            {
+                                "arguments": {
+                                    "id": "DurationAsHours",
+                                    "name": "DurationAsHours",
+                                    "type": 6,
+                                    "size": 0,
+                                    "scale": 0,
+                                    "precision": 0,
+                                    "lastUpdated": "2021-10-19T18:39:56.895Z",
+                                    "oid": "eadffc10-8436-4229-838f-f9e4db68885b",
+                                    "hidden": false,
+                                    "indexed": true,
+                                    "expression": {
+                                        "lastUpdated": "2021-10-19T18:39:56.895Z",
+                                        "oid": "229f51ed-342a-42e6-b57a-52694dda4d1e",
+                                        "expression": "HourDiff([End], [Begin])"
+                                    }
+                                },
+                                "type": "add-column"
+                            }
+                        ],
+                        "hidden": false,
+                        "vTag": "2041b436-5eb2-4ae9-b53c-8fdaf7eac604",
+                        "configOptions": {
+                            "delimiter": ",",
+                            "hasHeader": true,
+                            "ignoreMissingColumns": false,
+                            "excludeIfBegins": "",
+                            "excludeIfContains": "",
+                            "stringQuote": "\"",
+                            "ignoreFirstRows": "",
+                            "culture": "en-US",
+                            "columnsDateTimePatterns": "{}"
+                        },
+                        "description": null,
+                        "tags": null
+                    }
+                ]
+            },
+            "connection": {
+                "id": "616f148432a3ca002c6dc26f",
+                "provider": "CSV",
+                "parameters": "0uJay0RlWn75SYw5xVdoLeT3XxVjMe6ld3a3f5Dz3gObMEfVV/yxGpA6lDlWcEXVMfbVujjCOOlwEAaZQE+ZM0818fttE/AJWF7CuZ4nEOwjlqu4pU3nIr24cA5E9m8xr1ASnIEyXj+PqIwA/Gih84riAdinapT+d8UU8tOId/c=",
+                "schema": "/opt/sisense/storage/datasets/storage/0e/0e59ba2d-5c6b-451f-9c1c-600262f64819.csv",
+                "fileName": "timesheets.csv",
+                "timeout": 300,
+                "autoRefresh": null,
+                "refreshRate": null,
+                "resultLimit": null,
+                "protectedParameters": [],
+                "uiParams": {},
+                "globalTableConfigOptions": null
+            }
+        },
+        {
+            "oid": "b95729d3-243a-4de6-a111-e2372958ab83",
+            "fullname": "CSV:40f817b2-c93b-4055-914e-7229e098d693",
+            "type": "extract",
+            "name": "40f817b2-c93b-4055-914e-7229e098d693",
+            "modelingTransformations": [],
+            "schema": {
+                "tables": [
+                    {
+                        "oid": "fc5dae90-aa63-4939-90e7-9ee1822e6728",
+                        "id": "1d522252-5ec1-4aa2-be10-8c6692726228.csv",
+                        "name": "activities.csv",
+                        "type": "base",
+                        "schemaName": "/opt/sisense/storage/datasets/storage/1d/1d522252-5ec1-4aa2-be10-8c6692726228.csv",
+                        "expression": null,
+                        "customCode": null,
+                        "columns": [
+                            {
+                                "oid": "517f9884-2b98-4023-b9a9-5d32ec775d74",
+                                "id": "ParentTitle",
+                                "name": "ParentTitle",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "d2ecf6b6-fbb1-41ab-a98d-4e0aaec22630",
+                                "id": "Project",
+                                "name": "Project",
+                                "type": 8,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": true,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "78b5334d-e15b-4c2a-86c2-13a1ae0ebe65",
+                                "id": "Id",
+                                "name": "Id",
+                                "type": 8,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": true,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "d8f6ad20-4a11-45a9-ad0b-87d0248f52c7",
+                                "id": "Name",
+                                "name": "Name",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "4aa2e99c-b946-4231-a8ca-52bdf5d87012",
+                                "id": "Visible",
+                                "name": "Visible",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "e30564c5-00b5-434a-9aea-ff5a99faa2f4",
+                                "id": "Color",
+                                "name": "Color",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            }
+                        ],
+                        "buildBehavior": {
+                            "type": "sync",
+                            "accumulativeConfig": null
+                        },
+                        "tupleTransformations": [
+                            {
+                                "arguments": {
+                                    "column": "d2ecf6b6-fbb1-41ab-a98d-4e0aaec22630",
+                                    "name": "ProjectId"
+                                },
+                                "type": "rename-column"
+                            },
+                            {
+                                "arguments": {
+                                    "column": "d8f6ad20-4a11-45a9-ad0b-87d0248f52c7",
+                                    "name": "Activity Name"
+                                },
+                                "type": "rename-column"
+                            }
+                        ],
+                        "hidden": false,
+                        "vTag": "492d0fee-baee-4617-9fc3-712333b70404",
+                        "configOptions": {
+                            "delimiter": ",",
+                            "hasHeader": true,
+                            "ignoreMissingColumns": false,
+                            "excludeIfBegins": "",
+                            "excludeIfContains": "",
+                            "stringQuote": "\"",
+                            "ignoreFirstRows": "",
+                            "culture": "en-US",
+                            "columnsDateTimePatterns": "{}"
+                        },
+                        "description": null,
+                        "tags": null
+                    }
+                ]
+            },
+            "connection": {
+                "id": "616f14ed32a3ca002c6dc271",
+                "provider": "CSV",
+                "parameters": "0uJay0RlWn75SYw5xVdoLeT3XxVjMe6ld3a3f5Dz3gObMEfVV/yxGpA6lDlWcEXVMfbVujjCOOlwEAaZQE+ZM76Zu3bdo0NarUkax1urhvswY4xeDpJ/cj9P85/d7ialEpqNV6Q1eCdIGEsD2AZB1+h4/GP6ffxQatEiWLnUFQ8=",
+                "schema": "/opt/sisense/storage/datasets/storage/1d/1d522252-5ec1-4aa2-be10-8c6692726228.csv",
+                "fileName": "activities.csv",
+                "timeout": 300,
+                "autoRefresh": null,
+                "refreshRate": null,
+                "resultLimit": null,
+                "protectedParameters": [],
+                "uiParams": {},
+                "globalTableConfigOptions": null
+            }
+        },
+        {
+            "oid": "bf3b5399-8f4e-450f-8db2-4a2d7027cd98",
+            "fullname": "CSV:f1fbcff7-3e69-4d53-84f8-4ae662308a29",
+            "type": "extract",
+            "name": "f1fbcff7-3e69-4d53-84f8-4ae662308a29",
+            "modelingTransformations": [],
+            "schema": {
+                "tables": [
+                    {
+                        "oid": "af6da870-8eaa-409e-a1a7-ab464c461338",
+                        "id": "895de5fe-c916-484e-9205-677d3eed7aaf.csv",
+                        "name": "teammembershipss.csv",
+                        "type": "base",
+                        "schemaName": "/opt/sisense/storage/datasets/storage/89/895de5fe-c916-484e-9205-677d3eed7aaf.csv",
+                        "expression": null,
+                        "customCode": null,
+                        "columns": [
+                            {
+                                "oid": "bb427b88-c11a-4748-b40d-a2d3d26462cf",
+                                "id": "Id",
+                                "name": "Id",
+                                "type": 8,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": true,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "a63579ec-9cd1-4cf8-bde7-63bf4d359903",
+                                "id": "TeamId",
+                                "name": "TeamId",
+                                "type": 8,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": true,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "05529d1e-2fb3-4bc0-bbbd-0b9396801287",
+                                "id": "UserId",
+                                "name": "UserId",
+                                "type": 8,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": true,
+                                "indexed": true,
+                                "description": null
+                            }
+                        ],
+                        "buildBehavior": {
+                            "type": "sync",
+                            "accumulativeConfig": null
+                        },
+                        "tupleTransformations": [],
+                        "hidden": true,
+                        "vTag": "fd7eb971-3a38-46ac-8543-ccb97a7e30eb",
+                        "configOptions": {
+                            "delimiter": ",",
+                            "hasHeader": true,
+                            "ignoreMissingColumns": false,
+                            "excludeIfBegins": "",
+                            "excludeIfContains": "",
+                            "stringQuote": "\"",
+                            "ignoreFirstRows": "",
+                            "culture": "en-US",
+                            "columnsDateTimePatterns": "{}"
+                        },
+                        "description": null,
+                        "tags": null
+                    }
+                ]
+            },
+            "connection": {
+                "id": "616f153d32a3ca002c6dc274",
+                "provider": "CSV",
+                "parameters": "0uJay0RlWn75SYw5xVdoLeT3XxVjMe6ld3a3f5Dz3gObMEfVV/yxGpA6lDlWcEXVMfbVujjCOOlwEAaZQE+ZM/grvfl77Srr+yY2TmIVb83+NrKP+d1RtW7viZf5BVcEkvq0hkJyUKGICaQCedjcagIxQH/lqxe+j5/9Yiu5ZdI=",
+                "schema": "/opt/sisense/storage/datasets/storage/89/895de5fe-c916-484e-9205-677d3eed7aaf.csv",
+                "fileName": "teammembershipss.csv",
+                "timeout": 300,
+                "autoRefresh": null,
+                "refreshRate": null,
+                "resultLimit": null,
+                "protectedParameters": [],
+                "uiParams": {},
+                "globalTableConfigOptions": null
+            }
+        },
+        {
+            "oid": "d8f1921c-5016-42de-b8fe-d5fb75a48d55",
+            "fullname": "CSV:f1c845c7-f1d9-4ba7-b1a6-e3081d1d5898",
+            "type": "extract",
+            "name": "f1c845c7-f1d9-4ba7-b1a6-e3081d1d5898",
+            "modelingTransformations": [],
+            "schema": {
+                "tables": [
+                    {
+                        "oid": "71c6c582-cb73-453b-af87-40ba82d32f64",
+                        "id": "4b1daddd-c3d1-4658-b4d8-fc2ed5b2f667.csv",
+                        "name": "teams.csv",
+                        "type": "base",
+                        "schemaName": "/opt/sisense/storage/datasets/storage/4b/4b1daddd-c3d1-4658-b4d8-fc2ed5b2f667.csv",
+                        "expression": null,
+                        "customCode": null,
+                        "columns": [
+                            {
+                                "oid": "9d48604b-be72-4350-8bda-a77be50a3ae4",
+                                "id": "Id",
+                                "name": "Id",
+                                "type": 8,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "9cf53e5b-ab3a-4ef4-831a-65b975bf552e",
+                                "id": "Name",
+                                "name": "Name",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            }
+                        ],
+                        "buildBehavior": {
+                            "type": "sync",
+                            "accumulativeConfig": null
+                        },
+                        "tupleTransformations": [
+                            {
+                                "arguments": {
+                                    "column": "9cf53e5b-ab3a-4ef4-831a-65b975bf552e",
+                                    "name": "Team Name"
+                                },
+                                "type": "rename-column"
+                            }
+                        ],
+                        "hidden": false,
+                        "vTag": "14f32177-ca08-43f3-94d3-a06eabcaf2f1",
+                        "configOptions": {
+                            "delimiter": ",",
+                            "hasHeader": true,
+                            "ignoreMissingColumns": false,
+                            "excludeIfBegins": "",
+                            "excludeIfContains": "",
+                            "stringQuote": "\"",
+                            "ignoreFirstRows": "",
+                            "culture": "en-US",
+                            "columnsDateTimePatterns": "{}"
+                        },
+                        "description": null,
+                        "tags": null
+                    }
+                ]
+            },
+            "connection": {
+                "id": "616f155f32a3ca002c6dc275",
+                "provider": "CSV",
+                "parameters": "0uJay0RlWn75SYw5xVdoLeT3XxVjMe6ld3a3f5Dz3gObMEfVV/yxGpA6lDlWcEXVMfbVujjCOOlwEAaZQE+ZMwpjaB0EtU34jBu3G7k5AbXI5456W7EqCCNp5p0wDgBoCaMBbtddic+cFnlx0lNIkK8FOFCaqiA+zMS20ST404k=",
+                "schema": "/opt/sisense/storage/datasets/storage/4b/4b1daddd-c3d1-4658-b4d8-fc2ed5b2f667.csv",
+                "fileName": "teams.csv",
+                "timeout": 300,
+                "autoRefresh": null,
+                "refreshRate": null,
+                "resultLimit": null,
+                "protectedParameters": [],
+                "uiParams": {},
+                "globalTableConfigOptions": null
+            }
+        },
+        {
+            "oid": "db292a1c-ac9f-4567-a2e4-7cc8090dcf82",
+            "fullname": "CSV:9f7ce2a2-2876-4ac8-8cbf-c8a5ef9b86e9",
+            "type": "extract",
+            "name": "9f7ce2a2-2876-4ac8-8cbf-c8a5ef9b86e9",
+            "modelingTransformations": [],
+            "schema": {
+                "tables": [
+                    {
+                        "oid": "582dc0dd-81be-48f3-a5ea-6bca49e2ae13",
+                        "id": "15a8d32c-97b6-4c42-958e-4202acc17ef1.csv",
+                        "name": "projects.csv",
+                        "type": "base",
+                        "schemaName": "/opt/sisense/storage/datasets/storage/15/15a8d32c-97b6-4c42-958e-4202acc17ef1.csv",
+                        "expression": null,
+                        "customCode": null,
+                        "columns": [
+                            {
+                                "oid": "774e53f8-ac41-4d79-bce4-0b718a7c698f",
+                                "id": "ParentTitle",
+                                "name": "ParentTitle",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": true,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "5bd3c2a3-f6e2-480e-8222-272fd7d0e8f3",
+                                "id": "Customer",
+                                "name": "Customer",
+                                "type": 8,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": true,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "a9bbb190-8699-4e47-a781-39d114904314",
+                                "id": "Id",
+                                "name": "Id",
+                                "type": 8,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": true,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "09a3a4b2-a8e4-431e-983f-8bb4db47b0d1",
+                                "id": "Name",
+                                "name": "Name",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "08d0f2ab-2e44-424e-a4b3-ad208b3f598e",
+                                "id": "Start",
+                                "name": "Start",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "e56d94c8-1500-4cd3-abf9-74ab23914292",
+                                "id": "End",
+                                "name": "End",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "a68e2e00-c4ec-4b5d-b488-432aeedb5c73",
+                                "id": "Visible",
+                                "name": "Visible",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "f15878e8-aa2c-432e-be80-b4ccb0265a6c",
+                                "id": "Color",
+                                "name": "Color",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            }
+                        ],
+                        "buildBehavior": {
+                            "type": "sync",
+                            "accumulativeConfig": null
+                        },
+                        "tupleTransformations": [
+                            {
+                                "arguments": {
+                                    "column": "09a3a4b2-a8e4-431e-983f-8bb4db47b0d1",
+                                    "name": "Project Name"
+                                },
+                                "type": "rename-column"
+                            }
+                        ],
+                        "hidden": false,
+                        "vTag": "41b953d0-b04d-4a92-8653-3607920eff9a",
+                        "configOptions": {
+                            "delimiter": ",",
+                            "hasHeader": true,
+                            "ignoreMissingColumns": false,
+                            "excludeIfBegins": "",
+                            "excludeIfContains": "",
+                            "stringQuote": "\"",
+                            "ignoreFirstRows": "",
+                            "culture": "en-US",
+                            "columnsDateTimePatterns": "{}"
+                        },
+                        "description": null,
+                        "tags": null
+                    }
+                ]
+            },
+            "connection": {
+                "id": "616f152332a3ca002c6dc273",
+                "provider": "CSV",
+                "parameters": "0uJay0RlWn75SYw5xVdoLeT3XxVjMe6ld3a3f5Dz3gObMEfVV/yxGpA6lDlWcEXVMfbVujjCOOlwEAaZQE+ZM25dbiaQunWmBbk2u7L75Szkf4MCzLjFjTzTw+hL2TfyUmesDvkS7fr0oJ2aj1OOrjrFnY42aZoEZYDAYtZRZfM=",
+                "schema": "/opt/sisense/storage/datasets/storage/15/15a8d32c-97b6-4c42-958e-4202acc17ef1.csv",
+                "fileName": "projects.csv",
+                "timeout": 300,
+                "autoRefresh": null,
+                "refreshRate": null,
+                "resultLimit": null,
+                "protectedParameters": [],
+                "uiParams": {},
+                "globalTableConfigOptions": null
+            }
+        },
+        {
+            "oid": "ded4464d-c595-4692-95d3-88f7c7be6452",
+            "fullname": "CSV:b86865e0-3acc-40f9-ab57-8bcb666a645f",
+            "type": "extract",
+            "name": "b86865e0-3acc-40f9-ab57-8bcb666a645f",
+            "modelingTransformations": [],
+            "schema": {
+                "tables": [
+                    {
+                        "oid": "a1bc58de-e0e4-46d4-a5ae-23faff2f4dce",
+                        "id": "68a37646-2c12-4d10-a830-d156a8231475.csv",
+                        "name": "user.csv",
+                        "type": "base",
+                        "schemaName": "/opt/sisense/storage/datasets/storage/68/68a37646-2c12-4d10-a830-d156a8231475.csv",
+                        "expression": null,
+                        "customCode": null,
+                        "columns": [
+                            {
+                                "oid": "455c47e4-3370-4b83-a9f3-8d40ffe6ee56",
+                                "id": "Username",
+                                "name": "Username",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "2a5f8eea-ce88-4ab3-bbb1-05f2e675316f",
+                                "id": "Enabled",
+                                "name": "Enabled",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "6d2374dc-abb2-40c0-bfc2-5bfcbf0e0a54",
+                                "id": "Id",
+                                "name": "Id",
+                                "type": 8,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            },
+                            {
+                                "oid": "ab893894-0b6f-4f1a-ae31-66c40cd7465f",
+                                "id": "Alias",
+                                "name": "Alias",
+                                "type": 18,
+                                "size": null,
+                                "precision": null,
+                                "scale": null,
+                                "hidden": false,
+                                "indexed": true,
+                                "description": null
+                            }
+                        ],
+                        "buildBehavior": {
+                            "type": "sync",
+                            "accumulativeConfig": null
+                        },
+                        "tupleTransformations": [],
+                        "hidden": false,
+                        "vTag": "3754efa4-8eeb-4d1f-af69-3736da4906c1",
+                        "configOptions": {
+                            "delimiter": ",",
+                            "hasHeader": true,
+                            "ignoreMissingColumns": false,
+                            "excludeIfBegins": "",
+                            "excludeIfContains": "",
+                            "stringQuote": "\"",
+                            "ignoreFirstRows": "",
+                            "culture": "en-US",
+                            "columnsDateTimePatterns": "{}"
+                        },
+                        "description": null,
+                        "tags": null
+                    }
+                ]
+            },
+            "connection": {
+                "id": "616f158332a3ca002c6dc276",
+                "provider": "CSV",
+                "parameters": "0uJay0RlWn75SYw5xVdoLeT3XxVjMe6ld3a3f5Dz3gObMEfVV/yxGpA6lDlWcEXVMfbVujjCOOlwEAaZQE+ZM9eDN7PReOQKNiPd9LuqJN/qlRbeV1IPWLvHquT3fifoI9HsfTSdd5Nsifw7yLiB1ptSuF4iNEsM8A8l4POOnpA=",
+                "schema": "/opt/sisense/storage/datasets/storage/68/68a37646-2c12-4d10-a830-d156a8231475.csv",
+                "fileName": "user.csv",
+                "timeout": 300,
+                "autoRefresh": null,
+                "refreshRate": null,
+                "resultLimit": null,
+                "protectedParameters": [],
+                "uiParams": {},
+                "globalTableConfigOptions": null
+            }
+        }
+    ]
+}

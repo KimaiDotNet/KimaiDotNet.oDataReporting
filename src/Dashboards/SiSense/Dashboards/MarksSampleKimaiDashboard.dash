@@ -1,0 +1,2502 @@
+{
+  "title": "Marks Sample Kimai Dashboard",
+  "oid": "616f0eae6cd370003517023c",
+  "desc": "",
+  "source": null,
+  "type": "dashboard",
+  "style": {
+    "name": "vivid",
+    "palette": {
+      "colors": [
+        "#00cee6",
+        "#9b9bd7",
+        "#6EDA55",
+        "#fc7570",
+        "#fbb755",
+        "#218A8C"
+      ],
+      "name": "Vivid",
+      "sortOrder": 10,
+      "isSystem": true,
+      "systemDefault": true
+    }
+  },
+  "layout": {
+    "instanceid": "45ADC-0579-08",
+    "type": "columnar",
+    "columns": [
+      {
+        "width": 100,
+        "cells": [
+          {
+            "subcells": [
+              {
+                "elements": [
+                  {
+                    "minHeight": 96,
+                    "maxHeight": 2048,
+                    "minWidth": 128,
+                    "maxWidth": 2048,
+                    "height": 384,
+                    "defaultWidth": 512,
+                    "widgetid": "616f0f736cd370003517023f"
+                  }
+                ],
+                "width": 50,
+                "stretchable": false,
+                "pxlWidth": 442.5,
+                "index": 0
+              },
+              {
+                "elements": [
+                  {
+                    "minHeight": 96,
+                    "maxHeight": 2048,
+                    "minWidth": 128,
+                    "maxWidth": 2048,
+                    "defaultWidth": 512,
+                    "widgetid": "616f1a886cd3700035170251",
+                    "height": 384
+                  }
+                ],
+                "width": 50,
+                "stretchable": false,
+                "pxlWidth": 442.5,
+                "index": 1
+              }
+            ]
+          },
+          {
+            "subcells": [
+              {
+                "elements": [
+                  {
+                    "minHeight": 128,
+                    "maxHeight": 2048,
+                    "minWidth": 128,
+                    "maxWidth": 2048,
+                    "height": "272px",
+                    "defaultWidth": 512,
+                    "widgetid": "616f0fa66cd3700035170241",
+                    "autoHeight": "272px"
+                  }
+                ],
+                "width": 100,
+                "stretchable": false,
+                "pxlWidth": 885,
+                "index": 0
+              }
+            ]
+          },
+          {
+            "subcells": [
+              {
+                "elements": [
+                  {
+                    "minHeight": 96,
+                    "maxHeight": 2048,
+                    "minWidth": 128,
+                    "maxWidth": 2048,
+                    "height": 384,
+                    "defaultWidth": 512,
+                    "widgetid": "616f1a006cd3700035170249"
+                  }
+                ],
+                "width": 100,
+                "stretchable": false,
+                "pxlWidth": 885,
+                "index": 0
+              }
+            ]
+          },
+          {
+            "subcells": [
+              {
+                "elements": [
+                  {
+                    "minHeight": 128,
+                    "maxHeight": 2048,
+                    "minWidth": 128,
+                    "maxWidth": 2048,
+                    "height": "297px",
+                    "defaultWidth": 512,
+                    "widgetid": "616f1c006cd3700035170255",
+                    "autoHeight": "297px"
+                  }
+                ],
+                "width": 100,
+                "stretchable": false,
+                "pxlWidth": 885,
+                "index": 0
+              }
+            ]
+          }
+        ],
+        "pxlWidth": 0,
+        "index": 0
+      }
+    ],
+    "container": {
+      "sizzle1634668186534": {
+        "undefined": {
+          "parentNode": [
+            2052.4518164022347,
+            31,
+            true
+          ]
+        }
+      }
+    }
+  },
+  "original": null,
+  "dataExploration": false,
+  "tenantId": "5fe93f4930f262001aca7dd7",
+  "datasource": {
+    "fullname": "localhost/Marks Sample Kimai Data",
+    "id": "localhost_aMarksIAAaSampleIAAaKimaiIAAaData",
+    "address": "LocalHost",
+    "database": "aMarksIAAaSampleIAAaKimaiIAAaData",
+    "live": false,
+    "title": "Marks Sample Kimai Data"
+  },
+  "filters": [
+    {
+      "jaql": {
+        "dim": "[teams.csv.Team Name]",
+        "datatype": "text",
+        "merged": true,
+        "collapsed": true,
+        "isDashboardFilter": true,
+        "datasource": {
+          "fullname": "localhost/Marks Sample Kimai Data",
+          "id": "localhost_aMarksIAAaSampleIAAaKimaiIAAaData",
+          "address": "LocalHost",
+          "database": "aMarksIAAaSampleIAAaKimaiIAAaData",
+          "live": false,
+          "title": "Marks Sample Kimai Data"
+        },
+        "filter": {
+          "explicit": true,
+          "multiSelection": true,
+          "members": [
+            "Goyette-Raynor 3"
+          ]
+        },
+        "title": "Team Name"
+      },
+      "instanceid": "421B2-818C-67",
+      "isCascading": false,
+      "disabled": false
+    },
+    {
+      "jaql": {
+        "dim": "[timesheets.csv.Begin (Calendar)]",
+        "datatype": "datetime",
+        "merged": true,
+        "level": "days",
+        "filter": {
+          "last": {
+            "count": 2,
+            "offset": 0
+          },
+          "custom": true
+        },
+        "datasource": {
+          "fullname": "localhost/Marks Sample Kimai Data",
+          "id": "localhost_aMarksIAAaSampleIAAaKimaiIAAaData",
+          "address": "LocalHost",
+          "database": "aMarksIAAaSampleIAAaKimaiIAAaData",
+          "live": false,
+          "title": "Marks Sample Kimai Data"
+        },
+        "collapsed": true,
+        "isDashboardFilter": true,
+        "title": "Days in Begin"
+      },
+      "instanceid": "3D24D-06F5-63",
+      "isCascading": false
+    },
+    {
+      "jaql": {
+        "dim": "[timesheets.csv.End (Calendar)]",
+        "datatype": "datetime",
+        "merged": true,
+        "level": "days",
+        "datasource": {
+          "fullname": "localhost/Marks Sample Kimai Data",
+          "id": "localhost_aMarksIAAaSampleIAAaKimaiIAAaData",
+          "address": "LocalHost",
+          "database": "aMarksIAAaSampleIAAaKimaiIAAaData",
+          "live": false,
+          "title": "Marks Sample Kimai Data"
+        },
+        "collapsed": true,
+        "isDashboardFilter": true,
+        "filter": {
+          "last": {
+            "count": 1,
+            "offset": 0
+          }
+        },
+        "title": "Days in End"
+      },
+      "instanceid": "F20CB-4DFB-8A",
+      "isCascading": false,
+      "disabled": true
+    },
+    {
+      "jaql": {
+        "datatype": "text",
+        "dim": "[user.csv.Alias]",
+        "datasource": {
+          "fullname": "localhost/Marks Sample Kimai Data",
+          "id": "localhost_aMarksIAAaSampleIAAaKimaiIAAaData",
+          "address": "LocalHost",
+          "database": "aMarksIAAaSampleIAAaKimaiIAAaData",
+          "live": false,
+          "title": "Marks Sample Kimai Data"
+        },
+        "collapsed": true,
+        "isDashboardFilter": true,
+        "merged": true,
+        "filter": {
+          "explicit": false,
+          "multiSelection": true,
+          "all": true
+        },
+        "title": "Alias"
+      },
+      "instanceid": "4ED78-FEE0-C5",
+      "isCascading": false,
+      "disabled": false
+    }
+  ],
+  "editing": true,
+  "settings": {
+    "autoUpdateOnFiltersChange": true
+  },
+  "filterToDatasourceMapping": {},
+  "widgets": [
+    {
+      "title": "",
+      "subtype": "bar/stacked",
+      "oid": "616f0f736cd370003517023f",
+      "desc": null,
+      "source": null,
+      "datasource": {
+        "fullname": "localhost/Marks Sample Kimai Data",
+        "id": "localhost_aMarksIAAaSampleIAAaKimaiIAAaData",
+        "address": "LocalHost",
+        "database": "aMarksIAAaSampleIAAaKimaiIAAaData",
+        "live": false,
+        "title": "Marks Sample Kimai Data"
+      },
+      "selection": null,
+      "metadata": {
+        "ignore": {
+          "dimensions": [],
+          "ids": [],
+          "all": false
+        },
+        "panels": [
+          {
+            "name": "categories",
+            "items": [
+              {
+                "jaql": {
+                  "dim": "[user.csv.Alias]",
+                  "datatype": "text",
+                  "merged": true,
+                  "title": "Alias"
+                },
+                "format": {
+                  "members": {
+                    "N\\A": {
+                      "color": "#00cee6",
+                      "title": "N\\A",
+                      "sortData": "N\\A"
+                    },
+                    "Adolph Lind Jr%46": {
+                      "color": "#9b9bd7",
+                      "title": "Adolph Lind Jr.",
+                      "sortData": "Adolph Lind Jr."
+                    },
+                    "Anna Smith": {
+                      "color": "#6EDA55",
+                      "title": "Anna Smith",
+                      "sortData": "Anna Smith"
+                    },
+                    "Calista Fadel": {
+                      "color": "#fc7570",
+                      "title": "Calista Fadel",
+                      "sortData": "Calista Fadel"
+                    },
+                    "Chasity Von": {
+                      "color": "#fbb755",
+                      "title": "Chasity Von",
+                      "sortData": "Chasity Von"
+                    },
+                    "Cornell Nienow": {
+                      "color": "#218A8C",
+                      "title": "Cornell Nienow",
+                      "sortData": "Cornell Nienow"
+                    },
+                    "Dillan Stoltenberg Sr%46": {
+                      "color": "#06e5ff",
+                      "title": "Dillan Stoltenberg Sr.",
+                      "sortData": "Dillan Stoltenberg Sr.",
+                      "inResultset": true
+                    },
+                    "Dolly Bechtelar": {
+                      "color": "#b2b2f7",
+                      "title": "Dolly Bechtelar",
+                      "sortData": "Dolly Bechtelar"
+                    },
+                    "Dr%46 Fatima Block": {
+                      "color": "#7efb62",
+                      "title": "Dr. Fatima Block",
+                      "sortData": "Dr. Fatima Block",
+                      "inResultset": true
+                    },
+                    "Earline Wolff": {
+                      "color": "#ff8a86",
+                      "title": "Earline Wolff",
+                      "sortData": "Earline Wolff"
+                    },
+                    "Fletcher Kunze": {
+                      "color": "#ffc26a",
+                      "title": "Fletcher Kunze",
+                      "sortData": "Fletcher Kunze",
+                      "inResultset": true
+                    },
+                    "Jed Cremin": {
+                      "color": "#269fa1",
+                      "title": "Jed Cremin",
+                      "sortData": "Jed Cremin"
+                    },
+                    "John Doe": {
+                      "color": "#00cee6",
+                      "title": "John Doe",
+                      "sortData": "John Doe"
+                    },
+                    "Kyle Beier": {
+                      "color": "#9b9bd7",
+                      "title": "Kyle Beier",
+                      "sortData": "Kyle Beier",
+                      "inResultset": true
+                    },
+                    "Lavada Bergnaum": {
+                      "color": "#6eda55",
+                      "title": "Lavada Bergnaum",
+                      "sortData": "Lavada Bergnaum"
+                    },
+                    "Lucius Zboncak": {
+                      "color": "#fc7570",
+                      "title": "Lucius Zboncak",
+                      "sortData": "Lucius Zboncak",
+                      "inResultset": true
+                    },
+                    "Marianne Emard": {
+                      "color": "#fbb755",
+                      "title": "Marianne Emard",
+                      "sortData": "Marianne Emard",
+                      "inResultset": true
+                    },
+                    "Maymie Lakin": {
+                      "color": "#218a8c",
+                      "title": "Maymie Lakin",
+                      "sortData": "Maymie Lakin"
+                    },
+                    "Mr%46 Camryn Wunsch": {
+                      "color": "#06e5ff",
+                      "title": "Mr. Camryn Wunsch",
+                      "sortData": "Mr. Camryn Wunsch",
+                      "inResultset": true
+                    },
+                    "Mrs%46 Carolanne Borer": {
+                      "color": "#b2b2f7",
+                      "title": "Mrs. Carolanne Borer",
+                      "sortData": "Mrs. Carolanne Borer",
+                      "inResultset": true
+                    },
+                    "Ms%46 Kayli Dicki MD": {
+                      "color": "#7efb62",
+                      "title": "Ms. Kayli Dicki MD",
+                      "sortData": "Ms. Kayli Dicki MD"
+                    },
+                    "Ms%46 Naomi Bauch": {
+                      "color": "#ff8a86",
+                      "title": "Ms. Naomi Bauch",
+                      "sortData": "Ms. Naomi Bauch",
+                      "inResultset": true
+                    },
+                    "Ozella Veum": {
+                      "color": "#ffc26a",
+                      "title": "Ozella Veum",
+                      "sortData": "Ozella Veum"
+                    },
+                    "Price Koepp": {
+                      "color": "#269fa1",
+                      "title": "Price Koepp",
+                      "sortData": "Price Koepp",
+                      "inResultset": true
+                    },
+                    "Roman Howell": {
+                      "color": "#00cee6",
+                      "title": "Roman Howell",
+                      "sortData": "Roman Howell",
+                      "inResultset": true
+                    },
+                    "Santa Luettgen": {
+                      "color": "#9b9bd7",
+                      "title": "Santa Luettgen",
+                      "sortData": "Santa Luettgen",
+                      "inResultset": true
+                    },
+                    "Thea Hermann II": {
+                      "color": "#6eda55",
+                      "title": "Thea Hermann II",
+                      "sortData": "Thea Hermann II",
+                      "inResultset": true
+                    },
+                    "Tony Maier": {
+                      "color": "#fc7570",
+                      "title": "Tony Maier",
+                      "sortData": "Tony Maier",
+                      "inResultset": true
+                    },
+                    "Vada Rutherford": {
+                      "color": "#fbb755",
+                      "title": "Vada Rutherford",
+                      "sortData": "Vada Rutherford",
+                      "inResultset": true
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "values",
+            "items": [
+              {
+                "jaql": {
+                  "dim": "[timesheets.csv.DurationAsHours]",
+                  "datatype": "numeric",
+                  "agg": "sum",
+                  "title": "Total DurationAsHours"
+                },
+                "format": {
+                  "mask": {
+                    "type": "number",
+                    "abbreviations": {
+                      "t": true,
+                      "b": true,
+                      "m": true,
+                      "k": true
+                    },
+                    "separated": true,
+                    "decimals": "auto",
+                    "isdefault": true
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "break by",
+            "items": [
+              {
+                "jaql": {
+                  "dim": "[projects.csv.Project Name]",
+                  "datatype": "text",
+                  "merged": true,
+                  "title": "Project Name"
+                },
+                "format": {
+                  "members": {
+                    "A officia": {
+                      "color": "#00cee6",
+                      "title": "A officia",
+                      "sortData": "A officia",
+                      "inResultset": true
+                    },
+                    "Adipisci quis": {
+                      "color": "#9b9bd7",
+                      "title": "Adipisci quis",
+                      "sortData": "Adipisci quis",
+                      "inResultset": true
+                    },
+                    "Aut consequatur": {
+                      "color": "#6EDA55",
+                      "title": "Aut consequatur",
+                      "sortData": "Aut consequatur",
+                      "inResultset": true
+                    },
+                    "Aut optio": {
+                      "color": "#fc7570",
+                      "title": "Aut optio",
+                      "sortData": "Aut optio"
+                    },
+                    "Aut repudiandae": {
+                      "color": "#fbb755",
+                      "title": "Aut repudiandae",
+                      "sortData": "Aut repudiandae",
+                      "inResultset": true
+                    },
+                    "Aut vel": {
+                      "color": "#218A8C",
+                      "title": "Aut vel",
+                      "sortData": "Aut vel",
+                      "inResultset": true
+                    },
+                    "Autem eum": {
+                      "color": "#06e5ff",
+                      "title": "Autem eum",
+                      "sortData": "Autem eum",
+                      "inResultset": true
+                    },
+                    "Blanditiis sint": {
+                      "color": "#b2b2f7",
+                      "title": "Blanditiis sint",
+                      "sortData": "Blanditiis sint",
+                      "inResultset": true
+                    },
+                    "Commodi aut": {
+                      "color": "#7efb62",
+                      "title": "Commodi aut",
+                      "sortData": "Commodi aut",
+                      "inResultset": true
+                    },
+                    "Consequatur optio": {
+                      "color": "#ff8a86",
+                      "title": "Consequatur optio",
+                      "sortData": "Consequatur optio",
+                      "inResultset": true
+                    },
+                    "Consequatur sint": {
+                      "color": "#ffc26a",
+                      "title": "Consequatur sint",
+                      "sortData": "Consequatur sint",
+                      "inResultset": true
+                    },
+                    "Consequatur vel": {
+                      "color": "#269fa1",
+                      "title": "Consequatur vel",
+                      "sortData": "Consequatur vel",
+                      "inResultset": true
+                    },
+                    "Corporis placeat": {
+                      "color": "#00cee6",
+                      "title": "Corporis placeat",
+                      "sortData": "Corporis placeat",
+                      "inResultset": true
+                    },
+                    "Corporis recusandae": {
+                      "color": "#9b9bd7",
+                      "title": "Corporis recusandae",
+                      "sortData": "Corporis recusandae",
+                      "inResultset": true
+                    },
+                    "Cum in": {
+                      "color": "#6eda55",
+                      "title": "Cum in",
+                      "sortData": "Cum in",
+                      "inResultset": true
+                    },
+                    "Cupiditate quaerat": {
+                      "color": "#fc7570",
+                      "title": "Cupiditate quaerat",
+                      "sortData": "Cupiditate quaerat",
+                      "inResultset": true
+                    },
+                    "Dolor amet": {
+                      "color": "#fbb755",
+                      "title": "Dolor amet",
+                      "sortData": "Dolor amet",
+                      "inResultset": true
+                    },
+                    "Dolore repellat": {
+                      "color": "#218a8c",
+                      "title": "Dolore repellat",
+                      "sortData": "Dolore repellat",
+                      "inResultset": true
+                    },
+                    "Dolorem dicta": {
+                      "color": "#06e5ff",
+                      "title": "Dolorem dicta",
+                      "sortData": "Dolorem dicta",
+                      "inResultset": true
+                    },
+                    "Doloribus distinctio": {
+                      "color": "#b2b2f7",
+                      "title": "Doloribus distinctio",
+                      "sortData": "Doloribus distinctio",
+                      "inResultset": true
+                    },
+                    "Dolorum dolorem": {
+                      "color": "#7efb62",
+                      "title": "Dolorum dolorem",
+                      "sortData": "Dolorum dolorem",
+                      "inResultset": true
+                    },
+                    "Ea eveniet": {
+                      "color": "#ff8a86",
+                      "title": "Ea eveniet",
+                      "sortData": "Ea eveniet",
+                      "inResultset": true
+                    },
+                    "Enim dolor": {
+                      "color": "#ffc26a",
+                      "title": "Enim dolor",
+                      "sortData": "Enim dolor",
+                      "inResultset": true
+                    },
+                    "Enim perferendis": {
+                      "color": "#269fa1",
+                      "title": "Enim perferendis",
+                      "sortData": "Enim perferendis",
+                      "inResultset": true
+                    },
+                    "Eos error": {
+                      "color": "#00cee6",
+                      "title": "Eos error",
+                      "sortData": "Eos error",
+                      "inResultset": true
+                    },
+                    "Est porro": {
+                      "color": "#9b9bd7",
+                      "title": "Est porro",
+                      "sortData": "Est porro",
+                      "inResultset": true
+                    },
+                    "Est quis": {
+                      "color": "#6eda55",
+                      "title": "Est quis",
+                      "sortData": "Est quis",
+                      "inResultset": true
+                    },
+                    "Est sed": {
+                      "color": "#fc7570",
+                      "title": "Est sed",
+                      "sortData": "Est sed",
+                      "inResultset": true
+                    },
+                    "Et eum": {
+                      "color": "#fbb755",
+                      "title": "Et eum",
+                      "sortData": "Et eum",
+                      "inResultset": true
+                    },
+                    "Et placeat": {
+                      "color": "#218a8c",
+                      "title": "Et placeat",
+                      "sortData": "Et placeat",
+                      "inResultset": true
+                    },
+                    "Et sint": {
+                      "color": "#06e5ff",
+                      "title": "Et sint",
+                      "sortData": "Et sint",
+                      "inResultset": true
+                    },
+                    "Et voluptatem": {
+                      "color": "#b2b2f7",
+                      "title": "Et voluptatem",
+                      "sortData": "Et voluptatem",
+                      "inResultset": true
+                    },
+                    "Eveniet dolorem": {
+                      "color": "#7efb62",
+                      "title": "Eveniet dolorem",
+                      "sortData": "Eveniet dolorem",
+                      "inResultset": true
+                    },
+                    "Exercitationem repudiandae": {
+                      "color": "#ff8a86",
+                      "title": "Exercitationem repudiandae",
+                      "sortData": "Exercitationem repudiandae",
+                      "inResultset": true
+                    },
+                    "Fugit temporibus": {
+                      "color": "#ffc26a",
+                      "title": "Fugit temporibus",
+                      "sortData": "Fugit temporibus",
+                      "inResultset": true
+                    },
+                    "In soluta": {
+                      "color": "#269fa1",
+                      "title": "In soluta",
+                      "sortData": "In soluta",
+                      "inResultset": true
+                    },
+                    "Inventore nulla": {
+                      "color": "#00cee6",
+                      "title": "Inventore nulla",
+                      "sortData": "Inventore nulla",
+                      "inResultset": true
+                    },
+                    "Ipsa iure": {
+                      "color": "#9b9bd7",
+                      "title": "Ipsa iure",
+                      "sortData": "Ipsa iure",
+                      "inResultset": true
+                    },
+                    "Iusto sunt": {
+                      "color": "#6eda55",
+                      "title": "Iusto sunt",
+                      "sortData": "Iusto sunt",
+                      "inResultset": true
+                    },
+                    "Labore laboriosam": {
+                      "color": "#fc7570",
+                      "title": "Labore laboriosam",
+                      "sortData": "Labore laboriosam",
+                      "inResultset": true
+                    },
+                    "Magnam tempora": {
+                      "color": "#fbb755",
+                      "title": "Magnam tempora",
+                      "sortData": "Magnam tempora",
+                      "inResultset": true
+                    },
+                    "Maiores amet": {
+                      "color": "#218a8c",
+                      "title": "Maiores amet",
+                      "sortData": "Maiores amet",
+                      "inResultset": true
+                    },
+                    "Maiores mollitia": {
+                      "color": "#06e5ff",
+                      "title": "Maiores mollitia",
+                      "sortData": "Maiores mollitia",
+                      "inResultset": true
+                    },
+                    "Minima dolores": {
+                      "color": "#b2b2f7",
+                      "title": "Minima dolores",
+                      "sortData": "Minima dolores",
+                      "inResultset": true
+                    },
+                    "Minima sint": {
+                      "color": "#7efb62",
+                      "title": "Minima sint",
+                      "sortData": "Minima sint",
+                      "inResultset": true
+                    },
+                    "Molestias debitis": {
+                      "color": "#ff8a86",
+                      "title": "Molestias debitis",
+                      "sortData": "Molestias debitis",
+                      "inResultset": true
+                    },
+                    "Nihil minus": {
+                      "color": "#ffc26a",
+                      "title": "Nihil minus",
+                      "sortData": "Nihil minus",
+                      "inResultset": true
+                    },
+                    "Nulla omnis": {
+                      "color": "#269fa1",
+                      "title": "Nulla omnis",
+                      "sortData": "Nulla omnis",
+                      "inResultset": true
+                    },
+                    "Odit deleniti": {
+                      "color": "#00cee6",
+                      "title": "Odit deleniti",
+                      "sortData": "Odit deleniti",
+                      "inResultset": true
+                    },
+                    "Odit quod": {
+                      "color": "#9b9bd7",
+                      "title": "Odit quod",
+                      "sortData": "Odit quod",
+                      "inResultset": true
+                    },
+                    "Optio rerum": {
+                      "color": "#6eda55",
+                      "title": "Optio rerum",
+                      "sortData": "Optio rerum",
+                      "inResultset": true
+                    },
+                    "Praesentium a": {
+                      "color": "#fc7570",
+                      "title": "Praesentium a",
+                      "sortData": "Praesentium a",
+                      "inResultset": true
+                    },
+                    "Quaerat sit": {
+                      "color": "#fbb755",
+                      "title": "Quaerat sit",
+                      "sortData": "Quaerat sit",
+                      "inResultset": true
+                    },
+                    "Qui delectus": {
+                      "color": "#218a8c",
+                      "title": "Qui delectus",
+                      "sortData": "Qui delectus",
+                      "inResultset": true
+                    },
+                    "Qui dolor": {
+                      "color": "#06e5ff",
+                      "title": "Qui dolor",
+                      "sortData": "Qui dolor",
+                      "inResultset": true
+                    },
+                    "Qui iusto": {
+                      "color": "#b2b2f7",
+                      "title": "Qui iusto",
+                      "sortData": "Qui iusto",
+                      "inResultset": true
+                    },
+                    "Quia eveniet": {
+                      "color": "#7efb62",
+                      "title": "Quia eveniet",
+                      "sortData": "Quia eveniet"
+                    },
+                    "Quia omnis": {
+                      "color": "#ff8a86",
+                      "title": "Quia omnis",
+                      "sortData": "Quia omnis",
+                      "inResultset": true
+                    },
+                    "Quia voluptatem": {
+                      "color": "#ffc26a",
+                      "title": "Quia voluptatem",
+                      "sortData": "Quia voluptatem",
+                      "inResultset": true
+                    },
+                    "Quis asperiores": {
+                      "color": "#269fa1",
+                      "title": "Quis asperiores",
+                      "sortData": "Quis asperiores",
+                      "inResultset": true
+                    },
+                    "Quis explicabo": {
+                      "color": "#00cee6",
+                      "title": "Quis explicabo",
+                      "sortData": "Quis explicabo",
+                      "inResultset": true
+                    },
+                    "Quo magnam": {
+                      "color": "#9b9bd7",
+                      "title": "Quo magnam",
+                      "sortData": "Quo magnam",
+                      "inResultset": true
+                    },
+                    "Recusandae est": {
+                      "color": "#6eda55",
+                      "title": "Recusandae est",
+                      "sortData": "Recusandae est",
+                      "inResultset": true
+                    },
+                    "Rem sed": {
+                      "color": "#fc7570",
+                      "title": "Rem sed",
+                      "sortData": "Rem sed",
+                      "inResultset": true
+                    },
+                    "Rem soluta": {
+                      "color": "#fbb755",
+                      "title": "Rem soluta",
+                      "sortData": "Rem soluta",
+                      "inResultset": true
+                    },
+                    "Repellat ipsa": {
+                      "color": "#218a8c",
+                      "title": "Repellat ipsa",
+                      "sortData": "Repellat ipsa",
+                      "inResultset": true
+                    },
+                    "Similique vitae": {
+                      "color": "#06e5ff",
+                      "title": "Similique vitae",
+                      "sortData": "Similique vitae",
+                      "inResultset": true
+                    },
+                    "Sint qui": {
+                      "color": "#b2b2f7",
+                      "title": "Sint qui",
+                      "sortData": "Sint qui",
+                      "inResultset": true
+                    },
+                    "Sint ut": {
+                      "color": "#7efb62",
+                      "title": "Sint ut",
+                      "sortData": "Sint ut",
+                      "inResultset": true
+                    },
+                    "Sit corporis": {
+                      "color": "#ff8a86",
+                      "title": "Sit corporis",
+                      "sortData": "Sit corporis",
+                      "inResultset": true
+                    },
+                    "Sit esse": {
+                      "color": "#ffc26a",
+                      "title": "Sit esse",
+                      "sortData": "Sit esse",
+                      "inResultset": true
+                    },
+                    "Sunt possimus": {
+                      "color": "#269fa1",
+                      "title": "Sunt possimus",
+                      "sortData": "Sunt possimus",
+                      "inResultset": true
+                    },
+                    "Sunt sed": {
+                      "color": "#00cee6",
+                      "title": "Sunt sed",
+                      "sortData": "Sunt sed",
+                      "inResultset": true
+                    },
+                    "Temporibus quod": {
+                      "color": "#9b9bd7",
+                      "title": "Temporibus quod",
+                      "sortData": "Temporibus quod",
+                      "inResultset": true
+                    },
+                    "Ut ad": {
+                      "color": "#6eda55",
+                      "title": "Ut ad",
+                      "sortData": "Ut ad",
+                      "inResultset": true
+                    },
+                    "Ut aut": {
+                      "color": "#fc7570",
+                      "title": "Ut aut",
+                      "sortData": "Ut aut",
+                      "inResultset": true
+                    },
+                    "Ut praesentium": {
+                      "color": "#fbb755",
+                      "title": "Ut praesentium",
+                      "sortData": "Ut praesentium",
+                      "inResultset": true
+                    },
+                    "Vel dolor": {
+                      "color": "#218a8c",
+                      "title": "Vel dolor",
+                      "sortData": "Vel dolor",
+                      "inResultset": true
+                    },
+                    "Vel doloremque": {
+                      "color": "#06e5ff",
+                      "title": "Vel doloremque",
+                      "sortData": "Vel doloremque",
+                      "inResultset": true
+                    },
+                    "Veritatis mollitia": {
+                      "color": "#b2b2f7",
+                      "title": "Veritatis mollitia",
+                      "sortData": "Veritatis mollitia",
+                      "inResultset": true
+                    },
+                    "Vero fugiat": {
+                      "color": "#7efb62",
+                      "title": "Vero fugiat",
+                      "sortData": "Vero fugiat",
+                      "inResultset": true
+                    },
+                    "Voluptas dolor": {
+                      "color": "#ff8a86",
+                      "title": "Voluptas dolor",
+                      "sortData": "Voluptas dolor",
+                      "inResultset": true
+                    },
+                    "Amet odit": {
+                      "color": "#ffc26a",
+                      "title": "Amet odit",
+                      "sortData": "Amet odit",
+                      "inResultset": true
+                    },
+                    "Aut porro": {
+                      "color": "#269fa1",
+                      "title": "Aut porro",
+                      "sortData": "Aut porro",
+                      "inResultset": true
+                    },
+                    "Ducimus harum": {
+                      "color": "#00cee6",
+                      "title": "Ducimus harum",
+                      "sortData": "Ducimus harum",
+                      "inResultset": true
+                    },
+                    "Omnis reiciendis": {
+                      "color": "#9b9bd7",
+                      "title": "Omnis reiciendis",
+                      "sortData": "Omnis reiciendis",
+                      "inResultset": true
+                    },
+                    "Ratione accusantium": {
+                      "color": "#6eda55",
+                      "title": "Ratione accusantium",
+                      "sortData": "Ratione accusantium",
+                      "inResultset": true
+                    },
+                    "Similique officia": {
+                      "color": "#fc7570",
+                      "title": "Similique officia",
+                      "sortData": "Similique officia",
+                      "inResultset": true
+                    },
+                    "Tempore inventore": {
+                      "color": "#fbb755",
+                      "title": "Tempore inventore",
+                      "sortData": "Tempore inventore",
+                      "inResultset": true
+                    },
+                    "Temporibus voluptatem": {
+                      "color": "#218a8c",
+                      "title": "Temporibus voluptatem",
+                      "sortData": "Temporibus voluptatem",
+                      "inResultset": true
+                    },
+                    "Ut reiciendis": {
+                      "color": "#06e5ff",
+                      "title": "Ut reiciendis",
+                      "sortData": "Ut reiciendis",
+                      "inResultset": true
+                    },
+                    "Incidunt earum": {
+                      "color": "#b2b2f7",
+                      "title": "Incidunt earum",
+                      "sortData": "Incidunt earum",
+                      "inResultset": true
+                    },
+                    "Ut et": {
+                      "color": "#7efb62",
+                      "title": "Ut et",
+                      "sortData": "Ut et",
+                      "inResultset": true
+                    },
+                    "Vel quos": {
+                      "color": "#ff8a86",
+                      "title": "Vel quos",
+                      "sortData": "Vel quos",
+                      "inResultset": true
+                    },
+                    "Nulla placeat": {
+                      "color": "#ffc26a",
+                      "title": "Nulla placeat",
+                      "sortData": "Nulla placeat",
+                      "inResultset": true
+                    },
+                    "Illum pariatur": {
+                      "color": "#269fa1",
+                      "title": "Illum pariatur",
+                      "sortData": "Illum pariatur",
+                      "inResultset": true
+                    },
+                    "Modi tempore": {
+                      "color": "#00cee6",
+                      "title": "Modi tempore",
+                      "sortData": "Modi tempore",
+                      "inResultset": true
+                    },
+                    "Ratione iste": {
+                      "color": "#9b9bd7",
+                      "title": "Ratione iste",
+                      "sortData": "Ratione iste",
+                      "inResultset": true
+                    },
+                    "Quia quaerat": {
+                      "color": "#6eda55",
+                      "title": "Quia quaerat",
+                      "sortData": "Quia quaerat",
+                      "inResultset": true
+                    },
+                    "Rerum sed": {
+                      "color": "#fc7570",
+                      "title": "Rerum sed",
+                      "sortData": "Rerum sed",
+                      "inResultset": true
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "filters",
+            "items": [
+              {
+                "jaql": {
+                  "dim": "[timesheets.csv.Begin (Calendar)]",
+                  "datatype": "datetime",
+                  "merged": true,
+                  "level": "days",
+                  "filter": {
+                    "explicit": false,
+                    "multiSelection": true,
+                    "all": true
+                  },
+                  "collapsed": true,
+                  "datasource": {
+                    "fullname": "localhost/Marks Sample Kimai Data",
+                    "id": "localhost_aMarksIAAaSampleIAAaKimaiIAAaData",
+                    "address": "LocalHost",
+                    "database": "aMarksIAAaSampleIAAaKimaiIAAaData",
+                    "live": false,
+                    "title": "Marks Sample Kimai Data"
+                  },
+                  "title": "Days in Begin"
+                },
+                "format": {
+                  "mask": {
+                    "years": "yyyy",
+                    "quarters": "yyyy Q",
+                    "months": "MM/yyyy",
+                    "weeks": "ww yyyy",
+                    "days": "shortDate",
+                    "minutes": "HH:mm",
+                    "isdefault": true
+                  }
+                }
+              },
+              {
+                "jaql": {
+                  "dim": "[timesheets.csv.End (Calendar)]",
+                  "datatype": "datetime",
+                  "merged": true,
+                  "level": "days",
+                  "filter": {
+                    "explicit": false,
+                    "multiSelection": true,
+                    "all": true
+                  },
+                  "collapsed": true,
+                  "datasource": {
+                    "fullname": "localhost/Marks Sample Kimai Data",
+                    "id": "localhost_aMarksIAAaSampleIAAaKimaiIAAaData",
+                    "address": "LocalHost",
+                    "database": "aMarksIAAaSampleIAAaKimaiIAAaData",
+                    "live": false,
+                    "title": "Marks Sample Kimai Data"
+                  },
+                  "title": "Days in End"
+                },
+                "format": {
+                  "mask": {
+                    "years": "yyyy",
+                    "quarters": "yyyy Q",
+                    "months": "MM/yyyy",
+                    "weeks": "ww yyyy",
+                    "days": "shortDate",
+                    "minutes": "HH:mm",
+                    "isdefault": true
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "tenantId": "5fe93f4930f262001aca7dd7",
+      "type": "chart/bar",
+      "style": {
+        "legend": {
+          "enabled": true,
+          "position": "bottom"
+        },
+        "seriesLabels": {
+          "enabled": false,
+          "rotation": 0,
+          "labels": {
+            "enabled": true,
+            "types": {
+              "count": false,
+              "percentage": false,
+              "relative": false,
+              "totals": false
+            },
+            "stacked": true,
+            "stackedPercentage": false
+          }
+        },
+        "xAxis": {
+          "enabled": true,
+          "ticks": true,
+          "labels": {
+            "enabled": true,
+            "rotation": 0
+          },
+          "title": {
+            "enabled": false
+          },
+          "x2Title": {
+            "enabled": false
+          },
+          "gridLines": true,
+          "isIntervalEnabled": false
+        },
+        "yAxis": {
+          "inactive": false,
+          "enabled": true,
+          "ticks": true,
+          "labels": {
+            "enabled": true,
+            "rotation": 0
+          },
+          "title": {
+            "enabled": false
+          },
+          "gridLines": true,
+          "logarithmic": false,
+          "isIntervalEnabled": true,
+          "hideMinMax": false
+        },
+        "y2Axis": {
+          "inactive": true,
+          "enabled": true,
+          "ticks": true,
+          "labels": {
+            "enabled": true,
+            "rotation": 0
+          },
+          "title": {
+            "enabled": false
+          },
+          "gridLines": false,
+          "logarithmic": false,
+          "isIntervalEnabled": true,
+          "hideMinMax": false
+        },
+        "dataLimits": {
+          "seriesCapacity": 50,
+          "categoriesCapacity": 100000
+        },
+        "navigator": {
+          "enabled": true
+        },
+        "narration": {
+          "enabled": false,
+          "display": "above",
+          "format": "bullets",
+          "verbosity": "medium",
+          "up_sentiment": "good",
+          "aggregation": "sum",
+          "labels": [
+            {
+              "id": "alias",
+              "title": "Alias",
+              "singular": "Alias",
+              "plural": "Alias"
+            },
+            {
+              "id": "project_name",
+              "title": "Project Name",
+              "singular": "Project Name",
+              "plural": "Project Name"
+            },
+            {
+              "id": "days_in_begin",
+              "title": "Days in Begin",
+              "singular": "Days in Begin",
+              "plural": "Days in Begin"
+            },
+            {
+              "id": "days_in_end",
+              "title": "Days in End",
+              "singular": "Days in End",
+              "plural": "Days in End"
+            }
+          ]
+        }
+      },
+      "instanceid": "6D38D-5099-8B",
+      "queryStartTime": "2021-10-19T21:30:34",
+      "disableSelctor": false,
+      "widgetTimingLoged": false,
+      "continuousDates": false,
+      "nullAsZero": false,
+      "forcedRedraw": false,
+      "hasExcessiveSeries": true,
+      "drillToDashboardConfig": {
+        "drilledDashboardPrefix": "_drill",
+        "drilledDashboardsFolderPrefix": "",
+        "displayFilterPane": true,
+        "displayDashboardsPane": true,
+        "displayToolbarRow": true,
+        "displayHeaderRow": true,
+        "volatile": false,
+        "hideDrilledDashboards": true,
+        "hideSharedDashboardsForNonOwner": true,
+        "drillToDashboardMenuCaption": "Jump to dashboard",
+        "drillToDashboardRightMenuCaption": "Jump to ",
+        "drillToDashboardNavigateType": 1,
+        "drillToDashboardNavigateTypePivot": 2,
+        "drillToDashboardNavigateTypeCharts": 1,
+        "drillToDashboardNavigateTypeOthers": 3,
+        "excludeFilterDims": [],
+        "includeFilterDims": [],
+        "drilledDashboardDisplayType": 2,
+        "dashboardIds": [],
+        "modalWindowResize": false,
+        "showFolderNameOnMenuSelection": false,
+        "resetDashFiltersAfterJTD": false,
+        "sameCubeRestriction": true,
+        "showJTDIcon": true,
+        "sendPieChartMeasureFiltersOnClick": true,
+        "forceZeroInsteadNull": false,
+        "mergeTargetDashboardFilters": false,
+        "drillToDashboardByName": false
+      },
+      "realTimeRefreshing": false,
+      "drawing": true,
+      "options": {
+        "dashboardFiltersMode": "filter",
+        "selector": true,
+        "triggersDomready": true,
+        "autoUpdateOnEveryChange": true,
+        "drillToAnywhere": true,
+        "previousScrollerLocation": {
+          "min": 0,
+          "max": 14
+        },
+        "selectorLocked": false
+      },
+      "dashboardid": "616f0eae6cd370003517023c",
+      "canEditFilters": true,
+      "viewState": {
+        "activeTab": "filters"
+      }
+    },
+    {
+      "title": "",
+      "subtype": "pivot2",
+      "oid": "616f0fa66cd3700035170241",
+      "desc": null,
+      "source": null,
+      "datasource": {
+        "fullname": "localhost/Marks Sample Kimai Data",
+        "id": "localhost_aMarksIAAaSampleIAAaKimaiIAAaData",
+        "address": "LocalHost",
+        "database": "aMarksIAAaSampleIAAaKimaiIAAaData",
+        "live": false,
+        "title": "Marks Sample Kimai Data"
+      },
+      "selection": null,
+      "metadata": {
+        "ignore": {
+          "dimensions": [],
+          "ids": [],
+          "all": false
+        },
+        "panels": [
+          {
+            "name": "rows",
+            "items": [
+              {
+                "jaql": {
+                  "dim": "[user.csv.Username]",
+                  "datatype": "text",
+                  "merged": true,
+                  "title": "Username"
+                },
+                "field": {
+                  "id": "[user.csv.Username]",
+                  "index": 0
+                },
+                "panel": "rows"
+              },
+              {
+                "jaql": {
+                  "dim": "[user.csv.Alias]",
+                  "datatype": "text",
+                  "merged": true,
+                  "title": "Alias"
+                },
+                "panel": "rows",
+                "field": {
+                  "id": "[user.csv.Alias]",
+                  "index": 1
+                }
+              }
+            ]
+          },
+          {
+            "name": "values",
+            "items": []
+          },
+          {
+            "name": "columns",
+            "items": []
+          },
+          {
+            "name": "filters",
+            "items": []
+          }
+        ]
+      },
+      "tenantId": "5fe93f4930f262001aca7dd7",
+      "type": "pivot2",
+      "style": {
+        "scroll": false,
+        "pageSize": 25,
+        "automaticHeight": true,
+        "colors": {
+          "rows": true,
+          "columns": false,
+          "headers": false,
+          "members": false,
+          "totals": false
+        }
+      },
+      "instanceid": "1D28D-A276-BE",
+      "queryStartTime": "2021-10-19T20:34:05",
+      "drawing": true,
+      "widgetTimingLoged": false,
+      "drillToDashboardConfig": {
+        "drilledDashboardPrefix": "_drill",
+        "drilledDashboardsFolderPrefix": "",
+        "displayFilterPane": true,
+        "displayDashboardsPane": true,
+        "displayToolbarRow": true,
+        "displayHeaderRow": true,
+        "volatile": false,
+        "hideDrilledDashboards": true,
+        "hideSharedDashboardsForNonOwner": true,
+        "drillToDashboardMenuCaption": "Jump to dashboard",
+        "drillToDashboardRightMenuCaption": "Jump to ",
+        "drillToDashboardNavigateType": 2,
+        "drillToDashboardNavigateTypePivot": 2,
+        "drillToDashboardNavigateTypeCharts": 1,
+        "drillToDashboardNavigateTypeOthers": 3,
+        "excludeFilterDims": [],
+        "includeFilterDims": [],
+        "drilledDashboardDisplayType": 2,
+        "dashboardIds": [],
+        "modalWindowResize": false,
+        "showFolderNameOnMenuSelection": false,
+        "resetDashFiltersAfterJTD": false,
+        "sameCubeRestriction": true,
+        "showJTDIcon": true,
+        "sendPieChartMeasureFiltersOnClick": true,
+        "forceZeroInsteadNull": false,
+        "mergeTargetDashboardFilters": false,
+        "drillToDashboardByName": false
+      },
+      "realTimeRefreshing": false,
+      "options": {
+        "dashboardFiltersMode": "filter",
+        "selector": false,
+        "triggersDomready": true,
+        "drillToAnywhere": true
+      },
+      "dashboardid": "616f0eae6cd370003517023c"
+    },
+    {
+      "title": "",
+      "subtype": "bar/classic",
+      "oid": "616f1a006cd3700035170249",
+      "desc": null,
+      "source": null,
+      "datasource": {
+        "fullname": "localhost/Marks Sample Kimai Data",
+        "id": "localhost_aMarksIAAaSampleIAAaKimaiIAAaData",
+        "address": "LocalHost",
+        "database": "aMarksIAAaSampleIAAaKimaiIAAaData",
+        "live": false,
+        "title": "Marks Sample Kimai Data"
+      },
+      "selection": null,
+      "metadata": {
+        "ignore": {
+          "dimensions": [],
+          "ids": [],
+          "all": false
+        },
+        "panels": [
+          {
+            "name": "categories",
+            "items": [
+              {
+                "jaql": {
+                  "dim": "[user.csv.Alias]",
+                  "datatype": "text",
+                  "merged": true,
+                  "title": "Alias"
+                }
+              }
+            ]
+          },
+          {
+            "name": "values",
+            "items": [
+              {
+                "jaql": {
+                  "dim": "[timesheets.csv.Duration]",
+                  "datatype": "numeric",
+                  "agg": "sum",
+                  "title": "Total Duration"
+                },
+                "format": {
+                  "mask": {
+                    "type": "number",
+                    "abbreviations": {
+                      "t": true,
+                      "b": true,
+                      "m": true,
+                      "k": true
+                    },
+                    "separated": true,
+                    "decimals": "auto",
+                    "isdefault": true
+                  },
+                  "color_bkp": {
+                    "color": "#9b9bd7",
+                    "type": "color"
+                  },
+                  "color": {
+                    "color": "#9b9bd7",
+                    "type": "color"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "break by",
+            "items": []
+          },
+          {
+            "name": "filters",
+            "items": []
+          }
+        ]
+      },
+      "tenantId": "5fe93f4930f262001aca7dd7",
+      "type": "chart/bar",
+      "style": {
+        "legend": {
+          "enabled": true,
+          "position": "bottom"
+        },
+        "seriesLabels": {
+          "enabled": false,
+          "rotation": 0,
+          "labels": {
+            "enabled": false,
+            "types": {
+              "count": false,
+              "percentage": false,
+              "relative": false,
+              "totals": false
+            },
+            "stacked": false,
+            "stackedPercentage": false
+          }
+        },
+        "xAxis": {
+          "enabled": true,
+          "ticks": true,
+          "labels": {
+            "enabled": true,
+            "rotation": 0
+          },
+          "title": {
+            "enabled": false
+          },
+          "x2Title": {
+            "enabled": false
+          },
+          "gridLines": true,
+          "isIntervalEnabled": false
+        },
+        "yAxis": {
+          "inactive": false,
+          "enabled": true,
+          "ticks": true,
+          "labels": {
+            "enabled": true,
+            "rotation": 0
+          },
+          "title": {
+            "enabled": false
+          },
+          "gridLines": true,
+          "logarithmic": false,
+          "isIntervalEnabled": true,
+          "hideMinMax": false
+        },
+        "y2Axis": {
+          "inactive": true,
+          "enabled": true,
+          "ticks": true,
+          "labels": {
+            "enabled": true,
+            "rotation": 0
+          },
+          "title": {
+            "enabled": false
+          },
+          "gridLines": false,
+          "logarithmic": false,
+          "isIntervalEnabled": true,
+          "hideMinMax": false
+        },
+        "dataLimits": {
+          "seriesCapacity": 50,
+          "categoriesCapacity": 100000
+        },
+        "navigator": {
+          "enabled": true
+        },
+        "narration": {
+          "enabled": false,
+          "display": "above",
+          "format": "bullets",
+          "verbosity": "medium",
+          "up_sentiment": "good",
+          "aggregation": "sum",
+          "labels": [
+            {
+              "id": "alias",
+              "title": "Alias",
+              "singular": "Alias",
+              "plural": "Alias"
+            }
+          ]
+        }
+      },
+      "instanceid": "A609F-9C94-03",
+      "queryStartTime": "2021-10-19T21:30:34",
+      "disableSelctor": false,
+      "widgetTimingLoged": false,
+      "continuousDates": false,
+      "nullAsZero": false,
+      "forcedRedraw": false,
+      "hasExcessiveSeries": false,
+      "drillToDashboardConfig": {
+        "drilledDashboardPrefix": "_drill",
+        "drilledDashboardsFolderPrefix": "",
+        "displayFilterPane": true,
+        "displayDashboardsPane": true,
+        "displayToolbarRow": true,
+        "displayHeaderRow": true,
+        "volatile": false,
+        "hideDrilledDashboards": true,
+        "hideSharedDashboardsForNonOwner": true,
+        "drillToDashboardMenuCaption": "Jump to dashboard",
+        "drillToDashboardRightMenuCaption": "Jump to ",
+        "drillToDashboardNavigateType": 1,
+        "drillToDashboardNavigateTypePivot": 2,
+        "drillToDashboardNavigateTypeCharts": 1,
+        "drillToDashboardNavigateTypeOthers": 3,
+        "excludeFilterDims": [],
+        "includeFilterDims": [],
+        "drilledDashboardDisplayType": 2,
+        "dashboardIds": [],
+        "modalWindowResize": false,
+        "showFolderNameOnMenuSelection": false,
+        "resetDashFiltersAfterJTD": false,
+        "sameCubeRestriction": true,
+        "showJTDIcon": true,
+        "sendPieChartMeasureFiltersOnClick": true,
+        "forceZeroInsteadNull": false,
+        "mergeTargetDashboardFilters": false,
+        "drillToDashboardByName": false
+      },
+      "realTimeRefreshing": false,
+      "drawing": true,
+      "options": {
+        "dashboardFiltersMode": "select",
+        "selector": true,
+        "triggersDomready": true,
+        "autoUpdateOnEveryChange": true,
+        "drillToAnywhere": true,
+        "previousScrollerLocation": {
+          "min": 0,
+          "max": 7
+        },
+        "selectorLocked": false
+      },
+      "dashboardid": "616f0eae6cd370003517023c"
+    },
+    {
+      "title": "",
+      "subtype": "bar/stacked",
+      "oid": "616f1a886cd3700035170251",
+      "desc": null,
+      "source": null,
+      "datasource": {
+        "fullname": "localhost/Marks Sample Kimai Data",
+        "id": "localhost_aMarksIAAaSampleIAAaKimaiIAAaData",
+        "address": "LocalHost",
+        "database": "aMarksIAAaSampleIAAaKimaiIAAaData",
+        "live": false,
+        "title": "Marks Sample Kimai Data"
+      },
+      "selection": null,
+      "metadata": {
+        "ignore": {
+          "dimensions": [],
+          "ids": [],
+          "all": false
+        },
+        "panels": [
+          {
+            "name": "categories",
+            "items": [
+              {
+                "jaql": {
+                  "dim": "[user.csv.Alias]",
+                  "datatype": "text",
+                  "merged": true,
+                  "title": "Alias"
+                },
+                "format": {
+                  "members": {
+                    "N\\A": {
+                      "color": "#00cee6",
+                      "title": "N\\A",
+                      "sortData": "N\\A"
+                    },
+                    "Adolph Lind Jr%46": {
+                      "color": "#9b9bd7",
+                      "title": "Adolph Lind Jr.",
+                      "sortData": "Adolph Lind Jr."
+                    },
+                    "Anna Smith": {
+                      "color": "#6EDA55",
+                      "title": "Anna Smith",
+                      "sortData": "Anna Smith"
+                    },
+                    "Calista Fadel": {
+                      "color": "#fc7570",
+                      "title": "Calista Fadel",
+                      "sortData": "Calista Fadel"
+                    },
+                    "Chasity Von": {
+                      "color": "#fbb755",
+                      "title": "Chasity Von",
+                      "sortData": "Chasity Von"
+                    },
+                    "Cornell Nienow": {
+                      "color": "#218A8C",
+                      "title": "Cornell Nienow",
+                      "sortData": "Cornell Nienow"
+                    },
+                    "Dillan Stoltenberg Sr%46": {
+                      "color": "#06e5ff",
+                      "title": "Dillan Stoltenberg Sr.",
+                      "sortData": "Dillan Stoltenberg Sr.",
+                      "inResultset": true
+                    },
+                    "Dolly Bechtelar": {
+                      "color": "#b2b2f7",
+                      "title": "Dolly Bechtelar",
+                      "sortData": "Dolly Bechtelar"
+                    },
+                    "Dr%46 Fatima Block": {
+                      "color": "#7efb62",
+                      "title": "Dr. Fatima Block",
+                      "sortData": "Dr. Fatima Block",
+                      "inResultset": true
+                    },
+                    "Earline Wolff": {
+                      "color": "#ff8a86",
+                      "title": "Earline Wolff",
+                      "sortData": "Earline Wolff"
+                    },
+                    "Fletcher Kunze": {
+                      "color": "#ffc26a",
+                      "title": "Fletcher Kunze",
+                      "sortData": "Fletcher Kunze",
+                      "inResultset": true
+                    },
+                    "Jed Cremin": {
+                      "color": "#269fa1",
+                      "title": "Jed Cremin",
+                      "sortData": "Jed Cremin"
+                    },
+                    "John Doe": {
+                      "color": "#00cee6",
+                      "title": "John Doe",
+                      "sortData": "John Doe"
+                    },
+                    "Kyle Beier": {
+                      "color": "#9b9bd7",
+                      "title": "Kyle Beier",
+                      "sortData": "Kyle Beier",
+                      "inResultset": true
+                    },
+                    "Lavada Bergnaum": {
+                      "color": "#6eda55",
+                      "title": "Lavada Bergnaum",
+                      "sortData": "Lavada Bergnaum"
+                    },
+                    "Lucius Zboncak": {
+                      "color": "#fc7570",
+                      "title": "Lucius Zboncak",
+                      "sortData": "Lucius Zboncak",
+                      "inResultset": true
+                    },
+                    "Marianne Emard": {
+                      "color": "#fbb755",
+                      "title": "Marianne Emard",
+                      "sortData": "Marianne Emard",
+                      "inResultset": true
+                    },
+                    "Maymie Lakin": {
+                      "color": "#218a8c",
+                      "title": "Maymie Lakin",
+                      "sortData": "Maymie Lakin"
+                    },
+                    "Mr%46 Camryn Wunsch": {
+                      "color": "#06e5ff",
+                      "title": "Mr. Camryn Wunsch",
+                      "sortData": "Mr. Camryn Wunsch",
+                      "inResultset": true
+                    },
+                    "Mrs%46 Carolanne Borer": {
+                      "color": "#b2b2f7",
+                      "title": "Mrs. Carolanne Borer",
+                      "sortData": "Mrs. Carolanne Borer",
+                      "inResultset": true
+                    },
+                    "Ms%46 Kayli Dicki MD": {
+                      "color": "#7efb62",
+                      "title": "Ms. Kayli Dicki MD",
+                      "sortData": "Ms. Kayli Dicki MD"
+                    },
+                    "Ms%46 Naomi Bauch": {
+                      "color": "#ff8a86",
+                      "title": "Ms. Naomi Bauch",
+                      "sortData": "Ms. Naomi Bauch",
+                      "inResultset": true
+                    },
+                    "Ozella Veum": {
+                      "color": "#ffc26a",
+                      "title": "Ozella Veum",
+                      "sortData": "Ozella Veum"
+                    },
+                    "Price Koepp": {
+                      "color": "#269fa1",
+                      "title": "Price Koepp",
+                      "sortData": "Price Koepp",
+                      "inResultset": true
+                    },
+                    "Roman Howell": {
+                      "color": "#00cee6",
+                      "title": "Roman Howell",
+                      "sortData": "Roman Howell",
+                      "inResultset": true
+                    },
+                    "Santa Luettgen": {
+                      "color": "#9b9bd7",
+                      "title": "Santa Luettgen",
+                      "sortData": "Santa Luettgen",
+                      "inResultset": true
+                    },
+                    "Thea Hermann II": {
+                      "color": "#6eda55",
+                      "title": "Thea Hermann II",
+                      "sortData": "Thea Hermann II",
+                      "inResultset": true
+                    },
+                    "Tony Maier": {
+                      "color": "#fc7570",
+                      "title": "Tony Maier",
+                      "sortData": "Tony Maier",
+                      "inResultset": true
+                    },
+                    "Vada Rutherford": {
+                      "color": "#fbb755",
+                      "title": "Vada Rutherford",
+                      "sortData": "Vada Rutherford",
+                      "inResultset": true
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "values",
+            "items": [
+              {
+                "jaql": {
+                  "dim": "[timesheets.csv.DurationAsHours]",
+                  "datatype": "numeric",
+                  "agg": "sum",
+                  "title": "Total DurationAsHours"
+                },
+                "format": {
+                  "mask": {
+                    "type": "number",
+                    "abbreviations": {
+                      "t": true,
+                      "b": true,
+                      "m": true,
+                      "k": true
+                    },
+                    "separated": true,
+                    "decimals": "auto",
+                    "isdefault": true
+                  },
+                  "color_bkp": {
+                    "color": "#00cee6",
+                    "type": "color"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "break by",
+            "items": [
+              {
+                "jaql": {
+                  "dim": "[customers.csv.Customer Name]",
+                  "datatype": "text",
+                  "merged": true,
+                  "title": "Customer Name"
+                },
+                "format": {
+                  "members": {
+                    "Bernier PLC": {
+                      "color": "#00cee6",
+                      "title": "Bernier PLC",
+                      "sortData": "Bernier PLC",
+                      "inResultset": true
+                    },
+                    "Dietrich Group": {
+                      "color": "#9b9bd7",
+                      "title": "Dietrich Group",
+                      "sortData": "Dietrich Group",
+                      "inResultset": true
+                    },
+                    "Doyle, Ritchie and Spinka": {
+                      "color": "#6EDA55",
+                      "title": "Doyle, Ritchie and Spinka",
+                      "sortData": "Doyle, Ritchie and Spinka",
+                      "inResultset": true
+                    },
+                    "Frami and Sons": {
+                      "color": "#fc7570",
+                      "title": "Frami and Sons",
+                      "sortData": "Frami and Sons",
+                      "inResultset": true
+                    },
+                    "Hagenes Ltd": {
+                      "color": "#fbb755",
+                      "title": "Hagenes Ltd",
+                      "sortData": "Hagenes Ltd",
+                      "inResultset": true
+                    },
+                    "Ortiz-Dickinson": {
+                      "color": "#218A8C",
+                      "title": "Ortiz-Dickinson",
+                      "sortData": "Ortiz-Dickinson",
+                      "inResultset": true
+                    },
+                    "Pfeffer Ltd": {
+                      "color": "#06e5ff",
+                      "title": "Pfeffer Ltd",
+                      "sortData": "Pfeffer Ltd",
+                      "inResultset": true
+                    },
+                    "Sawayn-Grady": {
+                      "color": "#b2b2f7",
+                      "title": "Sawayn-Grady",
+                      "sortData": "Sawayn-Grady",
+                      "inResultset": true
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "filters",
+            "items": [
+              {
+                "jaql": {
+                  "dim": "[timesheets.csv.Begin (Calendar)]",
+                  "datatype": "datetime",
+                  "merged": true,
+                  "level": "days",
+                  "filter": {
+                    "explicit": false,
+                    "multiSelection": true,
+                    "all": true
+                  },
+                  "collapsed": true,
+                  "datasource": {
+                    "fullname": "localhost/Marks Sample Kimai Data",
+                    "id": "localhost_aMarksIAAaSampleIAAaKimaiIAAaData",
+                    "address": "LocalHost",
+                    "database": "aMarksIAAaSampleIAAaKimaiIAAaData",
+                    "live": false,
+                    "title": "Marks Sample Kimai Data"
+                  },
+                  "title": "Days in Begin"
+                },
+                "format": {
+                  "mask": {
+                    "years": "yyyy",
+                    "quarters": "yyyy Q",
+                    "months": "MM/yyyy",
+                    "weeks": "ww yyyy",
+                    "days": "shortDate",
+                    "minutes": "HH:mm",
+                    "isdefault": true
+                  }
+                }
+              },
+              {
+                "jaql": {
+                  "dim": "[timesheets.csv.End (Calendar)]",
+                  "datatype": "datetime",
+                  "merged": true,
+                  "level": "days",
+                  "filter": {
+                    "explicit": false,
+                    "multiSelection": true,
+                    "all": true
+                  },
+                  "collapsed": true,
+                  "datasource": {
+                    "fullname": "localhost/Marks Sample Kimai Data",
+                    "id": "localhost_aMarksIAAaSampleIAAaKimaiIAAaData",
+                    "address": "LocalHost",
+                    "database": "aMarksIAAaSampleIAAaKimaiIAAaData",
+                    "live": false,
+                    "title": "Marks Sample Kimai Data"
+                  },
+                  "title": "Days in End"
+                },
+                "format": {
+                  "mask": {
+                    "years": "yyyy",
+                    "quarters": "yyyy Q",
+                    "months": "MM/yyyy",
+                    "weeks": "ww yyyy",
+                    "days": "shortDate",
+                    "minutes": "HH:mm",
+                    "isdefault": true
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "tenantId": "5fe93f4930f262001aca7dd7",
+      "type": "chart/bar",
+      "style": {
+        "legend": {
+          "enabled": true,
+          "position": "bottom"
+        },
+        "seriesLabels": {
+          "enabled": false,
+          "rotation": 0,
+          "labels": {
+            "enabled": true,
+            "types": {
+              "count": false,
+              "percentage": false,
+              "relative": false,
+              "totals": false
+            },
+            "stacked": true,
+            "stackedPercentage": false
+          }
+        },
+        "xAxis": {
+          "enabled": true,
+          "ticks": true,
+          "labels": {
+            "enabled": true,
+            "rotation": 0
+          },
+          "title": {
+            "enabled": false
+          },
+          "x2Title": {
+            "enabled": false
+          },
+          "gridLines": true,
+          "isIntervalEnabled": false
+        },
+        "yAxis": {
+          "inactive": false,
+          "enabled": true,
+          "ticks": true,
+          "labels": {
+            "enabled": true,
+            "rotation": 0
+          },
+          "title": {
+            "enabled": false
+          },
+          "gridLines": true,
+          "logarithmic": false,
+          "isIntervalEnabled": true,
+          "hideMinMax": false
+        },
+        "y2Axis": {
+          "inactive": true,
+          "enabled": true,
+          "ticks": true,
+          "labels": {
+            "enabled": true,
+            "rotation": 0
+          },
+          "title": {
+            "enabled": false
+          },
+          "gridLines": false,
+          "logarithmic": false,
+          "isIntervalEnabled": true,
+          "hideMinMax": false
+        },
+        "dataLimits": {
+          "seriesCapacity": 50,
+          "categoriesCapacity": 100000
+        },
+        "navigator": {
+          "enabled": true
+        },
+        "narration": {
+          "enabled": false,
+          "display": "above",
+          "format": "bullets",
+          "verbosity": "medium",
+          "up_sentiment": "good",
+          "aggregation": "sum",
+          "labels": [
+            {
+              "id": "alias",
+              "title": "Alias",
+              "singular": "Alias",
+              "plural": "Alias"
+            },
+            {
+              "id": "customer_name",
+              "title": "Customer Name",
+              "singular": "Customer Name",
+              "plural": "Customer Name"
+            },
+            {
+              "id": "days_in_begin",
+              "title": "Days in Begin",
+              "singular": "Days in Begin",
+              "plural": "Days in Begin"
+            },
+            {
+              "id": "days_in_end",
+              "title": "Days in End",
+              "singular": "Days in End",
+              "plural": "Days in End"
+            }
+          ]
+        }
+      },
+      "instanceid": "6D38D-5099-8B",
+      "queryStartTime": "2021-10-19T21:30:34",
+      "disableSelctor": false,
+      "widgetTimingLoged": false,
+      "continuousDates": false,
+      "nullAsZero": false,
+      "forcedRedraw": false,
+      "hasExcessiveSeries": false,
+      "drillToDashboardConfig": {
+        "drilledDashboardPrefix": "_drill",
+        "drilledDashboardsFolderPrefix": "",
+        "displayFilterPane": true,
+        "displayDashboardsPane": true,
+        "displayToolbarRow": true,
+        "displayHeaderRow": true,
+        "volatile": false,
+        "hideDrilledDashboards": true,
+        "hideSharedDashboardsForNonOwner": true,
+        "drillToDashboardMenuCaption": "Jump to dashboard",
+        "drillToDashboardRightMenuCaption": "Jump to ",
+        "drillToDashboardNavigateType": 1,
+        "drillToDashboardNavigateTypePivot": 2,
+        "drillToDashboardNavigateTypeCharts": 1,
+        "drillToDashboardNavigateTypeOthers": 3,
+        "excludeFilterDims": [],
+        "includeFilterDims": [],
+        "drilledDashboardDisplayType": 2,
+        "dashboardIds": [],
+        "modalWindowResize": false,
+        "showFolderNameOnMenuSelection": false,
+        "resetDashFiltersAfterJTD": false,
+        "sameCubeRestriction": true,
+        "showJTDIcon": true,
+        "sendPieChartMeasureFiltersOnClick": true,
+        "forceZeroInsteadNull": false,
+        "mergeTargetDashboardFilters": false,
+        "drillToDashboardByName": false
+      },
+      "realTimeRefreshing": false,
+      "canEditFilters": true,
+      "viewState": {
+        "activeTab": "design"
+      },
+      "options": {
+        "dashboardFiltersMode": "filter",
+        "selector": true,
+        "triggersDomready": true,
+        "autoUpdateOnEveryChange": true,
+        "drillToAnywhere": true,
+        "previousScrollerLocation": {
+          "min": 0,
+          "max": 14
+        },
+        "selectorLocked": false
+      },
+      "dashboardid": "616f0eae6cd370003517023c",
+      "drawing": true
+    },
+    {
+      "title": "",
+      "subtype": "pivot2",
+      "oid": "616f1c006cd3700035170255",
+      "desc": null,
+      "source": null,
+      "datasource": {
+        "fullname": "localhost/Marks Sample Kimai Data",
+        "id": "localhost_aMarksIAAaSampleIAAaKimaiIAAaData",
+        "address": "LocalHost",
+        "database": "aMarksIAAaSampleIAAaKimaiIAAaData",
+        "live": false,
+        "title": "Marks Sample Kimai Data"
+      },
+      "selection": null,
+      "metadata": {
+        "ignore": {
+          "dimensions": [],
+          "ids": [],
+          "all": false
+        },
+        "panels": [
+          {
+            "name": "rows",
+            "items": [
+              {
+                "jaql": {
+                  "dim": "[customers.csv.Customer Name]",
+                  "datatype": "text",
+                  "merged": true,
+                  "title": "Customer Name"
+                },
+                "field": {
+                  "id": "[customers.csv.Customer Name]",
+                  "index": 0
+                },
+                "panel": "rows"
+              },
+              {
+                "jaql": {
+                  "dim": "[projects.csv.Project Name]",
+                  "datatype": "text",
+                  "merged": true,
+                  "title": "Project Name"
+                },
+                "panel": "rows",
+                "field": {
+                  "id": "[projects.csv.Project Name]",
+                  "index": 1
+                }
+              }
+            ]
+          },
+          {
+            "name": "values",
+            "items": [
+              {
+                "jaql": {
+                  "dim": "[timesheets.csv.Rate]",
+                  "datatype": "numeric",
+                  "agg": "sum",
+                  "title": "Total Rate"
+                },
+                "field": {
+                  "id": "[timesheets.csv.Rate]_sum",
+                  "index": 4
+                },
+                "panel": "measures",
+                "format": {
+                  "mask": {
+                    "type": "number",
+                    "t": true,
+                    "b": true,
+                    "separated": true,
+                    "decimals": "auto",
+                    "isdefault": true
+                  },
+                  "color": {
+                    "type": "color",
+                    "color": "transparent"
+                  }
+                }
+              },
+              {
+                "jaql": {
+                  "dim": "[timesheets.csv.InternalRate]",
+                  "datatype": "numeric",
+                  "agg": "sum",
+                  "title": "Total InternalRate"
+                },
+                "panel": "measures",
+                "field": {
+                  "id": "[timesheets.csv.InternalRate]_sum",
+                  "index": 5
+                },
+                "format": {
+                  "mask": {
+                    "type": "number",
+                    "t": true,
+                    "b": true,
+                    "separated": true,
+                    "decimals": "auto",
+                    "isdefault": true
+                  },
+                  "color": {
+                    "type": "color",
+                    "color": "transparent"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "columns",
+            "items": [
+              {
+                "jaql": {
+                  "dim": "[user.csv.Username]",
+                  "datatype": "text",
+                  "merged": true,
+                  "title": "Username"
+                },
+                "panel": "columns",
+                "field": {
+                  "id": "[user.csv.Username]",
+                  "index": 2
+                }
+              },
+              {
+                "jaql": {
+                  "dim": "[teams.csv.Team Name]",
+                  "datatype": "text",
+                  "merged": true,
+                  "title": "Team Name"
+                },
+                "panel": "columns",
+                "field": {
+                  "id": "[teams.csv.Team Name]",
+                  "index": 3
+                }
+              }
+            ]
+          },
+          {
+            "name": "filters",
+            "items": []
+          }
+        ]
+      },
+      "tenantId": "5fe93f4930f262001aca7dd7",
+      "type": "pivot2",
+      "style": {
+        "scroll": false,
+        "pageSize": 25,
+        "automaticHeight": true,
+        "colors": {
+          "rows": true,
+          "columns": false,
+          "headers": false,
+          "members": false,
+          "totals": false
+        },
+        "narration": {
+          "enabled": false,
+          "display": "above",
+          "format": "bullets",
+          "verbosity": "medium",
+          "up_sentiment": "good",
+          "aggregation": "sum",
+          "labels": [
+            {
+              "id": "customer_name",
+              "title": "Customer Name",
+              "singular": "Customer Name",
+              "plural": "Customer Name"
+            },
+            {
+              "id": "project_name",
+              "title": "Project Name",
+              "singular": "Project Name",
+              "plural": "Project Name"
+            },
+            {
+              "id": "username",
+              "title": "Username",
+              "singular": "Username",
+              "plural": "Username"
+            },
+            {
+              "id": "team_name",
+              "title": "Team Name",
+              "singular": "Team Name",
+              "plural": "Team Name"
+            }
+          ]
+        }
+      },
+      "instanceid": "112A6-9AD2-1D",
+      "queryStartTime": "2021-10-19T21:26:06",
+      "appstate": "newwidget",
+      "widgetTimingLoged": false,
+      "drillToDashboardConfig": {
+        "drilledDashboardPrefix": "_drill",
+        "drilledDashboardsFolderPrefix": "",
+        "displayFilterPane": true,
+        "displayDashboardsPane": true,
+        "displayToolbarRow": true,
+        "displayHeaderRow": true,
+        "volatile": false,
+        "hideDrilledDashboards": true,
+        "hideSharedDashboardsForNonOwner": true,
+        "drillToDashboardMenuCaption": "Jump to dashboard",
+        "drillToDashboardRightMenuCaption": "Jump to ",
+        "drillToDashboardNavigateType": 2,
+        "drillToDashboardNavigateTypePivot": 2,
+        "drillToDashboardNavigateTypeCharts": 1,
+        "drillToDashboardNavigateTypeOthers": 3,
+        "excludeFilterDims": [],
+        "includeFilterDims": [],
+        "drilledDashboardDisplayType": 2,
+        "dashboardIds": [],
+        "modalWindowResize": false,
+        "showFolderNameOnMenuSelection": false,
+        "resetDashFiltersAfterJTD": false,
+        "sameCubeRestriction": true,
+        "showJTDIcon": true,
+        "sendPieChartMeasureFiltersOnClick": true,
+        "forceZeroInsteadNull": false,
+        "mergeTargetDashboardFilters": false,
+        "drillToDashboardByName": false
+      },
+      "realTimeRefreshing": false,
+      "drawing": true,
+      "options": {
+        "dashboardFiltersMode": "filter",
+        "selector": false,
+        "triggersDomready": true,
+        "drillToAnywhere": true,
+        "autoUpdateOnEveryChange": true
+      },
+      "dashboardid": "616f0eae6cd370003517023c"
+    }
+  ],
+  "hierarchies": []
+}
