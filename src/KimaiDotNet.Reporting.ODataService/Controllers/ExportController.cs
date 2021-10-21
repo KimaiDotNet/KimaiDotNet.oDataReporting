@@ -232,7 +232,7 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
         private FileInfo CreateTimesheetsFile(Kimai2APIDocs docs)
         {
             var url = "Timesheets";
-            IList<TimesheetCollection> timesheets = new List<TimesheetCollection>();
+            List<TimesheetCollection> timesheets = new List<TimesheetCollection>();
             //Dev handles checking if cache is expired
             if (!Barrel.Current.IsExpired(key: url))
             {
@@ -240,7 +240,12 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
             }
             else
             {
-                timesheets = docs.ListTimesheetsRecordsUsingGet();
+                var users = docs.ListUsersUsingGet();
+                foreach (var user in users)
+                {
+                    var usersTimesheets = docs.ListTimesheetsRecordsUsingGet(user: user.Id?.ToString(), size: "1000", orderBy: "id", order: "DESC");
+                    timesheets.AddRange(usersTimesheets);
+                }
                 //Saves the cache and pass it a timespan for expiration
                 TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
                 double secs = untilMidnight.TotalSeconds;
