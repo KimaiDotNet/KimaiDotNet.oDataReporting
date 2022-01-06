@@ -15,6 +15,8 @@
             public static readonly EventId WriteProjectCacheError = new EventId(10, "Could not write Project cache");
             public static readonly EventId ReadTeamCacheError = new EventId(11, "Could not read Team cache");
             public static readonly EventId WriteTeamCacheError = new EventId(12, "Could not write Team cache");
+            public static readonly EventId ReadTeamMembershipCacheError = new EventId(13, "Could not read TeamMembership cache");
+            public static readonly EventId WriteTeamMembershipCacheError = new EventId(14, "Could not write TeamMembership cache");
         }
     }
 }

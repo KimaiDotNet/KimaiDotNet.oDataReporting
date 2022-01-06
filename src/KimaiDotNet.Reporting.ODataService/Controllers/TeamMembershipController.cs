@@ -13,10 +13,12 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
 {
     public class TeamMembershipController : ControllerBase
     {
-        private readonly KimaiOptions _kimaiOptions;
-        public TeamMembershipController(IOptions<KimaiOptions> kimaiOptions)
+        private readonly KimaiOptions _kimaiOptions; 
+        private readonly ILogger<TeamMembershipController> _logger;
+        public TeamMembershipController(IOptions<KimaiOptions> kimaiOptions, ILogger<TeamMembershipController> logger)
         {
             _kimaiOptions = kimaiOptions.Value;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -24,10 +26,17 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
         public IActionResult Get(CancellationToken token)
         {
             var url = "TeamMembership";
-            //Dev handles checking if cache is expired
-            if (!Barrel.Current.IsExpired(key: url))
+            try
             {
-                return Ok(Barrel.Current.Get<List<TeamMembership>>(key: url));
+                //Dev handles checking if cache is expired
+                if (!Barrel.Current.IsExpired(key: url))
+                {
+                    return Ok(Barrel.Current.Get<List<TeamMembership>>(key: url));
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(EventIds.Cache.ReadTeamMembershipCacheError, ex, EventIds.Cache.ReadTeamMembershipCacheError.Name);
             }
 
             var Client = new HttpClient();
@@ -50,7 +59,15 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
             //Saves the cache and pass it a timespan for expiration
             TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
             double secs = untilMidnight.TotalSeconds;
-            Barrel.Current.Add(key: url, data: teamMemberships, expireIn: TimeSpan.FromSeconds(secs));
+            try
+            {
+                Barrel.Current.Add(key: url, data: teamMemberships, expireIn: TimeSpan.FromSeconds(secs));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(EventIds.Cache.WriteTeamMembershipCacheError, ex, EventIds.Cache.WriteTeamMembershipCacheError.Name);
+            }
+
             return Ok(teamMemberships);
         }
     }
