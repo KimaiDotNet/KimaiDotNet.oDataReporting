@@ -53,7 +53,7 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
             } 
             catch(Exception ex)
             {
-                _logger.LogError(EventIds.Cache.ReadUserCacheError, ex, EventIds.Cache.ReadUserCacheError.Name);
+                _logger.LogError(EventIds.Cache.WriteUserCacheError, ex, EventIds.Cache.WriteUserCacheError.Name);
             }
             return Ok(users);
         }
