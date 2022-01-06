@@ -9,16 +9,19 @@ using Microsoft.Extensions.Options;
 
 using MonkeyCache.LiteDB;
 using MarkZither.KimaiDotNet;
+using MarkZither.KimaiDotNet.Reporting.ODataService;
 
 namespace KimaiDotNet.Reporting.ODataService.Controllers
 {
     public class TeamController : ControllerBase
     {
         private readonly KimaiOptions _kimaiOptions;
+        private readonly ILogger<TeamController> _logger;
 
-        public TeamController(IOptions<KimaiOptions> kimaiOptions)
+        public TeamController(IOptions<KimaiOptions> kimaiOptions, ILogger<TeamController> logger)
         {
             _kimaiOptions = kimaiOptions.Value;
+            _logger = logger;
         }
         private static IList<TeamCollection> _teams = new List<TeamCollection>
         {
@@ -43,10 +46,17 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
         public IActionResult Get(CancellationToken token)
         {
             var url = "Team";
-            //Dev handles checking if cache is expired
-            if (!Barrel.Current.IsExpired(key: url))
+            try
             {
-                return Ok(Barrel.Current.Get<List<TeamCollection>>(key: url));
+                //Dev handles checking if cache is expired
+                if (!Barrel.Current.IsExpired(key: url))
+                {
+                    return Ok(Barrel.Current.Get<List<TeamCollection>>(key: url));
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(EventIds.Cache.ReadTeamCacheError, ex, EventIds.Cache.ReadTeamCacheError.Name);
             }
             var Client = new HttpClient();
             Client.BaseAddress = new Uri(_kimaiOptions.Url);
@@ -57,7 +67,14 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             //Saves the cache and pass it a timespan for expiration
             TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
             double secs = untilMidnight.TotalSeconds;
-            Barrel.Current.Add(key: url, data: teams, expireIn: TimeSpan.FromSeconds(secs));
+            try
+            {
+                Barrel.Current.Add(key: url, data: teams, expireIn: TimeSpan.FromSeconds(secs));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(EventIds.Cache.WriteTeamCacheError, ex, EventIds.Cache.WriteTeamCacheError.Name);
+            }
             return Ok(teams);
         }
     }
