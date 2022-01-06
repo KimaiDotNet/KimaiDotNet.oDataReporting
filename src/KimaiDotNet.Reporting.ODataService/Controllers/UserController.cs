@@ -14,9 +14,11 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
     public class UserController : ControllerBase
     {
         private readonly KimaiOptions _kimaiOptions;
-        public UserController(IOptions<KimaiOptions> kimaiOptions)
+        private readonly ILogger<UserController> _logger;
+        public UserController(IOptions<KimaiOptions> kimaiOptions, ILogger<UserController> logger)
         {
             _kimaiOptions = kimaiOptions.Value;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -24,10 +26,17 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
         public IActionResult Get(CancellationToken token)
         {
             var url = "User";
-            //Dev handles checking if cache is expired
-            if (!Barrel.Current.IsExpired(key: url))
+            try
             {
-                return Ok(Barrel.Current.Get<List<UserCollection>>(key: url));
+                //Dev handles checking if cache is expired
+                if (!Barrel.Current.IsExpired(key: url))
+                {
+                    return Ok(Barrel.Current.Get<List<UserCollection>>(key: url));
+                }
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(1, ex, "Could not read User cache");
             }
             var Client = new HttpClient();
             Client.BaseAddress = new Uri(_kimaiOptions.Url);
@@ -38,7 +47,14 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
             //Saves the cache and pass it a timespan for expiration
             TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
             double secs = untilMidnight.TotalSeconds;
-            Barrel.Current.Add(key: url, data: users, expireIn: TimeSpan.FromSeconds(secs));
+            try
+            {
+                Barrel.Current.Add(key: url, data: users, expireIn: TimeSpan.FromSeconds(secs));
+            } 
+            catch(Exception ex)
+            {
+                _logger.LogError(2, ex, "Could not write User cache");
+            }
             return Ok(users);
         }
     }
