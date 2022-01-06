@@ -11,6 +11,8 @@
             public static readonly EventId WriteTimesheetCacheError = new EventId(6, "Could not write Timesheet cache");
             public static readonly EventId ReadCustomerCacheError = new EventId(7, "Could not read Customer cache");
             public static readonly EventId WriteCustomerCacheError = new EventId(8, "Could not write Customer cache");
+            public static readonly EventId ReadProjectCacheError = new EventId(9, "Could not read Project cache");
+            public static readonly EventId WriteProjectCacheError = new EventId(10, "Could not write Project cache");
         }
     }
 }
