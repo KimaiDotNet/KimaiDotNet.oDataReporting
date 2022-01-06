@@ -15,9 +15,11 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
     public class ActivityController : ControllerBase
     {
         private readonly KimaiOptions _kimaiOptions;
-        public ActivityController(IOptions<KimaiOptions> kimaiOptions)
+        private readonly ILogger<ActivityController> _logger;
+        public ActivityController(IOptions<KimaiOptions> kimaiOptions, ILogger<ActivityController> logger)
         {
-            _kimaiOptions = kimaiOptions.Value;
+            _kimaiOptions = kimaiOptions.Value ?? throw new ArgumentNullException(nameof(kimaiOptions));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [HttpGet]
@@ -25,10 +27,17 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
         public IActionResult Get(CancellationToken token)
         {
             var url = "Activity";
-            //Dev handles checking if cache is expired
-            if (!Barrel.Current.IsExpired(key: url))
+            try
             {
-                return Ok(Barrel.Current.Get<List<ActivityCollection>>(key: url));
+                //Dev handles checking if cache is expired
+                if (!Barrel.Current.IsExpired(key: url))
+                {
+                    return Ok(Barrel.Current.Get<List<ActivityCollection>>(key: url));
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(3, ex, "Could not read Activity cache");
             }
             var Client = new HttpClient();
             Client.BaseAddress = new Uri(_kimaiOptions.Url);
@@ -39,7 +48,14 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             //Saves the cache and pass it a timespan for expiration
             TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
             double secs = untilMidnight.TotalSeconds;
-            Barrel.Current.Add(key: url, data: activities, expireIn: TimeSpan.FromSeconds(secs));
+            try
+            {
+                Barrel.Current.Add(key: url, data: activities, expireIn: TimeSpan.FromSeconds(secs));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(4, ex, "Could not write Activity cache");
+            }
 
             return Ok(activities);
         }
