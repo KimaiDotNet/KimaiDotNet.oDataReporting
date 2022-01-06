@@ -36,7 +36,7 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
             }
             catch(Exception ex)
             {
-                _logger.LogError(1, ex, "Could not read User cache");
+                _logger.LogError(EventIds.Cache.ReadUserCacheError, ex, EventIds.Cache.ReadUserCacheError.Name);
             }
             var Client = new HttpClient();
             Client.BaseAddress = new Uri(_kimaiOptions.Url);
@@ -53,7 +53,7 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
             } 
             catch(Exception ex)
             {
-                _logger.LogError(2, ex, "Could not write User cache");
+                _logger.LogError(EventIds.Cache.ReadUserCacheError, ex, EventIds.Cache.ReadUserCacheError.Name);
             }
             return Ok(users);
         }

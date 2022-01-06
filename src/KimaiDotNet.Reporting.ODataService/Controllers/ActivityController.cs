@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 
 using MonkeyCache.LiteDB;
 using MarkZither.KimaiDotNet;
+using MarkZither.KimaiDotNet.Reporting.ODataService;
 
 namespace KimaiDotNet.Reporting.ODataService.Controllers
 {
@@ -37,7 +38,7 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(3, ex, "Could not read Activity cache");
+                _logger.LogError(EventIds.Cache.ReadActivityCacheError, ex, EventIds.Cache.ReadActivityCacheError.Name);
             }
             var Client = new HttpClient();
             Client.BaseAddress = new Uri(_kimaiOptions.Url);
@@ -54,7 +55,7 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(4, ex, "Could not write Activity cache");
+                _logger.LogError(EventIds.Cache.WriteActivityCacheError, ex, EventIds.Cache.WriteActivityCacheError.Name);
             }
 
             return Ok(activities);
