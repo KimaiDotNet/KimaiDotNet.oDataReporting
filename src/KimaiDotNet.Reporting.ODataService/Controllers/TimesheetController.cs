@@ -9,15 +9,18 @@ using Microsoft.Extensions.Options;
 
 using MonkeyCache.LiteDB;
 using MarkZither.KimaiDotNet;
+using MarkZither.KimaiDotNet.Reporting.ODataService;
 
 namespace KimaiDotNet.Reporting.ODataService.Controllers
 {
     public class TimesheetController : ControllerBase
     {
         private readonly KimaiOptions _kimaiOptions;
-        public TimesheetController(IOptions<KimaiOptions> kimaiOptions)
+        private readonly ILogger<TimesheetController> _logger;
+        public TimesheetController(IOptions<KimaiOptions> kimaiOptions, ILogger<TimesheetController> logger)
         {
             _kimaiOptions = kimaiOptions.Value;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -25,10 +28,17 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
         public IActionResult Get(CancellationToken token)
         {
             var url = "Timesheet";
-            //Dev handles checking if cache is expired
-            if (!Barrel.Current.IsExpired(key: url))
+            try
             {
-                return Ok(Barrel.Current.Get<List<TimesheetCollection>>(key: url));
+                //Dev handles checking if cache is expired
+                if (!Barrel.Current.IsExpired(key: url))
+                {
+                    return Ok(Barrel.Current.Get<List<TimesheetCollection>>(key: url));
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(EventIds.Cache.ReadTimesheetCacheError, ex, EventIds.Cache.ReadTimesheetCacheError.Name);
             }
             var Client = new HttpClient();
             Client.BaseAddress = new Uri(_kimaiOptions.Url);
@@ -45,7 +55,14 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             //Saves the cache and pass it a timespan for expiration
             TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
             double secs = untilMidnight.TotalSeconds;
-            Barrel.Current.Add(key: url, data: timesheets, expireIn: TimeSpan.FromSeconds(secs));
+            try
+            {
+                Barrel.Current.Add(key: url, data: timesheets, expireIn: TimeSpan.FromSeconds(secs));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(EventIds.Cache.WriteTimesheetCacheError, ex, EventIds.Cache.WriteTimesheetCacheError.Name);
+            }
 
             return Ok(timesheets);
         }
