@@ -8,6 +8,8 @@ using Microsoft.OData.Edm;
 
 using MonkeyCache.LiteDB;
 
+using Polly;
+
 // https://gist.github.com/davidfowl/0e0372c3c1d895c3ce195ba983b1e03d
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,13 +27,19 @@ builder.Services.AddOptions<KimaiOptions>().Bind(
 
 KimaiOptions kimaiOptions = new KimaiOptions();
 builder.Configuration.GetSection(KimaiOptions.Key).Bind(kimaiOptions);
+
+var simpleRetryPolicy = Policy<HttpResponseMessage>.Handle<Exception>().RetryAsync();
+var policyRegistry = builder.Services.AddPolicyRegistry();
+policyRegistry.Add("Simple", simpleRetryPolicy);
+
 builder.Services.AddHttpClient(Constants.HttpClients.Kimai, httpClient =>
 {
     httpClient.BaseAddress = new Uri(kimaiOptions.Url);
 
     httpClient.DefaultRequestHeaders.Add("X-AUTH-USER", kimaiOptions.Username);
     httpClient.DefaultRequestHeaders.Add("X-AUTH-TOKEN", kimaiOptions.Password);
-});
+}).AddPolicyHandlerFromRegistry("Simple");
+
 builder.Services.AddMiniProfiler(options =>
     {
         // All of this is optional. You can simply call .AddMiniProfiler() for all defaults
