@@ -17,10 +17,12 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
     {
         private readonly KimaiOptions _kimaiOptions;
         private readonly ILogger<ActivityController> _logger;
-        public ActivityController(IOptions<KimaiOptions> kimaiOptions, ILogger<ActivityController> logger)
+        private readonly IHttpClientFactory _httpClientFactory;
+        public ActivityController(IOptions<KimaiOptions> kimaiOptions, ILogger<ActivityController> logger, IHttpClientFactory httpClientFactory)
         {
             _kimaiOptions = kimaiOptions.Value ?? throw new ArgumentNullException(nameof(kimaiOptions));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _httpClientFactory = httpClientFactory;
         }
 
         [HttpGet]
@@ -40,10 +42,7 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             {
                 _logger.LogError(EventIds.Cache.ReadActivityCacheError, ex, EventIds.Cache.ReadActivityCacheError.Name);
             }
-            var Client = new HttpClient();
-            Client.BaseAddress = new Uri(_kimaiOptions.Url);
-            Client.DefaultRequestHeaders.Add("X-AUTH-USER", _kimaiOptions.Username);
-            Client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", _kimaiOptions.Password);
+            var Client = _httpClientFactory.CreateClient(Constants.HttpClients.Kimai);
             Kimai2APIDocs docs = new Kimai2APIDocs(Client, disposeHttpClient: false);
             var activities = docs.ListActivitiesUsingGet();
             //Saves the cache and pass it a timespan for expiration

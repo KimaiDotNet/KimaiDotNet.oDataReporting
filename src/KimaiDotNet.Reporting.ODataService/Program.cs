@@ -1,3 +1,5 @@
+using KimaiDotNet.Reporting.ODataService;
+
 using MarkZither.KimaiDotNet.Reporting.ODataService.Configuration;
 using MarkZither.KimaiDotNet.Reporting.ODataService.Models;
 
@@ -17,9 +19,19 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "KimaiDotNet.Reporting.ODataService", Version = "v1" });
 });
+
 builder.Services.AddOptions<KimaiOptions>().Bind(
             builder.Configuration.GetSection(KimaiOptions.Key));
 
+KimaiOptions kimaiOptions = new KimaiOptions();
+builder.Configuration.GetSection(KimaiOptions.Key).Bind(kimaiOptions);
+builder.Services.AddHttpClient(Constants.HttpClients.Kimai, httpClient =>
+{
+    httpClient.BaseAddress = new Uri(kimaiOptions.Url);
+
+    httpClient.DefaultRequestHeaders.Add("X-AUTH-USER", kimaiOptions.Username);
+    httpClient.DefaultRequestHeaders.Add("X-AUTH-TOKEN", kimaiOptions.Password);
+});
 builder.Services.AddMiniProfiler(options =>
     {
         // All of this is optional. You can simply call .AddMiniProfiler() for all defaults
