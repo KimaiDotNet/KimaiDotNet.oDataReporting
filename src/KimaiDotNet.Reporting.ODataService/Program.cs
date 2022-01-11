@@ -9,6 +9,8 @@ using Microsoft.OData.Edm;
 using MonkeyCache.LiteDB;
 
 using Polly;
+using Polly.Contrib.Simmy;
+using Polly.Contrib.Simmy.Latency;
 
 // https://gist.github.com/davidfowl/0e0372c3c1d895c3ce195ba983b1e03d
 var builder = WebApplication.CreateBuilder(args);
@@ -28,9 +30,20 @@ builder.Services.AddOptions<KimaiOptions>().Bind(
 KimaiOptions kimaiOptions = new KimaiOptions();
 builder.Configuration.GetSection(KimaiOptions.Key).Bind(kimaiOptions);
 
+// All policies are also available in async forms.
+var chaosLatencyPolicy = MonkeyPolicy.InjectLatencyAsync(with =>
+    with.Latency(TimeSpan.FromSeconds(5))
+        .InjectionRate(0.1)
+        .Enabled()
+    );
 var simpleRetryPolicy = Policy<HttpResponseMessage>.Handle<Exception>().RetryAsync();
+simpleRetryPolicy.WrapAsync(MonkeyPolicy.InjectFaultAsync<HttpResponseMessage>(
+                        new Exception(),
+                        0.1,
+                        enabled: () => true));
+
 var policyRegistry = builder.Services.AddPolicyRegistry();
-policyRegistry.Add("Simple", simpleRetryPolicy);
+policyRegistry.Add("WrappedChoas", simpleRetryPolicy);
 
 builder.Services.AddHttpClient(Constants.HttpClients.Kimai, httpClient =>
 {
