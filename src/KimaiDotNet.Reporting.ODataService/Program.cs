@@ -1,6 +1,7 @@
 using KimaiDotNet.Reporting.ODataService;
 
 using MarkZither.KimaiDotNet.Reporting.ODataService.Configuration;
+using MarkZither.KimaiDotNet.Reporting.ODataService.Extensions;
 using MarkZither.KimaiDotNet.Reporting.ODataService.Models;
 
 using Microsoft.AspNetCore.OData;
@@ -11,6 +12,7 @@ using MonkeyCache.LiteDB;
 using Polly;
 using Polly.Contrib.Simmy;
 using Polly.Contrib.Simmy.Latency;
+using Polly.Registry;
 
 // https://gist.github.com/davidfowl/0e0372c3c1d895c3ce195ba983b1e03d
 var builder = WebApplication.CreateBuilder(args);
@@ -44,6 +46,7 @@ simpleRetryPolicy.WrapAsync(MonkeyPolicy.InjectFaultAsync<HttpResponseMessage>(
 
 var policyRegistry = builder.Services.AddPolicyRegistry();
 policyRegistry.Add("WrappedChoas", simpleRetryPolicy);
+policyRegistry.AddHttpChaosInjectors();
 
 builder.Services.AddHttpClient(Constants.HttpClients.Kimai, httpClient =>
 {
