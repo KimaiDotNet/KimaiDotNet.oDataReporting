@@ -38,7 +38,19 @@ var chaosLatencyPolicy = MonkeyPolicy.InjectLatencyAsync(with =>
         .InjectionRate(0.1)
         .Enabled()
     );
-var simpleRetryPolicy = Policy<HttpResponseMessage>.Handle<Exception>().RetryAsync();
+var simpleRetryPolicy = Policy<HttpResponseMessage>.Handle<Exception>().WaitAndRetryAsync(3, retryCount => TimeSpan.FromSeconds(10), (result, timeSpan, retryCount, context) =>
+{
+    if (result.Exception != null)
+    {
+        context.GetLogger().LogError(result.Exception, "An exception occurred on retry {RetryAttempt} for {PolicyKey}", retryCount, context.PolicyKey);
+    }
+    else
+    {
+        context.GetLogger().LogError("A non success code {StatusCode} was received on retry {RetryAttempt} for {PolicyKey}",
+            (int)result.Result.StatusCode, retryCount, context.PolicyKey);
+    }
+});
+
 simpleRetryPolicy.WrapAsync(MonkeyPolicy.InjectFaultAsync<HttpResponseMessage>(
                         new Exception(),
                         0.1,
@@ -54,7 +66,7 @@ builder.Services.AddHttpClient(Constants.HttpClients.Kimai, httpClient =>
 
     httpClient.DefaultRequestHeaders.Add("X-AUTH-USER", kimaiOptions.Username);
     httpClient.DefaultRequestHeaders.Add("X-AUTH-TOKEN", kimaiOptions.Password);
-}).AddPolicyHandlerFromRegistry("Simple");
+}).AddPolicyHandlerFromRegistry("WrappedChoas");
 
 builder.Services.AddMiniProfiler(options =>
     {
