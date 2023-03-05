@@ -19,7 +19,7 @@
     <PackageReference Include="MonkeyCache.LiteDB" Version="1.6.3" />
     <PackageReference Include="MonkeyCache.FileStore" Version="1.6.3" />
     <PackageReference Include="Polly.Contrib.Simmy" Version="0.3.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="CsvHelper" Version="30.0.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
