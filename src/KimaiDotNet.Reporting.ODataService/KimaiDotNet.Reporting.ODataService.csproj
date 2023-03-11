@@ -7,6 +7,8 @@
     <RootNamespace>MarkZither.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
     <AssemblyName>MarkZither.$(MSBuildProjectName)</AssemblyName>
     <UserSecretsId>7ed23aa8-26a4-4992-b8f9-9868e6052b39</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +17,7 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="7.0.3" />
     <PackageReference Include="Microsoft.OpenApi.OData" Version="1.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
     <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
     <PackageReference Include="MonkeyCache.LiteDB" Version="2.0.1" />
     <PackageReference Include="MonkeyCache.FileStore" Version="2.0.1" />
