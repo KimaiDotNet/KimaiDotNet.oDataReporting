@@ -49,8 +49,16 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             var users = docs.ListUsersUsingGet();
             foreach (var user in users)
             {
-                var usersTimesheets = docs.ListTimesheetsRecordsUsingGet(user: user.Id?.ToString(), size: "1000", orderBy: "id", order: "DESC");
-                timesheets.AddRange(usersTimesheets);
+                try
+                {
+                    var usersTimesheets = docs.ListTimesheetsRecordsUsingGet(user: user.Id?.ToString(), size: "1000", orderBy: "id", order: "DESC");
+
+                    timesheets.AddRange(usersTimesheets);
+                }
+                catch(Exception ex)
+                {
+                    _logger.LogError(ex, ex.Message, user);
+                }
             }
             //Saves the cache and pass it a timespan for expiration
             TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
