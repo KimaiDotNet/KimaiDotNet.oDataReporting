@@ -1,0 +1,28 @@
+# Default state for all rules
+default: true
+
+# MD013 - Line length: disabled (long lines acceptable in docs)
+MD013: false
+
+# MD033 - Inline HTML: disabled (occasionally needed)
+MD033: false
+
+# MD041 - First line should be a top-level heading
+MD041: true
+
+# MD024 - Multiple headings with the same content
+# Allow same-content headings in different sections (e.g. templates)
+MD024:
+  siblings_only: true
+
+# MD007 - Unordered list indentation
+MD007:
+  indent: 2
+
+# MD029 - Ordered list item prefix
+MD029:
+  style: ordered
+
+# MD004 - Unordered list style
+MD004:
+  style: dash
