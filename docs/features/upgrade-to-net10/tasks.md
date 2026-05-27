@@ -39,8 +39,10 @@
   - _Result: Replaced `Polly.Context` with `ResilienceContext`; `LoggerKey` changed to `static readonly ResiliencePropertyKey<ILogger>`; `context[key]` replaced with `context.Properties.Set/TryGetValue`. Packages updated: removed `Polly.Contrib.Simmy 0.3.0` and `Microsoft.Extensions.Http.Polly 7.0.3`; added `Polly.Core 8.4.2` and `Microsoft.Extensions.Http.Resilience 10.6.0`. Closed #29._
 - [x] [P] Migrate `Extensions/SimmyContextExtensions.cs` to Polly v8 `ResiliencePropertyKey<T>` API
   - _Result: Replaced `Polly.Context` with `ResilienceContext`; `ChaosSettings` string constant replaced with `static readonly ResiliencePropertyKey<GeneralChaosOptions>`; `GetSetting<T>` helper removed; `WithChaosSettings`/`GetChaosSettings`/`GetOperationChaosSettings` rewritten using `context.Properties.Set/TryGetValue`. Closed #30._
-- [ ] Rewrite `Extensions/DependencyInjectionExtensions.cs` to embed chaos strategies in Polly v8 pipeline
-- [ ] Rewrite Polly resilience pipeline registration in `Program.cs` using `AddResiliencePipeline` and `AddResilienceHandler`
+- [x] Rewrite `Extensions/DependencyInjectionExtensions.cs` to embed chaos strategies in Polly v8 pipeline
+  - _Result: Replaced `AddHttpChaosInjectors(IPolicyRegistry<string>)` with `AddChaosStrategies(ResiliencePipelineBuilder<HttpResponseMessage>)`. Removed `Polly.Contrib.Simmy` imports; added `Polly.Simmy`, `Polly.Simmy.Fault`, `Polly.Simmy.Latency`. Helpers converted from `Task<T>(Context, CancellationToken)` to `ValueTask<T>(XxxGeneratorArguments)` using v8 Simmy delegate contracts: `EnabledGenerator`/`InjectionRateGenerator`/`FaultGenerator`/`LatencyGenerator`. Removed unused `GetHttpResponseEnabled`/`GetHttpResponseMessage`. `CreateSqlException` preserved unchanged. Closed #31._
+- [x] Rewrite Polly resilience pipeline registration in `Program.cs` using `AddResiliencePipeline` and `AddResilienceHandler`
+  - _Result: Removed `Polly.Contrib.Simmy`, `Polly.Contrib.Simmy.Latency`, `Polly.Registry` imports; added `Polly.Retry`. Replaced `AddPolicyRegistry`/`AddPolicyHandlerFromRegistry("WrappedChoas")` with `.AddResilienceHandler("KimaiResilience", ...)` using `RetryStrategyOptions<HttpResponseMessage>` (3 retries, 10s constant delay) + `AddChaosStrategies()`. Dead code (`chaosLatencyPolicy`, `simpleRetryPolicy.WrapAsync(...)`) removed. Build: 0 errors, 39 warnings (all pre-existing). Phase 4 complete. Closed #32._
 
 ## Phase 5 — Remaining Compatibility Verification
 
