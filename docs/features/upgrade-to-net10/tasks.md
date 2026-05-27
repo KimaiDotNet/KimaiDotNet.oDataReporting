@@ -16,7 +16,8 @@
 
 ## Phase 1 — Framework Version Bump
 
-- [ ] Bump `<TargetFramework>` to `net10.0` and update Dockerfile base images in `src/KimaiDotNet.Reporting.ODataService/`
+- [x] Bump `<TargetFramework>` to `net10.0` and update Dockerfile base images in `src/KimaiDotNet.Reporting.ODataService/`
+  - _Result: restore succeeded (5 warnings, 0 errors); build succeeded targeting net10.0 (31 warnings, 0 errors). All packages resolved — no NU1701 compat warnings. Pre-expected failures (Polly.Contrib.Simmy, Microsoft.Extensions.Http.Polly) did NOT occur._
 
 ## Phase 2 — Low-Risk Package Updates
 
