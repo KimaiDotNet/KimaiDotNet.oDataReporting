@@ -35,8 +35,10 @@
 
 ## Phase 4 — Polly v8 Migration (ADR-0001)
 
-- [ ] [P] Migrate `Extensions/PollyContextExtensions.cs` to Polly v8 `ResilienceContext` API
-- [ ] [P] Migrate `Extensions/SimmyContextExtensions.cs` to Polly v8 `ResiliencePropertyKey<T>` API
+- [x] [P] Migrate `Extensions/PollyContextExtensions.cs` to Polly v8 `ResilienceContext` API
+  - _Result: Replaced `Polly.Context` with `ResilienceContext`; `LoggerKey` changed to `static readonly ResiliencePropertyKey<ILogger>`; `context[key]` replaced with `context.Properties.Set/TryGetValue`. Packages updated: removed `Polly.Contrib.Simmy 0.3.0` and `Microsoft.Extensions.Http.Polly 7.0.3`; added `Polly.Core 8.4.2` and `Microsoft.Extensions.Http.Resilience 10.6.0`. Closed #29._
+- [x] [P] Migrate `Extensions/SimmyContextExtensions.cs` to Polly v8 `ResiliencePropertyKey<T>` API
+  - _Result: Replaced `Polly.Context` with `ResilienceContext`; `ChaosSettings` string constant replaced with `static readonly ResiliencePropertyKey<GeneralChaosOptions>`; `GetSetting<T>` helper removed; `WithChaosSettings`/`GetChaosSettings`/`GetOperationChaosSettings` rewritten using `context.Properties.Set/TryGetValue`. Closed #30._
 - [ ] Rewrite `Extensions/DependencyInjectionExtensions.cs` to embed chaos strategies in Polly v8 pipeline
 - [ ] Rewrite Polly resilience pipeline registration in `Program.cs` using `AddResiliencePipeline` and `AddResilienceHandler`
 
