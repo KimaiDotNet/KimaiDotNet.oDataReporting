@@ -21,7 +21,8 @@
 
 ## Phase 2 — Low-Risk Package Updates
 
-- [ ] [P] Investigate `MarkZither.KimaiDotNet.ApiClient` 0.4.0-beta0001 .NET 10 compatibility (OQ2)
+- [x] [P] Investigate `MarkZither.KimaiDotNet.ApiClient` 0.4.0-beta0001 .NET 10 compatibility (OQ2)
+  - _Result: resolves via `netstandard2.0` compatibility shim; zero NU1701 warnings; no update required. Closed #25._
 - [ ] [P] Investigate `MonkeyCache.LiteDB` / `MonkeyCache.FileStore` 2.0.1 .NET 10 compatibility and caching replacement plan (OQ3)
 - [ ] Update low-risk NuGet packages for net10.0 compatibility in `KimaiDotNet.Reporting.ODataService.csproj`
 
