@@ -13,10 +13,10 @@
 
   <ItemGroup>
     <PackageReference Include="MarkZither.KimaiDotNet.ApiClient" Version="0.4.0-beta0001" />
-    <PackageReference Include="Microsoft.AspNetCore.OData" Version="8.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.OData" Version="9.4.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.8" />
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="7.0.3" />
-    <PackageReference Include="Microsoft.OpenApi.OData" Version="1.2.0" />
+    <PackageReference Include="Microsoft.OpenApi.OData" Version="3.2.1" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
     <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.5.4" />
     <PackageReference Include="Polly.Contrib.Simmy" Version="0.3.0" />

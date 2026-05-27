@@ -30,7 +30,8 @@
 
 ## Phase 3 — OData Package Upgrade
 
-- [ ] Upgrade `Microsoft.AspNetCore.OData` to v9.x and resolve controller breaking changes in `src/KimaiDotNet.Reporting.ODataService/Controllers/`
+- [x] Upgrade `Microsoft.AspNetCore.OData` to v9.x and resolve controller breaking changes in `src/KimaiDotNet.Reporting.ODataService/Controllers/`
+  - _Result: updated `Microsoft.AspNetCore.OData` 8.0.12 → 9.4.1 and `Microsoft.OpenApi.OData` 1.2.0 → 3.2.1. No breaking changes — all 8 controllers (`[HttpGet]` + `[EnableQuery]` + `ControllerBase`) and `EdmModelBuilder` compile cleanly against v9. Build: 0 errors, 45 warnings (all pre-existing). NU1608 warning for `Microsoft.OData.Edm` 8.4.3 vs expected 8.4.0 is a known acceptable version float._
 
 ## Phase 4 — Polly v8 Migration (ADR-0001)
 
