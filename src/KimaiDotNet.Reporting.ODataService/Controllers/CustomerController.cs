@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.OData.Query;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-using MonkeyCache.LiteDB;
+using Microsoft.Extensions.Caching.Memory;
 using MarkZither.KimaiDotNet;
 using MarkZither.KimaiDotNet.Reporting.ODataService;
 
@@ -17,10 +17,12 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
     {
         private readonly KimaiOptions _kimaiOptions;
         private readonly ILogger<CustomerController> _logger;
-        public CustomerController(IOptions<KimaiOptions> kimaiOptions, ILogger<CustomerController> logger)
+        private readonly IMemoryCache _cache;
+        public CustomerController(IOptions<KimaiOptions> kimaiOptions, ILogger<CustomerController> logger, IMemoryCache cache)
         {
             _kimaiOptions = kimaiOptions.Value;
             _logger = logger;
+            _cache = cache;
         }
 
         [HttpGet]
@@ -30,10 +32,9 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             var url = "Customer";
             try
             {
-                //Dev handles checking if cache is expired
-                if (!Barrel.Current.IsExpired(key: url))
+                if (_cache.TryGetValue(url, out List<CustomerCollection>? cached))
                 {
-                    return Ok(Barrel.Current.Get<List<CustomerCollection>>(key: url));
+                    return Ok(cached);
                 }
             }
             catch (Exception ex)
@@ -51,7 +52,7 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
             double secs = untilMidnight.TotalSeconds;
             try { 
-            Barrel.Current.Add(key: url, data: customers, expireIn: TimeSpan.FromSeconds(secs));
+            _cache.Set(url, customers, TimeSpan.FromSeconds(secs));
             }
             catch (Exception ex)
             {

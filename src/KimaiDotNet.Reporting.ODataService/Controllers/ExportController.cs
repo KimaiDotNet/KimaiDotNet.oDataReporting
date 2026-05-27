@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.OData.Query;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-using MonkeyCache.LiteDB;
+using Microsoft.Extensions.Caching.Memory;
 using MarkZither.KimaiDotNet;
 using System.IO.Compression;
 using CsvHelper;
@@ -27,10 +27,12 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
         private const string ProjectsPath = "exports\\projects.csv";
         private readonly KimaiOptions _kimaiOptions;
         private readonly ILogger<ExportController> _logger;
-        public ExportController(IOptions<KimaiOptions> kimaiOptions, ILogger<ExportController> logger)
+        private readonly IMemoryCache _cache;
+        public ExportController(IOptions<KimaiOptions> kimaiOptions, ILogger<ExportController> logger, IMemoryCache cache)
         {
             _kimaiOptions = kimaiOptions.Value;
             _logger = logger;
+            _cache = cache;
         }
         [HttpGet(Name = "ExportToCSVUsingGet")]
         public IActionResult Index()
@@ -87,19 +89,13 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
         private FileInfo CreateCustomersFile(Kimai2APIDocs docs)
         {
             var url = $"{_kimaiOptions.Url}Customers";
-            IList<CustomerCollection> customers = new List<CustomerCollection>();
-            //Dev handles checking if cache is expired
-            if (!Barrel.Current.IsExpired(key: url))
-            {
-                customers = Barrel.Current.Get<List<CustomerCollection>>(key: url);
-            }
-            else
+            if (!_cache.TryGetValue(url, out IList<CustomerCollection>? customers))
             {
                 customers = docs.ListCustomersUsingGet();
                 //Saves the cache and pass it a timespan for expiration
                 TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
                 double secs = untilMidnight.TotalSeconds;
-                Barrel.Current.Add(key: url, data: customers, expireIn: TimeSpan.FromSeconds(secs));
+                _cache.Set(url, customers, TimeSpan.FromSeconds(secs));
             }
 
             using (var writer = new StreamWriter(CustomersPath, false))
@@ -114,19 +110,13 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
         private FileInfo CreateProjectsFile(Kimai2APIDocs docs)
         {
             var url = $"{_kimaiOptions.Url}Projects";
-            IList<ProjectCollection> projects = new List<ProjectCollection>();
-            //Dev handles checking if cache is expired
-            if (!Barrel.Current.IsExpired(key: url))
-            {
-                projects = Barrel.Current.Get<List<ProjectCollection>>(key: url);
-            }
-            else
+            if (!_cache.TryGetValue(url, out IList<ProjectCollection>? projects))
             {
                 projects = docs.ListProjectUsingGet();
                 //Saves the cache and pass it a timespan for expiration
                 TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
                 double secs = untilMidnight.TotalSeconds;
-                Barrel.Current.Add(key: url, data: projects, expireIn: TimeSpan.FromSeconds(secs));
+                _cache.Set(url, projects, TimeSpan.FromSeconds(secs));
             }
 
             using (var writer = new StreamWriter(ProjectsPath, false))
@@ -141,16 +131,11 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
         private FileInfo CreateTeamMembershipsFile(Kimai2APIDocs docs)
         {
             var url = "TeamMembership";
-            IList<TeamMembership> teamMemberships = new List<TeamMembership>();
-            //Dev handles checking if cache is expired
-            if (!Barrel.Current.IsExpired(key: url))
-            {
-                teamMemberships = Barrel.Current.Get<List<TeamMembership>>(key: url);
-            }
-            else
+            if (!_cache.TryGetValue(url, out IList<TeamMembership>? teamMemberships))
             {
                 var teams = docs.ListTeamUsingGet();
                 int memId = 1;
+                teamMemberships = new List<TeamMembership>();
                 foreach (var item in teams)
                 {
                     var teamEntity = docs.GetTeamByIdUsingGet(item?.Id?.ToString());
@@ -163,7 +148,7 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
                 //Saves the cache and pass it a timespan for expiration
                 TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
                 double secs = untilMidnight.TotalSeconds;
-                Barrel.Current.Add(key: url, data: teamMemberships, expireIn: TimeSpan.FromSeconds(secs));
+                _cache.Set(url, teamMemberships, TimeSpan.FromSeconds(secs));
             }
 
             using (var writer = new StreamWriter(TeamMembershipsPath, false))
@@ -178,19 +163,13 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
         private FileInfo CreateTeamsFile(Kimai2APIDocs docs)
         {
             var url = "Teams";
-            IList<TeamCollection> teams = new List<TeamCollection>();
-            //Dev handles checking if cache is expired
-            if (!Barrel.Current.IsExpired(key: url))
-            {
-                teams = Barrel.Current.Get<List<TeamCollection>>(key: url);
-            }
-            else
+            if (!_cache.TryGetValue(url, out IList<TeamCollection>? teams))
             {
                 teams = docs.ListTeamUsingGet();
                 //Saves the cache and pass it a timespan for expiration
                 TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
                 double secs = untilMidnight.TotalSeconds;
-                Barrel.Current.Add(key: url, data: teams, expireIn: TimeSpan.FromSeconds(secs));
+                _cache.Set(url, teams, TimeSpan.FromSeconds(secs));
             }
 
             using (var writer = new StreamWriter(TeamsPath, false))
@@ -205,19 +184,13 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
         private FileInfo CreateUsersFile(Kimai2APIDocs docs)
         {
             var url = "Users";
-            IList<UserCollection> users = new List<UserCollection>();
-            //Dev handles checking if cache is expired
-            if (!Barrel.Current.IsExpired(key: url))
-            {
-                users = Barrel.Current.Get<List<UserCollection>>(key: url);
-            }
-            else
+            if (!_cache.TryGetValue(url, out IList<UserCollection>? users))
             {
                 users = docs.ListUsersUsingGet();
                 //Saves the cache and pass it a timespan for expiration
                 TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
                 double secs = untilMidnight.TotalSeconds;
-                Barrel.Current.Add(key: url, data: users, expireIn: TimeSpan.FromSeconds(secs));
+                _cache.Set(url, users, TimeSpan.FromSeconds(secs));
             }
 
             using (var writer = new StreamWriter(UsersPath, false))
@@ -232,14 +205,9 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
         private FileInfo CreateTimesheetsFile(Kimai2APIDocs docs)
         {
             var url = "Timesheets";
-            List<TimesheetCollection> timesheets = new List<TimesheetCollection>();
-            //Dev handles checking if cache is expired
-            if (!Barrel.Current.IsExpired(key: url))
+            if (!_cache.TryGetValue(url, out List<TimesheetCollection>? timesheets))
             {
-                timesheets = Barrel.Current.Get<List<TimesheetCollection>>(key: url);
-            }
-            else
-            {
+                timesheets = new List<TimesheetCollection>();
                 var users = docs.ListUsersUsingGet();
                 foreach (var user in users)
                 {
@@ -249,7 +217,7 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
                 //Saves the cache and pass it a timespan for expiration
                 TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
                 double secs = untilMidnight.TotalSeconds;
-                Barrel.Current.Add(key: url, data: timesheets, expireIn: TimeSpan.FromSeconds(secs));
+                _cache.Set(url, timesheets, TimeSpan.FromSeconds(secs));
             }
 
             using (var writer = new StreamWriter(TimesheetsPath, false))
@@ -261,22 +229,16 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
             return file;
         }
 
-        private static FileInfo CreateActivitiesFile(Kimai2APIDocs docs)
+        private FileInfo CreateActivitiesFile(Kimai2APIDocs docs)
         {
             var url = "Activity";
-            IList<ActivityCollection> activities = new List<ActivityCollection>();
-            //Dev handles checking if cache is expired
-            if (!Barrel.Current.IsExpired(key: url))
-            {
-                activities = Barrel.Current.Get<List<ActivityCollection>>(key: url);
-            }
-            else
+            if (!_cache.TryGetValue(url, out IList<ActivityCollection>? activities))
             {
                 activities = docs.ListActivitiesUsingGet();
                 //Saves the cache and pass it a timespan for expiration
                 TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
                 double secs = untilMidnight.TotalSeconds;
-                Barrel.Current.Add(key: url, data: activities, expireIn: TimeSpan.FromSeconds(secs));
+                _cache.Set(url, activities, TimeSpan.FromSeconds(secs));
             }
 
             using (var writer = new StreamWriter("exports\\activities.csv",false))

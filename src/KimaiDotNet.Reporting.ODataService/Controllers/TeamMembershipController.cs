@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.OData.Query;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-using MonkeyCache.LiteDB;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
 {
@@ -15,10 +15,12 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
     {
         private readonly KimaiOptions _kimaiOptions; 
         private readonly ILogger<TeamMembershipController> _logger;
-        public TeamMembershipController(IOptions<KimaiOptions> kimaiOptions, ILogger<TeamMembershipController> logger)
+        private readonly IMemoryCache _cache;
+        public TeamMembershipController(IOptions<KimaiOptions> kimaiOptions, ILogger<TeamMembershipController> logger, IMemoryCache cache)
         {
             _kimaiOptions = kimaiOptions.Value;
             _logger = logger;
+            _cache = cache;
         }
 
         [HttpGet]
@@ -28,10 +30,9 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
             var url = "TeamMembership";
             try
             {
-                //Dev handles checking if cache is expired
-                if (!Barrel.Current.IsExpired(key: url))
+                if (_cache.TryGetValue(url, out List<TeamMembership>? cached))
                 {
-                    return Ok(Barrel.Current.Get<List<TeamMembership>>(key: url));
+                    return Ok(cached);
                 }
             }
             catch (Exception ex)
@@ -61,7 +62,7 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
             double secs = untilMidnight.TotalSeconds;
             try
             {
-                Barrel.Current.Add(key: url, data: teamMemberships, expireIn: TimeSpan.FromSeconds(secs));
+                _cache.Set(url, teamMemberships, TimeSpan.FromSeconds(secs));
             }
             catch (Exception ex)
             {

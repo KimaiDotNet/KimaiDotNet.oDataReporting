@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.OData.Query;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-using MonkeyCache.LiteDB;
+using Microsoft.Extensions.Caching.Memory;
 using MarkZither.KimaiDotNet;
 using MarkZither.KimaiDotNet.Reporting.ODataService;
 
@@ -18,11 +18,13 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
         private readonly KimaiOptions _kimaiOptions;
         private readonly ILogger<ActivityController> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
-        public ActivityController(IOptions<KimaiOptions> kimaiOptions, ILogger<ActivityController> logger, IHttpClientFactory httpClientFactory)
+        private readonly IMemoryCache _cache;
+        public ActivityController(IOptions<KimaiOptions> kimaiOptions, ILogger<ActivityController> logger, IHttpClientFactory httpClientFactory, IMemoryCache cache)
         {
             _kimaiOptions = kimaiOptions.Value ?? throw new ArgumentNullException(nameof(kimaiOptions));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _httpClientFactory = httpClientFactory;
+            _cache = cache ?? throw new ArgumentNullException(nameof(cache));
         }
 
         [HttpGet]
@@ -32,10 +34,9 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             var url = "Activity";
             try
             {
-                //Dev handles checking if cache is expired
-                if (!Barrel.Current.IsExpired(key: url))
+                if (_cache.TryGetValue(url, out List<ActivityCollection>? cached))
                 {
-                    return Ok(Barrel.Current.Get<List<ActivityCollection>>(key: url));
+                    return Ok(cached);
                 }
             }
             catch (Exception ex)
@@ -50,7 +51,7 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             double secs = untilMidnight.TotalSeconds;
             try
             {
-                Barrel.Current.Add(key: url, data: activities, expireIn: TimeSpan.FromSeconds(secs));
+                _cache.Set(url, activities, TimeSpan.FromSeconds(secs));
             }
             catch (Exception ex)
             {

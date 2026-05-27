@@ -7,8 +7,6 @@ using MarkZither.KimaiDotNet.Reporting.ODataService.Models;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
 
-using MonkeyCache.LiteDB;
-
 using Polly;
 using Polly.Contrib.Simmy;
 using Polly.Contrib.Simmy.Latency;
@@ -76,6 +74,8 @@ builder.Services.AddMiniProfiler(options =>
         options.RouteBasePath = "/profiler";
     });
 
+builder.Services.AddMemoryCache();
+
     var app = builder.Build();
 
     app.UseMiniProfiler();
@@ -103,6 +103,4 @@ builder.Services.AddMiniProfiler(options =>
     app.UseAuthorization();
 
     app.MapControllers();
-    Barrel.ApplicationId = "your_unique_name_here2";
-    Barrel.EncryptionKey = "SomeKey";
     app.Run();

@@ -23,8 +23,10 @@
 
 - [x] [P] Investigate `MarkZither.KimaiDotNet.ApiClient` 0.4.0-beta0001 .NET 10 compatibility (OQ2)
   - _Result: resolves via `netstandard2.0` compatibility shim; zero NU1701 warnings; no update required. Closed #25._
-- [ ] [P] Investigate `MonkeyCache.LiteDB` / `MonkeyCache.FileStore` 2.0.1 .NET 10 compatibility and caching replacement plan (OQ3)
-- [ ] Update low-risk NuGet packages for net10.0 compatibility in `KimaiDotNet.Reporting.ODataService.csproj`
+- [x] [P] Investigate `MonkeyCache.LiteDB` / `MonkeyCache.FileStore` 2.0.1 .NET 10 compatibility and caching replacement plan (OQ3)
+  - _Result: packages resolve via net6.0 binaries with zero NU1701 warnings, but `MonkeyCache.LiteDB` pulls `LiteDB 5.0.11` (GHSA-3x49-g6rc-c284, **critical** CVE — hard blocker). Both packages are unmaintained since 2022. `MonkeyCache.FileStore` is unused in source. Recommendation: remove both and replace with `IMemoryCache` (built into ASP.NET Core net10.0). Closed #26._
+- [x] Update low-risk NuGet packages for net10.0 compatibility in `KimaiDotNet.Reporting.ODataService.csproj`
+  - _Result: Removed `MonkeyCache.LiteDB` and `MonkeyCache.FileStore`; replaced `Barrel.Current` with `IMemoryCache` across all 8 controllers; registered `AddMemoryCache()` in Program.cs. CVE GHSA-3x49-g6rc-c284 (LiteDB) eliminated — `dotnet list package --vulnerable` reports no vulnerable packages. Updated low-risk packages: `CsvHelper` 30→33, `Microsoft.Extensions.Http` 7→10, `MiniProfiler.AspNetCore.Mvc` 4.2→4.5, `Microsoft.VisualStudio.Azure.Containers.Tools.Targets` 1.17→1.23, `Swashbuckle.AspNetCore` 6→10, `System.Data.SqlClient` 4.8.5→4.9.1. `Microsoft.OpenApi.OData` deferred — v3.x requires OData.Edm 8.x which conflicts with `Microsoft.AspNetCore.OData` 8.0.12 (blocked until Phase 3). Build: 0 errors, 6 warnings (pre-existing)._
 
 ## Phase 3 — OData Package Upgrade
 
