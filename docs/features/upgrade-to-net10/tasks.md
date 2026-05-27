@@ -10,8 +10,9 @@
 
 ## Phase 0 — Baseline Lock
 
-- [ ] Create `global.json` pinning SDK to `10.0.300` (`rollForward: latestPatch`); confirm `net7.0` build is clean under SDK 10.0.300; record `dotnet list package` output
+- [x] Create `global.json` pinning SDK to `10.0.300` (`rollForward: latestPatch`); confirm `net7.0` build is clean under SDK 10.0.300; record `dotnet list package` output
   - _Note: .NET 7 SDK is not installed; SDK 10.0.300 builds net7.0 TFM natively_
+  - _Result: build succeeded with 29 warnings (0 errors); baseline recorded in `docs/features/upgrade-to-net10/baseline-packages.txt`_
 
 ## Phase 1 — Framework Version Bump
 

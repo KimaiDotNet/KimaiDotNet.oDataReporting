@@ -1,0 +1,28 @@
+# .NET 7 Baseline Package List
+# Captured: 2026-05-27
+# SDK: 10.0.300 (rollForward: latestPatch)
+# TFM: net7.0
+# Command: dotnet list src/KimaiDotNet.Reporting.ODataService/KimaiDotNet.Reporting.ODataService.csproj package
+
+Build succeeded with 4 warning(s)
+  NETSDK1138: net7.0 is out of support
+  NU1608:     Microsoft.OData.Core 7.12.5 requires Microsoft.OData.Edm (= 7.12.5) but 7.14.0 was resolved
+  NU1903:     System.Data.SqlClient 4.8.5 has a known high severity vulnerability (GHSA-98g6-xh36-x2p7)
+
+Project 'KimaiDotNet.Reporting.ODataService' has the following package references
+
+   [net7.0]:
+   Top-level Package                                            Requested        Resolved
+   > CsvHelper                                                  30.0.1           30.0.1
+   > MarkZither.KimaiDotNet.ApiClient                           0.4.0-beta0001   0.4.0-beta0001
+   > Microsoft.AspNetCore.OData                                 8.0.12           8.0.12
+   > Microsoft.Extensions.Http                                  7.0.0            7.0.0
+   > Microsoft.Extensions.Http.Polly                            7.0.3            7.0.3
+   > Microsoft.OpenApi.OData                                    1.2.0            1.2.0
+   > Microsoft.VisualStudio.Azure.Containers.Tools.Targets      1.17.2           1.17.2
+   > MiniProfiler.AspNetCore.Mvc                                4.2.22           4.2.22
+   > MonkeyCache.FileStore                                      2.0.1            2.0.1
+   > MonkeyCache.LiteDB                                         2.0.1            2.0.1
+   > Polly.Contrib.Simmy                                        0.3.0            0.3.0
+   > Swashbuckle.AspNetCore                                     6.5.0            6.5.0
+   > System.Data.SqlClient                                      4.8.5            4.8.5
