@@ -4,19 +4,19 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Extensions
 {
     public static class PollyContextExtensions
     {
-        private static readonly string LoggerKey = "ILogger";
+        private static readonly ResiliencePropertyKey<ILogger> LoggerKey = new("ILogger");
 
-        public static Context WithLogger<T>(this Context context, ILogger logger)
+        public static ResilienceContext WithLogger<T>(this ResilienceContext context, ILogger logger)
         {
-            context[LoggerKey] = logger;
+            context.Properties.Set(LoggerKey, logger);
             return context;
         }
 
-        public static ILogger GetLogger(this Context context)
+        public static ILogger? GetLogger(this ResilienceContext context)
         {
-            if (context.TryGetValue(LoggerKey, out object logger))
+            if (context.Properties.TryGetValue(LoggerKey, out var logger))
             {
-                return logger as ILogger;
+                return logger;
             }
 
             return null;
