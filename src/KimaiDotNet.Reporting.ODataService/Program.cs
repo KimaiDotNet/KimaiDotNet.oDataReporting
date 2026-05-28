@@ -99,3 +99,6 @@ builder.Services.AddMemoryCache();
 
     app.MapControllers();
     app.Run();
+
+// Required to expose the Program type for WebApplicationFactory<Program> in integration tests
+public partial class Program { }

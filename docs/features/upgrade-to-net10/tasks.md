@@ -56,7 +56,8 @@
 
 ## Phase 7 — Test Strategy and Validation
 
-- [ ] Create xUnit test project `tests/KimaiDotNet.Reporting.ODataService.Tests/` with OData endpoint integration tests and chaos unit tests targeting net10.0
+- [x] Create TUnit test project `tests/KimaiDotNet.Reporting.ODataService.Tests/` with OData endpoint integration tests and chaos unit tests targeting net10.0
+  - _Result: TUnit 1.46.0 test project created with 18 tests across 4 suites: `MetadataEndpointTests` (3 integration tests via `WebApplicationFactory<Program>`), `PollyContextExtensionsTests` (3 unit), `SimmyContextExtensionsTests` (5 unit), `KimaiOptionsTests` (3 unit), `GeneralChaosOptionsTests` (4 unit). All 18 tests pass. `global.json` updated with `"test": { "runner": "Microsoft.Testing.Platform" }` enabling `dotnet test --project` on .NET 10 SDK._
 
 ---
 
