@@ -46,7 +46,8 @@
 
 ## Phase 5 — Remaining Compatibility Verification
 
-- [ ] Verify package security and resolve any CVEs in `KimaiDotNet.Reporting.ODataService.csproj`
+- [x] Verify package security and resolve any CVEs in `KimaiDotNet.Reporting.ODataService.csproj`
+  - _Result: `dotnet list package --vulnerable --include-transitive` found one transitive CVE: `Microsoft.Rest.ClientRuntime` 2.3.23 (GHSA-whph-446h-6m9v, Moderate), pulled in by `MarkZither.KimaiDotNet.ApiClient` 0.4.0-beta0001. Resolved by adding explicit `PackageReference` override to 2.3.24. Re-scan confirms no vulnerable packages. Pre-existing CVEs from baseline confirmed resolved: `System.Data.SqlClient` 4.9.1 (was 4.8.5 NU1903 in Phase 2), LiteDB GHSA-3x49-g6rc-c284 (removed in Phase 2). Build: 0 errors, 37 warnings (all pre-existing)._
 
 ## Phase 6 — Docker Image Update
 
