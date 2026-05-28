@@ -51,7 +51,8 @@
 
 ## Phase 6 — Docker Image Update
 
-- [ ] Verify net10.0 multi-stage Docker build and run `GET /$metadata` smoke test for `Dockerfile`
+- [x] Verify net10.0 multi-stage Docker build and run `GET /$metadata` smoke test for `Dockerfile`
+  - _Result: `docker build` succeeded (image `kimai-odata-smoke`, 357 MB). Container started with `ASPNETCORE_URLS=http://+:8080`; `GET /$metadata` returned HTTP 200 with full OData v4 EDM XML (`edmx:Edmx Version="4.0"`) exposing all 7 entity sets (Timesheet, Team, TeamMembership, User, Project, Activity, Customer). net10.0 base images (aspnet:10.0, sdk:10.0) confirmed working._
 
 ## Phase 7 — Test Strategy and Validation
 
