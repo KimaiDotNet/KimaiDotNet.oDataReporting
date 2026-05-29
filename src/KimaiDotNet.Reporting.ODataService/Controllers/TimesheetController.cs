@@ -10,6 +10,8 @@ using Microsoft.Extensions.Options;
 using MarkZither.KimaiDotNet;
 using MarkZither.KimaiDotNet.Reporting.ODataService;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Kiota.Abstractions.Authentication;
+using Microsoft.Kiota.Http.HttpClientLibrary;
 
 namespace KimaiDotNet.Reporting.ODataService.Controllers
 {
@@ -17,17 +19,19 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
     {
         private readonly KimaiOptions _kimaiOptions;
         private readonly ILogger<TimesheetController> _logger;
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly IMemoryCache _cache;
-        public TimesheetController(IOptions<KimaiOptions> kimaiOptions, ILogger<TimesheetController> logger, IMemoryCache cache)
+        public TimesheetController(IOptions<KimaiOptions> kimaiOptions, ILogger<TimesheetController> logger, IHttpClientFactory httpClientFactory, IMemoryCache cache)
         {
             _kimaiOptions = kimaiOptions.Value;
             _logger = logger;
+            _httpClientFactory = httpClientFactory;
             _cache = cache;
         }
 
         [HttpGet]
         [EnableQuery]
-        public IActionResult Get(CancellationToken token)
+        public async Task<IActionResult> Get(CancellationToken token)
         {
             var url = "Timesheet";
             try
@@ -41,18 +45,24 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             {
                 _logger.LogError(EventIds.Cache.ReadTimesheetCacheError, ex, EventIds.Cache.ReadTimesheetCacheError.Name);
             }
-            var Client = new HttpClient();
-            Client.BaseAddress = new Uri(_kimaiOptions.Url);
-            Client.DefaultRequestHeaders.Add("X-AUTH-USER", _kimaiOptions.Username);
-            Client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", _kimaiOptions.Password);
-            Kimai2APIDocs docs = new Kimai2APIDocs(Client, disposeHttpClient: false);
+            var httpClient = _httpClientFactory.CreateClient(Constants.HttpClients.Kimai);
+            var adapter = new HttpClientRequestAdapter(new AnonymousAuthenticationProvider(), httpClient: httpClient);
+            var client = new KimaiClient(adapter);
             var timesheets = new List<TimesheetCollection>();
-            var users = docs.ListUsersUsingGet();
+            var users = await client.Api.Users.GetAsync(cancellationToken: token) ?? [];
             foreach (var user in users)
             {
                 try
                 {
-                    var usersTimesheets = docs.ListTimesheetsRecordsUsingGet(user: user.Id?.ToString(), size: "1000", orderBy: "id", order: "DESC");
+                    var usersTimesheets = await client.Api.Timesheets.GetAsync(
+                        requestConfiguration: q =>
+                        {
+                            q.QueryParameters.User = user.Id?.ToString();
+                            q.QueryParameters.Size = "1000";
+                            q.QueryParameters.OrderBy = "id";
+                            q.QueryParameters.Order = "DESC";
+                        },
+                        cancellationToken: token) ?? [];
 
                     timesheets.AddRange(usersTimesheets);
                 }

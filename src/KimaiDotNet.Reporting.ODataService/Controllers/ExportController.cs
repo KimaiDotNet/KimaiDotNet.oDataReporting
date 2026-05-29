@@ -1,5 +1,6 @@
 ﻿using MarkZither.KimaiDotNet.Models;
 using MarkZither.KimaiDotNet.Reporting.ODataService.Models;
+using ODataTeamMembership = MarkZither.KimaiDotNet.Reporting.ODataService.Models.TeamMembership;
 using MarkZither.KimaiDotNet.Reporting.ODataService.Configuration;
 
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +10,12 @@ using Microsoft.Extensions.Options;
 
 using Microsoft.Extensions.Caching.Memory;
 using MarkZither.KimaiDotNet;
+using KimaiDotNet.Reporting.ODataService;
 using System.IO.Compression;
 using CsvHelper;
 using System.Globalization;
+using Microsoft.Kiota.Abstractions.Authentication;
+using Microsoft.Kiota.Http.HttpClientLibrary;
 
 namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
 {
@@ -27,57 +31,57 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
         private const string ProjectsPath = "exports\\projects.csv";
         private readonly KimaiOptions _kimaiOptions;
         private readonly ILogger<ExportController> _logger;
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly IMemoryCache _cache;
-        public ExportController(IOptions<KimaiOptions> kimaiOptions, ILogger<ExportController> logger, IMemoryCache cache)
+        public ExportController(IOptions<KimaiOptions> kimaiOptions, ILogger<ExportController> logger, IHttpClientFactory httpClientFactory, IMemoryCache cache)
         {
             _kimaiOptions = kimaiOptions.Value;
             _logger = logger;
+            _httpClientFactory = httpClientFactory;
             _cache = cache;
         }
         [HttpGet(Name = "ExportToCSVUsingGet")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index(CancellationToken token = default)
         {
-            var Client = new HttpClient();
-            Client.BaseAddress = new Uri(_kimaiOptions.Url);
-            Client.DefaultRequestHeaders.Add("X-AUTH-USER", _kimaiOptions.Username);
-            Client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", _kimaiOptions.Password);
-            Kimai2APIDocs docs = new Kimai2APIDocs(Client, disposeHttpClient: false);
+            var httpClient = _httpClientFactory.CreateClient(Constants.HttpClients.Kimai);
+            var adapter = new HttpClientRequestAdapter(new AnonymousAuthenticationProvider(), httpClient: httpClient);
+            var client = new KimaiClient(adapter);
             var zipFileMemoryStream = new MemoryStream();
 
             using (var zip = new ZipArchive(zipFileMemoryStream, ZipArchiveMode.Create, true))
             {
                 _logger.LogInformation(new EventId(1, "Starting Export"), "Starting Export");
-                FileInfo file = CreateActivitiesFile(docs);
+                FileInfo file = await CreateActivitiesFile(client, token);
                 // write zip archive entries
                 zip.CreateEntryFromFile(file.FullName, Path.GetFileName(file.FullName), CompressionLevel.Optimal);
                 file.Delete();
 
-                FileInfo timesheetsFile = CreateTimesheetsFile(docs);
+                FileInfo timesheetsFile = await CreateTimesheetsFile(client, token);
                 // write zip archive entries
                 zip.CreateEntryFromFile(timesheetsFile.FullName, Path.GetFileName(timesheetsFile.FullName), CompressionLevel.Optimal);
                 timesheetsFile.Delete();
 
-                FileInfo usersFile = CreateUsersFile(docs);
+                FileInfo usersFile = await CreateUsersFile(client, token);
                 // write zip archive entries
                 zip.CreateEntryFromFile(usersFile.FullName, Path.GetFileName(usersFile.FullName), CompressionLevel.Optimal);
                 usersFile.Delete();
 
-                FileInfo teamsFile = CreateTeamsFile(docs);
+                FileInfo teamsFile = await CreateTeamsFile(client, token);
                 // write zip archive entries
                 zip.CreateEntryFromFile(teamsFile.FullName, Path.GetFileName(teamsFile.FullName), CompressionLevel.Optimal);
                 teamsFile.Delete();
 
-                FileInfo teamMembershipsFile = CreateTeamMembershipsFile(docs);
+                FileInfo teamMembershipsFile = await CreateTeamMembershipsFile(client, token);
                 // write zip archive entries
                 zip.CreateEntryFromFile(teamMembershipsFile.FullName, Path.GetFileName(teamMembershipsFile.FullName), CompressionLevel.Optimal);
                 teamMembershipsFile.Delete();
 
-                FileInfo projectsFile = CreateProjectsFile(docs);
+                FileInfo projectsFile = await CreateProjectsFile(client, token);
                 // write zip archive entries
                 zip.CreateEntryFromFile(projectsFile.FullName, Path.GetFileName(projectsFile.FullName), CompressionLevel.Optimal);
                 projectsFile.Delete();
 
-                FileInfo customersFile = CreateCustomersFile(docs);
+                FileInfo customersFile = await CreateCustomersFile(client, token);
                 // write zip archive entries
                 zip.CreateEntryFromFile(customersFile.FullName, Path.GetFileName(customersFile.FullName), CompressionLevel.Optimal);
                 customersFile.Delete();
@@ -86,12 +90,12 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
             return File(zipFileMemoryStream, "application/octect-stream", "KimaiExport.zip", true);
         }
 
-        private FileInfo CreateCustomersFile(Kimai2APIDocs docs)
+        private async Task<FileInfo> CreateCustomersFile(KimaiClient client, CancellationToken token)
         {
             var url = $"{_kimaiOptions.Url}Customers";
             if (!_cache.TryGetValue(url, out IList<CustomerCollection>? customers))
             {
-                customers = docs.ListCustomersUsingGet();
+                customers = await client.Api.Customers.GetAsync(cancellationToken: token) ?? [];
                 //Saves the cache and pass it a timespan for expiration
                 TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
                 double secs = untilMidnight.TotalSeconds;
@@ -107,12 +111,12 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
             return file;
         }
 
-        private FileInfo CreateProjectsFile(Kimai2APIDocs docs)
+        private async Task<FileInfo> CreateProjectsFile(KimaiClient client, CancellationToken token)
         {
             var url = $"{_kimaiOptions.Url}Projects";
             if (!_cache.TryGetValue(url, out IList<ProjectCollection>? projects))
             {
-                projects = docs.ListProjectUsingGet();
+                projects = await client.Api.Projects.GetAsync(cancellationToken: token) ?? [];
                 //Saves the cache and pass it a timespan for expiration
                 TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
                 double secs = untilMidnight.TotalSeconds;
@@ -128,20 +132,21 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
             return file;
         }
 
-        private FileInfo CreateTeamMembershipsFile(Kimai2APIDocs docs)
+        private async Task<FileInfo> CreateTeamMembershipsFile(KimaiClient client, CancellationToken token)
         {
             var url = "TeamMembership";
-            if (!_cache.TryGetValue(url, out IList<TeamMembership>? teamMemberships))
+            if (!_cache.TryGetValue(url, out IList<ODataTeamMembership>? teamMemberships))
             {
-                var teams = docs.ListTeamUsingGet();
+                var teams = await client.Api.Teams.GetAsync(cancellationToken: token) ?? [];
                 int memId = 1;
-                teamMemberships = new List<TeamMembership>();
+                teamMemberships = new List<ODataTeamMembership>();
                 foreach (var item in teams)
                 {
-                    var teamEntity = docs.GetTeamByIdUsingGet(item?.Id?.ToString());
-                    foreach (var user in teamEntity.Users)
+                    var teamEntity = await client.Api.Teams[item?.Id?.ToString() ?? "0"].GetAsync(cancellationToken: token);
+                    if (teamEntity == null) continue;
+                    foreach (var member in teamEntity.Members ?? [])
                     {
-                        teamMemberships.Add(new TeamMembership() { Id = memId, TeamId = teamEntity.Id.GetValueOrDefault(), UserId = user.Id.GetValueOrDefault() });
+                        teamMemberships.Add(new ODataTeamMembership() { Id = memId, TeamId = teamEntity.Id.GetValueOrDefault(), UserId = member.User?.Id.GetValueOrDefault() ?? 0 });
                         memId++;
                     }
                 }
@@ -160,12 +165,12 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
             return file;
         }
 
-        private FileInfo CreateTeamsFile(Kimai2APIDocs docs)
+        private async Task<FileInfo> CreateTeamsFile(KimaiClient client, CancellationToken token)
         {
             var url = "Teams";
             if (!_cache.TryGetValue(url, out IList<TeamCollection>? teams))
             {
-                teams = docs.ListTeamUsingGet();
+                teams = await client.Api.Teams.GetAsync(cancellationToken: token) ?? [];
                 //Saves the cache and pass it a timespan for expiration
                 TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
                 double secs = untilMidnight.TotalSeconds;
@@ -181,12 +186,12 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
             return file;
         }
 
-        private FileInfo CreateUsersFile(Kimai2APIDocs docs)
+        private async Task<FileInfo> CreateUsersFile(KimaiClient client, CancellationToken token)
         {
             var url = "Users";
             if (!_cache.TryGetValue(url, out IList<UserCollection>? users))
             {
-                users = docs.ListUsersUsingGet();
+                users = await client.Api.Users.GetAsync(cancellationToken: token) ?? [];
                 //Saves the cache and pass it a timespan for expiration
                 TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
                 double secs = untilMidnight.TotalSeconds;
@@ -202,16 +207,24 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
             return file;
         }
 
-        private FileInfo CreateTimesheetsFile(Kimai2APIDocs docs)
+        private async Task<FileInfo> CreateTimesheetsFile(KimaiClient client, CancellationToken token)
         {
             var url = "Timesheets";
             if (!_cache.TryGetValue(url, out List<TimesheetCollection>? timesheets))
             {
                 timesheets = new List<TimesheetCollection>();
-                var users = docs.ListUsersUsingGet();
+                var users = await client.Api.Users.GetAsync(cancellationToken: token) ?? [];
                 foreach (var user in users)
                 {
-                    var usersTimesheets = docs.ListTimesheetsRecordsUsingGet(user: user.Id?.ToString(), size: "1000", orderBy: "id", order: "DESC");
+                    var usersTimesheets = await client.Api.Timesheets.GetAsync(
+                        requestConfiguration: q =>
+                        {
+                            q.QueryParameters.User = user.Id?.ToString();
+                            q.QueryParameters.Size = "1000";
+                            q.QueryParameters.OrderBy = "id";
+                            q.QueryParameters.Order = "DESC";
+                        },
+                        cancellationToken: token) ?? [];
                     timesheets.AddRange(usersTimesheets);
                 }
                 //Saves the cache and pass it a timespan for expiration
@@ -229,19 +242,19 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
             return file;
         }
 
-        private FileInfo CreateActivitiesFile(Kimai2APIDocs docs)
+        private async Task<FileInfo> CreateActivitiesFile(KimaiClient client, CancellationToken token)
         {
             var url = "Activity";
             if (!_cache.TryGetValue(url, out IList<ActivityCollection>? activities))
             {
-                activities = docs.ListActivitiesUsingGet();
+                activities = await client.Api.Activities.GetAsync(cancellationToken: token) ?? [];
                 //Saves the cache and pass it a timespan for expiration
                 TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
                 double secs = untilMidnight.TotalSeconds;
                 _cache.Set(url, activities, TimeSpan.FromSeconds(secs));
             }
 
-            using (var writer = new StreamWriter("exports\\activities.csv",false))
+            using (var writer = new StreamWriter("exports\\activities.csv", false))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 csv.WriteRecords(activities);

@@ -10,6 +10,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Caching.Memory;
 using MarkZither.KimaiDotNet;
 using MarkZither.KimaiDotNet.Reporting.ODataService;
+using Microsoft.Kiota.Abstractions.Authentication;
+using Microsoft.Kiota.Http.HttpClientLibrary;
 
 namespace KimaiDotNet.Reporting.ODataService.Controllers
 {
@@ -29,7 +31,7 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
 
         [HttpGet]
         [EnableQuery]
-        public IActionResult Get(CancellationToken token)
+        public async Task<IActionResult> Get(CancellationToken token)
         {
             var url = "Activity";
             try
@@ -43,9 +45,10 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             {
                 _logger.LogError(EventIds.Cache.ReadActivityCacheError, ex, EventIds.Cache.ReadActivityCacheError.Name);
             }
-            var Client = _httpClientFactory.CreateClient(Constants.HttpClients.Kimai);
-            Kimai2APIDocs docs = new Kimai2APIDocs(Client, disposeHttpClient: false);
-            var activities = docs.ListActivitiesUsingGet();
+            var httpClient = _httpClientFactory.CreateClient(Constants.HttpClients.Kimai);
+            var adapter = new HttpClientRequestAdapter(new AnonymousAuthenticationProvider(), httpClient: httpClient);
+            var client = new KimaiClient(adapter);
+            var activities = await client.Api.Activities.GetAsync(cancellationToken: token) ?? [];
             //Saves the cache and pass it a timespan for expiration
             TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
             double secs = untilMidnight.TotalSeconds;
