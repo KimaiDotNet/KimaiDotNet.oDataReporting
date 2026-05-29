@@ -1,12 +1,10 @@
 ﻿using Polly;
-using Polly.Contrib.Simmy;
-using Polly.Contrib.Simmy.Outcomes;
-using Polly.Contrib.Simmy.Latency;
-using Polly.Registry;
+using Polly.Simmy;
+using Polly.Simmy.Fault;
+using Polly.Simmy.Latency;
 
 using System.Data;
 using System.Data.SqlClient;
-using System.Net;
 using System.Reflection;
 
 namespace MarkZither.KimaiDotNet.Reporting.ODataService.Extensions
@@ -14,117 +12,85 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Extensions
     public static class DependencyInjectionExtensions
     {
         private const int ServiceCurrentlyBusySqlErrorNumber = 40501;
-        private static readonly Task<bool> NotEnabled = Task.FromResult(false);
-        private static readonly Task<double> NoInjectionRate = Task.FromResult<double>(0);
-        private static readonly Task<Exception> NoExceptionResult = Task.FromResult<Exception>(null);
-        private static readonly Task<HttpResponseMessage> NoHttpResponse = Task.FromResult<HttpResponseMessage>(null);
-        private static readonly Task<TimeSpan> NoLatency = Task.FromResult(TimeSpan.Zero);
-        public static IPolicyRegistry<string> AddHttpChaosInjectors(this IPolicyRegistry<string> registry)
+
+        /// <summary>
+        /// Adds Polly v8 chaos fault and latency strategies to the pipeline builder.
+        /// Settings are resolved at runtime from <see cref="ResilienceContext"/> via
+        /// <see cref="SimmyContextExtensions.GetOperationChaosSettings"/>.
+        /// </summary>
+        public static ResiliencePipelineBuilder<HttpResponseMessage> AddChaosStrategies(
+            this ResiliencePipelineBuilder<HttpResponseMessage> pipelineBuilder)
         {
-            foreach (var policyEntry in registry)
-            {
-                if (policyEntry.Value is IAsyncPolicy<HttpResponseMessage> policy)
+            pipelineBuilder
+                .AddChaosFault(new ChaosFaultStrategyOptions
                 {
-                    registry[policyEntry.Key] = policy
-                            .WrapAsync(MonkeyPolicy.InjectExceptionAsync(with =>
-                                with.Fault(GetException)
-                                .InjectionRate(GetInjectionRate)
-                                .EnabledWhen(GetEnabled)))
-                            .WrapAsync(MonkeyPolicy.InjectLatencyAsync(with =>
-                                with.Latency(GetLatency)
-                                .InjectionRate(GetInjectionRate)
-                                .EnabledWhen(GetEnabled)))
-                            .WrapAsync(MonkeyPolicy.InjectLatencyAsync<HttpResponseMessage>(
-                                GetLatency,
-                                GetInjectionRate,
-                                GetEnabled))
-                            /*.WrapAsync(MonkeyPolicy.InjectBehaviourAsync<HttpResponseMessage>(
-                                (ctx, ct) => RestartNodes(ctx, ct),
-                                GetClusterChaosInjectionRate,
-                                GetClusterChaosEnabled))
-                            .WrapAsync(MonkeyPolicy.InjectBehaviourAsync<HttpResponseMessage>(
-                                (ctx, ct) => StopNodes(ctx, ct),
-                                GetClusterChaosInjectionRate,
-                                GetClusterChaosEnabled))*/;
-                }
-            }
+                    FaultGenerator = GetFault,
+                    InjectionRateGenerator = GetInjectionRate,
+                    EnabledGenerator = GetEnabled
+                })
+                .AddChaosLatency(new ChaosLatencyStrategyOptions
+                {
+                    LatencyGenerator = GetLatency,
+                    InjectionRateGenerator = GetInjectionRate,
+                    EnabledGenerator = GetEnabled
+                });
 
-            return registry;
+            return pipelineBuilder;
         }
 
-        private static Task<bool> GetEnabled(Context context, CancellationToken ct)
+        private static ValueTask<bool> GetEnabled(EnabledGeneratorArguments args)
         {
-            var chaosSettings = context.GetOperationChaosSettings();
-            if (chaosSettings == null) return NotEnabled;
+            var chaosSettings = args.Context.GetOperationChaosSettings();
+            if (chaosSettings == null) return ValueTask.FromResult(false);
 
-            return Task.FromResult(chaosSettings.Enabled);
+            return ValueTask.FromResult(chaosSettings.Enabled);
         }
 
-        private static Task<double> GetInjectionRate(Context context, CancellationToken ct)
+        private static ValueTask<double> GetInjectionRate(InjectionRateGeneratorArguments args)
         {
-            var chaosSettings = context.GetOperationChaosSettings();
-            if (chaosSettings == null) return NoInjectionRate;
+            var chaosSettings = args.Context.GetOperationChaosSettings();
+            if (chaosSettings == null) return ValueTask.FromResult(0.0);
 
-            return Task.FromResult(chaosSettings.InjectionRate);
+            return ValueTask.FromResult(chaosSettings.InjectionRate);
         }
-        private static Task<Exception> GetException(Context context, CancellationToken token)
+
+        private static ValueTask<Exception?> GetFault(FaultGeneratorArguments args)
         {
-            var chaosSettings = context.GetOperationChaosSettings();
-            if (chaosSettings == null) return NoExceptionResult;
+            var chaosSettings = args.Context.GetOperationChaosSettings();
+            if (chaosSettings == null) return ValueTask.FromResult<Exception?>(null);
 
             string exceptionName = chaosSettings.Exception;
-            if (string.IsNullOrWhiteSpace(exceptionName)) return NoExceptionResult;
+            if (string.IsNullOrWhiteSpace(exceptionName)) return ValueTask.FromResult<Exception?>(null);
 
             try
             {
-                if (exceptionName == typeof(SqlError).FullName) return Task.FromResult(CreateSqlException() as Exception);
+                if (exceptionName == typeof(SqlError).FullName)
+                    return ValueTask.FromResult<Exception?>(CreateSqlException());
 
-                Type exceptionType = Type.GetType(exceptionName);
-                if (exceptionType == null) return NoExceptionResult;
+                Type? exceptionType = Type.GetType(exceptionName);
+                if (exceptionType == null) return ValueTask.FromResult<Exception?>(null);
 
-                if (!typeof(Exception).IsAssignableFrom(exceptionType)) return NoExceptionResult;
+                if (!typeof(Exception).IsAssignableFrom(exceptionType))
+                    return ValueTask.FromResult<Exception?>(null);
 
                 var instance = Activator.CreateInstance(exceptionType);
-                return Task.FromResult(instance as Exception);
+                return ValueTask.FromResult(instance as Exception);
             }
             catch
             {
-                return NoExceptionResult;
-            }
-        }
-        private static Task<bool> GetHttpResponseEnabled(Context context)
-        {
-            if (GetHttpResponseMessage(context, CancellationToken.None) == NoHttpResponse) return NotEnabled;
-
-            return GetEnabled(context, CancellationToken.None);
-        }
-        private static Task<HttpResponseMessage> GetHttpResponseMessage(Context context, CancellationToken token)
-        {
-            var chaosSettings = context.GetOperationChaosSettings();
-            if (chaosSettings == null) return NoHttpResponse;
-
-            int statusCode = chaosSettings.StatusCode;
-            if (statusCode < 200) return NoHttpResponse;
-
-            try
-            {
-                return Task.FromResult(new HttpResponseMessage((HttpStatusCode)statusCode));
-            }
-            catch
-            {
-                return NoHttpResponse;
+                return ValueTask.FromResult<Exception?>(null);
             }
         }
 
-        private static Task<TimeSpan> GetLatency(Context context, CancellationToken token)
+        private static ValueTask<TimeSpan> GetLatency(LatencyGeneratorArguments args)
         {
-            var chaosSettings = context.GetOperationChaosSettings();
-            if (chaosSettings == null) return NoLatency;
+            var chaosSettings = args.Context.GetOperationChaosSettings();
+            if (chaosSettings == null) return ValueTask.FromResult(TimeSpan.Zero);
 
             int milliseconds = chaosSettings.LatencyMs;
-            if (milliseconds <= 0) return NoLatency;
+            if (milliseconds <= 0) return ValueTask.FromResult(TimeSpan.Zero);
 
-            return Task.FromResult(TimeSpan.FromMilliseconds(milliseconds));
+            return ValueTask.FromResult(TimeSpan.FromMilliseconds(milliseconds));
         }
         private static SqlException CreateSqlException()
         {

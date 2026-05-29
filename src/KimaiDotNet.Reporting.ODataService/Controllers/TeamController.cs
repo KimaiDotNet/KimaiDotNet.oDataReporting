@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.OData.Query;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-using MonkeyCache.LiteDB;
+using Microsoft.Extensions.Caching.Memory;
 using MarkZither.KimaiDotNet;
 using MarkZither.KimaiDotNet.Reporting.ODataService;
 
@@ -17,11 +17,13 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
     {
         private readonly KimaiOptions _kimaiOptions;
         private readonly ILogger<TeamController> _logger;
+        private readonly IMemoryCache _cache;
 
-        public TeamController(IOptions<KimaiOptions> kimaiOptions, ILogger<TeamController> logger)
+        public TeamController(IOptions<KimaiOptions> kimaiOptions, ILogger<TeamController> logger, IMemoryCache cache)
         {
             _kimaiOptions = kimaiOptions.Value;
             _logger = logger;
+            _cache = cache;
         }
         private static IList<TeamCollection> _teams = new List<TeamCollection>
         {
@@ -48,10 +50,9 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             var url = "Team";
             try
             {
-                //Dev handles checking if cache is expired
-                if (!Barrel.Current.IsExpired(key: url))
+                if (_cache.TryGetValue(url, out List<TeamCollection>? cached))
                 {
-                    return Ok(Barrel.Current.Get<List<TeamCollection>>(key: url));
+                    return Ok(cached);
                 }
             }
             catch (Exception ex)
@@ -69,7 +70,7 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             double secs = untilMidnight.TotalSeconds;
             try
             {
-                Barrel.Current.Add(key: url, data: teams, expireIn: TimeSpan.FromSeconds(secs));
+                _cache.Set(url, teams, TimeSpan.FromSeconds(secs));
             }
             catch (Exception ex)
             {

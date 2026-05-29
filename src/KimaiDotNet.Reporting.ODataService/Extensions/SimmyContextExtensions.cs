@@ -6,25 +6,21 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Extensions
 {
     public static class SimmyContextExtensions
     {
-        public const string ChaosSettings = "ChaosSettings";
-        public static Context WithChaosSettings(this Context context, GeneralChaosOptions options)
+        private static readonly ResiliencePropertyKey<GeneralChaosOptions> ChaosSettingsKey = new("ChaosSettings");
+
+        public static ResilienceContext WithChaosSettings(this ResilienceContext context, GeneralChaosOptions options)
         {
-            context[ChaosSettings] = options;
+            context.Properties.Set(ChaosSettingsKey, options);
             return context;
         }
 
-        public static GeneralChaosOptions GetChaosSettings(this Context context) => context.GetSetting<GeneralChaosOptions>(ChaosSettings);
-        public static OperationChaosOptions GetOperationChaosSettings(this Context context) => context.GetChaosSettings()?.GetSettingsFor(context.OperationKey);
-        private static T GetSetting<T>(this Context context, string key)
+        public static GeneralChaosOptions? GetChaosSettings(this ResilienceContext context)
         {
-            if (context.TryGetValue(key, out object setting))
-            {
-                if (setting is T)
-                {
-                    return (T)setting;
-                }
-            }
-            return default;
+            context.Properties.TryGetValue(ChaosSettingsKey, out var settings);
+            return settings;
         }
+
+        public static OperationChaosOptions? GetOperationChaosSettings(this ResilienceContext context)
+            => context.GetChaosSettings()?.GetSettingsFor(context.OperationKey);
     }
 }

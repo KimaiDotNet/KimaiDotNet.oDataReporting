@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 
 using MarkZither.KimaiDotNet;
 using MarkZither.KimaiDotNet.Reporting.ODataService;
-using MonkeyCache.FileStore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace KimaiDotNet.Reporting.ODataService.Controllers
 {
@@ -17,10 +17,12 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
     {
         private readonly KimaiOptions _kimaiOptions;
         private readonly ILogger<TimesheetController> _logger;
-        public TimesheetController(IOptions<KimaiOptions> kimaiOptions, ILogger<TimesheetController> logger)
+        private readonly IMemoryCache _cache;
+        public TimesheetController(IOptions<KimaiOptions> kimaiOptions, ILogger<TimesheetController> logger, IMemoryCache cache)
         {
             _kimaiOptions = kimaiOptions.Value;
             _logger = logger;
+            _cache = cache;
         }
 
         [HttpGet]
@@ -30,10 +32,9 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             var url = "Timesheet";
             try
             {
-                //Dev handles checking if cache is expired
-                if (!Barrel.Current.IsExpired(key: url))
+                if (_cache.TryGetValue(url, out List<TimesheetCollection>? cached))
                 {
-                    return Ok(Barrel.Current.Get<List<TimesheetCollection>>(key: url));
+                    return Ok(cached);
                 }
             }
             catch (Exception ex)
@@ -65,7 +66,7 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             double secs = untilMidnight.TotalSeconds;
             try
             {
-                Barrel.Current.Add(key: url, data: timesheets, expireIn: TimeSpan.FromSeconds(secs));
+                _cache.Set(url, timesheets, TimeSpan.FromSeconds(secs));
             }
             catch (Exception ex)
             {

@@ -7,12 +7,8 @@ using MarkZither.KimaiDotNet.Reporting.ODataService.Models;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
 
-using MonkeyCache.LiteDB;
-
 using Polly;
-using Polly.Contrib.Simmy;
-using Polly.Contrib.Simmy.Latency;
-using Polly.Registry;
+using Polly.Retry;
 
 // https://gist.github.com/davidfowl/0e0372c3c1d895c3ce195ba983b1e03d
 var builder = WebApplication.CreateBuilder(args);
@@ -32,41 +28,38 @@ builder.Services.AddOptions<KimaiOptions>().Bind(
 KimaiOptions kimaiOptions = new KimaiOptions();
 builder.Configuration.GetSection(KimaiOptions.Key).Bind(kimaiOptions);
 
-// All policies are also available in async forms.
-var chaosLatencyPolicy = MonkeyPolicy.InjectLatencyAsync(with =>
-    with.Latency(TimeSpan.FromSeconds(5))
-        .InjectionRate(0.1)
-        .Enabled()
-    );
-var simpleRetryPolicy = Policy<HttpResponseMessage>.Handle<Exception>().WaitAndRetryAsync(3, retryCount => TimeSpan.FromSeconds(10), (result, timeSpan, retryCount, context) =>
-{
-    if (result.Exception != null)
-    {
-        context.GetLogger().LogError(result.Exception, "An exception occurred on retry {RetryAttempt} for {PolicyKey}", retryCount, context.PolicyKey);
-    }
-    else
-    {
-        context.GetLogger().LogError("A non success code {StatusCode} was received on retry {RetryAttempt} for {PolicyKey}",
-            (int)result.Result.StatusCode, retryCount, context.PolicyKey);
-    }
-});
-
-simpleRetryPolicy.WrapAsync(MonkeyPolicy.InjectFaultAsync<HttpResponseMessage>(
-                        new Exception(),
-                        0.1,
-                        enabled: () => true));
-
-var policyRegistry = builder.Services.AddPolicyRegistry();
-policyRegistry.Add("WrappedChoas", simpleRetryPolicy);
-policyRegistry.AddHttpChaosInjectors();
-
 builder.Services.AddHttpClient(Constants.HttpClients.Kimai, httpClient =>
 {
     httpClient.BaseAddress = new Uri(kimaiOptions.Url);
 
     httpClient.DefaultRequestHeaders.Add("X-AUTH-USER", kimaiOptions.Username);
     httpClient.DefaultRequestHeaders.Add("X-AUTH-TOKEN", kimaiOptions.Password);
-}).AddPolicyHandlerFromRegistry("WrappedChoas");
+}).AddResilienceHandler("KimaiResilience", pipelineBuilder =>
+{
+    pipelineBuilder
+        .AddRetry(new RetryStrategyOptions<HttpResponseMessage>
+        {
+            MaxRetryAttempts = 3,
+            Delay = TimeSpan.FromSeconds(10),
+            BackoffType = DelayBackoffType.Constant,
+            ShouldHandle = new PredicateBuilder<HttpResponseMessage>().Handle<Exception>(),
+            OnRetry = args =>
+            {
+                var logger = args.Context.GetLogger();
+                if (args.Outcome.Exception != null)
+                {
+                    logger?.LogError(args.Outcome.Exception, "An exception occurred on retry {RetryAttempt} for {OperationKey}", args.AttemptNumber + 1, args.Context.OperationKey);
+                }
+                else
+                {
+                    logger?.LogError("A non success code {StatusCode} was received on retry {RetryAttempt} for {OperationKey}",
+                        (int)args.Outcome.Result!.StatusCode, args.AttemptNumber + 1, args.Context.OperationKey);
+                }
+                return ValueTask.CompletedTask;
+            }
+        })
+        .AddChaosStrategies();
+});
 
 builder.Services.AddMiniProfiler(options =>
     {
@@ -75,6 +68,8 @@ builder.Services.AddMiniProfiler(options =>
         // (Optional) Path to use for profiler URLs, default is /mini-profiler-resources
         options.RouteBasePath = "/profiler";
     });
+
+builder.Services.AddMemoryCache();
 
     var app = builder.Build();
 
@@ -103,6 +98,7 @@ builder.Services.AddMiniProfiler(options =>
     app.UseAuthorization();
 
     app.MapControllers();
-    Barrel.ApplicationId = "your_unique_name_here2";
-    Barrel.EncryptionKey = "SomeKey";
     app.Run();
+
+// Required to expose the Program type for WebApplicationFactory<Program> in integration tests
+public partial class Program { }
