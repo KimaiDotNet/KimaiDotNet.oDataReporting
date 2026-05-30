@@ -349,3 +349,6 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 /src/KimaiDotNet.Reporting.ODataService/Exports
+
+# Local environment overrides (use .env.example as template)
+.env
