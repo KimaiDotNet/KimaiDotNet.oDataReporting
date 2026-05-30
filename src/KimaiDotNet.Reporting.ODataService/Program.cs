@@ -32,8 +32,8 @@ builder.Services.AddHttpClient(Constants.HttpClients.Kimai, httpClient =>
 {
     httpClient.BaseAddress = new Uri(kimaiOptions.Url);
 
-    httpClient.DefaultRequestHeaders.Add("X-AUTH-USER", kimaiOptions.Username);
-    httpClient.DefaultRequestHeaders.Add("X-AUTH-TOKEN", kimaiOptions.Password);
+    httpClient.DefaultRequestHeaders.Authorization =
+        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", kimaiOptions.Password);
 }).AddResilienceHandler("KimaiResilience", pipelineBuilder =>
 {
     pipelineBuilder
