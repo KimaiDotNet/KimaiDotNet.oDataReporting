@@ -41,6 +41,6 @@ services:
       DATABASE_URL: mysql://kimai:kimai@mysql:3306/kimai
       APP_SECRET: change-me-in-production
     volumes:
-      - ./tests/docker/init-kimai.sh:/init-kimai.sh:ro
+      - ./init-kimai.sh:/init-kimai.sh:ro
     entrypoint: ["sh", "/init-kimai.sh"]
     restart: "no"
