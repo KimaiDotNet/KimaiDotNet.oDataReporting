@@ -20,7 +20,9 @@ jobs:
           dotnet-version: "10.0.x"
 
       - name: Start Kimai environment
-        run: docker compose up -d --wait
+        run: |
+          docker compose up -d mysql kimai --wait
+          docker compose up kimai-init
         timeout-minutes: 5
 
       - name: Restore
