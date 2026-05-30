@@ -10,6 +10,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Caching.Memory;
 using MarkZither.KimaiDotNet;
 using MarkZither.KimaiDotNet.Reporting.ODataService;
+using Microsoft.Kiota.Abstractions.Authentication;
+using Microsoft.Kiota.Http.HttpClientLibrary;
 
 namespace KimaiDotNet.Reporting.ODataService.Controllers
 {
@@ -17,12 +19,14 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
     {
         private readonly KimaiOptions _kimaiOptions;
         private readonly ILogger<TeamController> _logger;
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly IMemoryCache _cache;
 
-        public TeamController(IOptions<KimaiOptions> kimaiOptions, ILogger<TeamController> logger, IMemoryCache cache)
+        public TeamController(IOptions<KimaiOptions> kimaiOptions, ILogger<TeamController> logger, IHttpClientFactory httpClientFactory, IMemoryCache cache)
         {
             _kimaiOptions = kimaiOptions.Value;
             _logger = logger;
+            _httpClientFactory = httpClientFactory;
             _cache = cache;
         }
         private static IList<TeamCollection> _teams = new List<TeamCollection>
@@ -45,7 +49,7 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
         };
         [HttpGet]
         [EnableQuery]
-        public IActionResult Get(CancellationToken token)
+        public async Task<IActionResult> Get(CancellationToken token)
         {
             var url = "Team";
             try
@@ -59,12 +63,10 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
             {
                 _logger.LogError(EventIds.Cache.ReadTeamCacheError, ex, EventIds.Cache.ReadTeamCacheError.Name);
             }
-            var Client = new HttpClient();
-            Client.BaseAddress = new Uri(_kimaiOptions.Url);
-            Client.DefaultRequestHeaders.Add("X-AUTH-USER", _kimaiOptions.Username);
-            Client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", _kimaiOptions.Password);
-            Kimai2APIDocs docs = new Kimai2APIDocs(Client, disposeHttpClient: false);
-            var teams = docs.ListTeamUsingGet();
+            var httpClient = _httpClientFactory.CreateClient(Constants.HttpClients.Kimai);
+            var adapter = new HttpClientRequestAdapter(new AnonymousAuthenticationProvider(), httpClient: httpClient);
+            var client = new KimaiClient(adapter);
+            var teams = await client.Api.Teams.GetAsync(cancellationToken: token) ?? [];
             //Saves the cache and pass it a timespan for expiration
             TimeSpan untilMidnight = DateTime.Today.AddDays(1.0) - DateTime.Now;
             double secs = untilMidnight.TotalSeconds;
