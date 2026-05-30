@@ -15,14 +15,12 @@ set -e
 CONSOLE="/opt/kimai/bin/console"
 
 echo "==> Creating admin user..."
-if $CONSOLE kimai:user:create kimai-admin admin@kimai.local ROLE_SUPER_ADMIN; then
+if $CONSOLE kimai:user:create kimai-admin admin@kimai.local ROLE_SUPER_ADMIN 'Admin1234!'; then
     echo "    User created."
 else
-    echo "    User already exists, continuing."
+    echo "    User already exists, resetting password..."
+    $CONSOLE kimai:user:password kimai-admin -- 'Admin1234!'
 fi
-
-echo "==> Setting admin password..."
-$CONSOLE kimai:user:password kimai-admin -- 'Admin1234!'
 
 # kimai:api-token:create was added in Kimai 2.x — try it and capture the output.
 echo "==> Attempting to create API token via console..."
