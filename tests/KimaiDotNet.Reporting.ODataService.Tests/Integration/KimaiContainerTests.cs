@@ -5,10 +5,9 @@ namespace KimaiDotNet.Reporting.ODataService.Tests.Integration;
 
 /// <summary>
 /// Live integration tests that run against the Docker Compose Kimai environment.
-/// Requires: docker compose up -d  (see docker-compose.yml at repo root)
+/// Requires: docker compose up -d --wait  (see docker-compose.yml at repo root)
 /// Token and URL are seeded deterministically by the kimai-init service.
 /// </summary>
-[Category("Live")]
 public sealed class KimaiContainerTests
 {
     private const string KimaiBaseUrl = "http://localhost:8001";
