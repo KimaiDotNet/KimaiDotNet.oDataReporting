@@ -1,6 +1,6 @@
 # ADR-0001: Migrate Chaos Engineering from Polly v7 + Polly.Contrib.Simmy to Polly v8 (Polly.Core ≥ 8.3.0)
 
-**Status**: Proposed  
+**Status**: Accepted  
 **Date**: 2026-05-26  
 **Author**: Mark
 
