@@ -1,0 +1,77 @@
+### KimaiDotNet OData Service - Manual Tests
+### Requires the service to be running locally: dotnet run
+### Set credentials via:
+###   dotnet user-secrets set "Kimai:Username" "susan_super"
+###   dotnet user-secrets set "Kimai:Password" "password"
+###   dotnet user-secrets set "Kimai:Url" "https://demo.kimai.org"
+###
+### OData routes are at the root (no /api prefix).
+### OData route debug: http://localhost:5132/$odata
+
+@baseUrl = http://localhost:5132
+
+### Activities
+GET {{baseUrl}}/Activity
+Accept: application/json
+
+###
+
+### Customers
+GET {{baseUrl}}/Customer
+Accept: application/json
+
+###
+
+### Projects
+GET {{baseUrl}}/Project
+Accept: application/json
+
+###
+
+### Users
+GET {{baseUrl}}/User
+Accept: application/json
+
+###
+
+### Teams
+GET {{baseUrl}}/Team
+Accept: application/json
+
+###
+
+### Team Memberships
+GET {{baseUrl}}/TeamMembership
+Accept: application/json
+
+###
+
+### Timesheets
+GET {{baseUrl}}/Timesheet
+Accept: application/json
+
+###
+
+### Activities - OData $filter example
+GET {{baseUrl}}/Activity?$filter=visible eq true
+Accept: application/json
+
+###
+
+### Activities - OData $select example
+GET {{baseUrl}}/Activity?$select=id,name
+Accept: application/json
+
+###
+
+### Timesheets - OData $top/$orderby
+GET {{baseUrl}}/Timesheet?$top=10&$orderby=id desc
+Accept: application/json
+
+###
+
+### Export (returns zip - has its own /api prefix)
+GET {{baseUrl}}/api/Export
+Accept: application/octet-stream
+
+###
