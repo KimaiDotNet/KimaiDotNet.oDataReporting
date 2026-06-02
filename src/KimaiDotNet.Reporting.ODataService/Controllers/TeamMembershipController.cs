@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Caching.Memory;
 using MarkZither.KimaiDotNet;
 using KimaiDotNet.Reporting.ODataService;
+using MarkZither.KimaiDotNet.Reporting.ODataService.Extensions;
 using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Kiota.Http.HttpClientLibrary;
 
@@ -48,8 +49,9 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
             }
 
             var httpClient = _httpClientFactory.CreateClient(Constants.HttpClients.Kimai);
-            var adapter = new HttpClientRequestAdapter(new AnonymousAuthenticationProvider(), httpClient: httpClient);
-            var client = new KimaiClient(adapter);
+            HttpClientRequestAdapter innerAdapter = new HttpClientRequestAdapter(new AnonymousAuthenticationProvider(), httpClient: httpClient);
+            DefaultErrorMappingRequestAdapter adapter = new DefaultErrorMappingRequestAdapter(innerAdapter);
+            KimaiClient client = new KimaiClient(adapter);
             var teams = await client.Api.Teams.GetAsync(cancellationToken: token) ?? [];
             var teamMemberships = new List<ODataTeamMembership>();
             int memId = 1;

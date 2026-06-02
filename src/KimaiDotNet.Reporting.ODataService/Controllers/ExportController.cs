@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Caching.Memory;
 using MarkZither.KimaiDotNet;
 using KimaiDotNet.Reporting.ODataService;
+using MarkZither.KimaiDotNet.Reporting.ODataService.Extensions;
 using System.IO.Compression;
 using CsvHelper;
 using System.Globalization;
@@ -44,8 +45,9 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
         public async Task<IActionResult> Index(CancellationToken token = default)
         {
             var httpClient = _httpClientFactory.CreateClient(Constants.HttpClients.Kimai);
-            var adapter = new HttpClientRequestAdapter(new AnonymousAuthenticationProvider(), httpClient: httpClient);
-            var client = new KimaiClient(adapter);
+            HttpClientRequestAdapter innerAdapter = new HttpClientRequestAdapter(new AnonymousAuthenticationProvider(), httpClient: httpClient);
+            DefaultErrorMappingRequestAdapter adapter = new DefaultErrorMappingRequestAdapter(innerAdapter);
+            KimaiClient client = new KimaiClient(adapter);
             var zipFileMemoryStream = new MemoryStream();
 
             using (var zip = new ZipArchive(zipFileMemoryStream, ZipArchiveMode.Create, true))
@@ -102,6 +104,8 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
                 _cache.Set(url, customers, TimeSpan.FromSeconds(secs));
             }
 
+            customers ??= [];
+
             using (var writer = new StreamWriter(CustomersPath, false))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
@@ -122,6 +126,8 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
                 double secs = untilMidnight.TotalSeconds;
                 _cache.Set(url, projects, TimeSpan.FromSeconds(secs));
             }
+
+            projects ??= [];
 
             using (var writer = new StreamWriter(ProjectsPath, false))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
@@ -156,6 +162,8 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
                 _cache.Set(url, teamMemberships, TimeSpan.FromSeconds(secs));
             }
 
+            teamMemberships ??= [];
+
             using (var writer = new StreamWriter(TeamMembershipsPath, false))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
@@ -177,6 +185,8 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
                 _cache.Set(url, teams, TimeSpan.FromSeconds(secs));
             }
 
+            teams ??= [];
+
             using (var writer = new StreamWriter(TeamsPath, false))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
@@ -197,6 +207,8 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
                 double secs = untilMidnight.TotalSeconds;
                 _cache.Set(url, users, TimeSpan.FromSeconds(secs));
             }
+
+            users ??= [];
 
             using (var writer = new StreamWriter(UsersPath, false))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
@@ -233,6 +245,8 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
                 _cache.Set(url, timesheets, TimeSpan.FromSeconds(secs));
             }
 
+            timesheets ??= [];
+
             using (var writer = new StreamWriter(TimesheetsPath, false))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
@@ -253,6 +267,8 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Controllers
                 double secs = untilMidnight.TotalSeconds;
                 _cache.Set(url, activities, TimeSpan.FromSeconds(secs));
             }
+
+            activities ??= [];
 
             using (var writer = new StreamWriter("exports\\activities.csv", false))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))

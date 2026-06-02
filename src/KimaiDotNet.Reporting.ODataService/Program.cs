@@ -73,6 +73,7 @@ builder.Services.AddMemoryCache();
 
     var app = builder.Build();
 
+        app.UseMiddleware<ApiExceptionHandlingMiddleware>();
     app.UseMiniProfiler();
     // Use odata route debug, /$odata
     app.UseODataRouteDebug();

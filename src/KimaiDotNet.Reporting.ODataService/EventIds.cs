@@ -18,5 +18,10 @@
             public static readonly EventId ReadTeamMembershipCacheError = new EventId(13, "Could not read TeamMembership cache");
             public static readonly EventId WriteTeamMembershipCacheError = new EventId(14, "Could not write TeamMembership cache");
         }
+
+        public static class Api
+        {
+            public static readonly EventId KimaiApiError = new EventId(100, "Kimai API error");
+        }
     }
 }

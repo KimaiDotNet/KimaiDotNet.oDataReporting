@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Caching.Memory;
 using MarkZither.KimaiDotNet;
 using MarkZither.KimaiDotNet.Reporting.ODataService;
+using MarkZither.KimaiDotNet.Reporting.ODataService.Extensions;
 using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Kiota.Http.HttpClientLibrary;
 
@@ -46,8 +47,9 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
                 _logger.LogError(EventIds.Cache.ReadProjectCacheError, ex, EventIds.Cache.ReadProjectCacheError.Name);
             }
             var httpClient = _httpClientFactory.CreateClient(Constants.HttpClients.Kimai);
-            var adapter = new HttpClientRequestAdapter(new AnonymousAuthenticationProvider(), httpClient: httpClient);
-            var client = new KimaiClient(adapter);
+            HttpClientRequestAdapter innerAdapter = new HttpClientRequestAdapter(new AnonymousAuthenticationProvider(), httpClient: httpClient);
+            DefaultErrorMappingRequestAdapter adapter = new DefaultErrorMappingRequestAdapter(innerAdapter);
+            KimaiClient client = new KimaiClient(adapter);
             var projects = await client.Api.Projects.GetAsync(cancellationToken: token) ?? [];
 
             //Saves the cache and pass it a timespan for expiration

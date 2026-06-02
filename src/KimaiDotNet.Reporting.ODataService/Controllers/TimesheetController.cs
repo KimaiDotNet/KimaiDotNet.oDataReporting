@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 
 using MarkZither.KimaiDotNet;
 using MarkZither.KimaiDotNet.Reporting.ODataService;
+using MarkZither.KimaiDotNet.Reporting.ODataService.Extensions;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Kiota.Http.HttpClientLibrary;
@@ -46,8 +47,9 @@ namespace KimaiDotNet.Reporting.ODataService.Controllers
                 _logger.LogError(EventIds.Cache.ReadTimesheetCacheError, ex, EventIds.Cache.ReadTimesheetCacheError.Name);
             }
             var httpClient = _httpClientFactory.CreateClient(Constants.HttpClients.Kimai);
-            var adapter = new HttpClientRequestAdapter(new AnonymousAuthenticationProvider(), httpClient: httpClient);
-            var client = new KimaiClient(adapter);
+            HttpClientRequestAdapter innerAdapter = new HttpClientRequestAdapter(new AnonymousAuthenticationProvider(), httpClient: httpClient);
+            DefaultErrorMappingRequestAdapter adapter = new DefaultErrorMappingRequestAdapter(innerAdapter);
+            KimaiClient client = new KimaiClient(adapter);
             var timesheets = new List<TimesheetCollection>();
             var users = await client.Api.Users.GetAsync(cancellationToken: token) ?? [];
             foreach (var user in users)
