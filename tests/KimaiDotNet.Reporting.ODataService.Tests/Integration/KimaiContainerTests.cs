@@ -22,6 +22,8 @@ public sealed class KimaiContainerTests
     [Test]
     public async Task Api_Ping_Returns_Pong()
     {
+        await KimaiDockerComposeHelper.EnsureStartedAsync();
+
         var response = await _http.GetAsync("/api/ping");
         var body = await response.Content.ReadAsStringAsync();
 
@@ -32,6 +34,8 @@ public sealed class KimaiContainerTests
     [Test]
     public async Task Api_Timesheets_Returns_200()
     {
+        await KimaiDockerComposeHelper.EnsureStartedAsync();
+
         var response = await _http.GetAsync("/api/timesheets?size=1");
 
         await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
@@ -40,6 +44,8 @@ public sealed class KimaiContainerTests
     [Test]
     public async Task Api_Users_Contains_Admin_User()
     {
+        await KimaiDockerComposeHelper.EnsureStartedAsync();
+
         var response = await _http.GetAsync("/api/users");
         var body = await response.Content.ReadAsStringAsync();
 
@@ -50,6 +56,8 @@ public sealed class KimaiContainerTests
     [Test]
     public async Task Api_Projects_Returns_200()
     {
+        await KimaiDockerComposeHelper.EnsureStartedAsync();
+
         var response = await _http.GetAsync("/api/projects");
 
         await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
@@ -58,6 +66,8 @@ public sealed class KimaiContainerTests
     [Test]
     public async Task Api_Customers_Returns_200()
     {
+        await KimaiDockerComposeHelper.EnsureStartedAsync();
+
         var response = await _http.GetAsync("/api/customers");
 
         await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);

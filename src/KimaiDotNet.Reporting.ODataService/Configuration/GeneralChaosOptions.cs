@@ -14,20 +14,21 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Configuration
         public double ClusterChaosInjectionRate { get; set; }
         public TimeSpan Frequency { get; set; }
         public TimeSpan MaxDuration { get; set; }
-        public string SubscriptionId { get; set; }
-        public string TenantId { get; set; }
-        public string ClientId { get; set; }
-        public string ClientKey { get; set; }
+        public string SubscriptionId { get; set; } = string.Empty;
+        public string TenantId { get; set; } = string.Empty;
+        public string ClientId { get; set; } = string.Empty;
+        public string ClientKey { get; set; } = string.Empty;
         public int PercentageNodesToRestart { get; set; }
         public int PercentageNodesToStop { get; set; }
-        public string ResourceGroupName { get; set; }
-        public string VMScaleSetName { get; set; }
+        public string ResourceGroupName { get; set; } = string.Empty;
+        public string VMScaleSetName { get; set; } = string.Empty;
 
-        public ExecutionInformation ExecutionInformation { get; set; }
+        public ExecutionInformation ExecutionInformation { get; set; } = new();
 
-        public List<OperationChaosOptions> OperationChaosSettings { get; set; }
+        public List<OperationChaosOptions>? OperationChaosSettings { get; set; } = new();
 
-        public OperationChaosOptions GetSettingsFor(string operationKey) => OperationChaosSettings?.SingleOrDefault(i => i.OperationKey == operationKey);
+        public OperationChaosOptions? GetSettingsFor(string operationKey)
+            => OperationChaosSettings?.SingleOrDefault(i => i.OperationKey == operationKey);
     }
     [Serializable]
     public class ExecutionInformation

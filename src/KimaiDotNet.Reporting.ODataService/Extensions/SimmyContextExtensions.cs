@@ -21,6 +21,14 @@ namespace MarkZither.KimaiDotNet.Reporting.ODataService.Extensions
         }
 
         public static OperationChaosOptions? GetOperationChaosSettings(this ResilienceContext context)
-            => context.GetChaosSettings()?.GetSettingsFor(context.OperationKey);
+        {
+            var operationKey = context.OperationKey;
+            if (string.IsNullOrWhiteSpace(operationKey))
+            {
+                return null;
+            }
+
+            return context.GetChaosSettings()?.GetSettingsFor(operationKey);
+        }
     }
 }
