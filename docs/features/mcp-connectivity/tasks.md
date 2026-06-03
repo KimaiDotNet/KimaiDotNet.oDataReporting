@@ -13,7 +13,7 @@
 
 ## Phase 1 — Setup: Package additions
 
-- [ ] [#42](https://github.com/KimaiDotNet/KimaiDotNet.oDataReporting/issues/42) Add `ModelContextProtocol` and `ModelContextProtocol.AspNetCore` NuGet packages to `src/KimaiDotNet.Reporting.ODataService/KimaiDotNet.Reporting.ODataService.csproj`
+- [x] [#42](https://github.com/KimaiDotNet/KimaiDotNet.oDataReporting/issues/42) Add `ModelContextProtocol` and `ModelContextProtocol.AspNetCore` NuGet packages to `src/KimaiDotNet.Reporting.ODataService/KimaiDotNet.Reporting.ODataService.csproj`
 
 ## Phase 2 — Foundational: Shared DI and projection models
 
