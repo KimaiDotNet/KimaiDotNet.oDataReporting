@@ -26,41 +26,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddOptions<KimaiOptions>().Bind(
             builder.Configuration.GetSection(KimaiOptions.Key));
 
-KimaiOptions kimaiOptions = new KimaiOptions();
-builder.Configuration.GetSection(KimaiOptions.Key).Bind(kimaiOptions);
-
-builder.Services.AddHttpClient(Constants.HttpClients.Kimai, httpClient =>
-{
-    httpClient.BaseAddress = new Uri(kimaiOptions.Url);
-
-    httpClient.DefaultRequestHeaders.Authorization =
-        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", kimaiOptions.Password);
-}).AddResilienceHandler("KimaiResilience", pipelineBuilder =>
-{
-    pipelineBuilder
-        .AddRetry(new RetryStrategyOptions<HttpResponseMessage>
-        {
-            MaxRetryAttempts = 3,
-            Delay = TimeSpan.FromSeconds(10),
-            BackoffType = DelayBackoffType.Constant,
-            ShouldHandle = new PredicateBuilder<HttpResponseMessage>().Handle<Exception>(),
-            OnRetry = args =>
-            {
-                var logger = args.Context.GetLogger();
-                if (args.Outcome.Exception != null)
-                {
-                    logger?.LogError(args.Outcome.Exception, "An exception occurred on retry {RetryAttempt} for {OperationKey}", args.AttemptNumber + 1, args.Context.OperationKey);
-                }
-                else
-                {
-                    logger?.LogError("A non success code {StatusCode} was received on retry {RetryAttempt} for {OperationKey}",
-                        (int)args.Outcome.Result!.StatusCode, args.AttemptNumber + 1, args.Context.OperationKey);
-                }
-                return ValueTask.CompletedTask;
-            }
-        })
-        .AddChaosStrategies();
-});
+builder.Services.AddKimaiMcpServices();
 
 builder.Services.AddMiniProfiler(options =>
     {
@@ -74,7 +40,7 @@ builder.Services.AddMemoryCache();
 
     var app = builder.Build();
 
-        app.UseMiddleware<ApiExceptionHandlingMiddleware>();
+    app.UseMiddleware<ApiExceptionHandlingMiddleware>();
     app.UseMiniProfiler();
     // Use odata route debug, /$odata
     app.UseODataRouteDebug();

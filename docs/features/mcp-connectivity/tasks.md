@@ -17,8 +17,8 @@
 
 ## Phase 2 — Foundational: Shared DI and projection models
 
-- [ ] [#43](https://github.com/KimaiDotNet/KimaiDotNet.oDataReporting/issues/43) Implement `AddKimaiMcpServices()` shared DI extension in `src/KimaiDotNet.Reporting.ODataService/Extensions/McpServiceExtensions.cs`
-- [ ] [#44](https://github.com/KimaiDotNet/KimaiDotNet.oDataReporting/issues/44) Create `McpUser` and `McpTimeEntry` output projection records in `src/KimaiDotNet.Reporting.ODataService/Mcp/Models/`
+- [x] [#43](https://github.com/KimaiDotNet/KimaiDotNet.oDataReporting/issues/43) Implement `AddKimaiMcpServices()` shared DI extension in `src/KimaiDotNet.Reporting.ODataService/Extensions/McpServiceExtensions.cs`
+- [x] [#44](https://github.com/KimaiDotNet/KimaiDotNet.oDataReporting/issues/44) Create `McpUser` and `McpTimeEntry` output projection records in `src/KimaiDotNet.Reporting.ODataService/Mcp/Models/`
 
 ## Phase 3 — US: `list_users` tool
 
