@@ -9,6 +9,7 @@ using Microsoft.OData.Edm;
 
 using Polly;
 using Polly.Retry;
+using Scalar.AspNetCore;
 
 // https://gist.github.com/davidfowl/0e0372c3c1d895c3ce195ba983b1e03d
 var builder = WebApplication.CreateBuilder(args);
@@ -88,11 +89,15 @@ builder.Services.AddMemoryCache();
     app.UseODataBatching();
 
     // Configure the HTTP request pipeline.
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "KimaiDotNet.Reporting.ODataService v1"));
-    }
+        if (app.Environment.IsDevelopment())
+        {
+                app.UseSwagger();
+                app.MapScalarApiReference(options =>
+                {
+                        options.Title = "KimaiDotNet.Reporting.ODataService API";
+                        options.OpenApiRoutePattern = "/swagger/{documentName}/swagger.json";
+                });
+        }
 
     app.UseHttpsRedirection();
 
